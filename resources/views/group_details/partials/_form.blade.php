@@ -1,7 +1,12 @@
 <div class="form-group row">
   {!! Form::label('report_term', 'Reporting Term:', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
-    {!! Form::select('report_term', array('1' => 'October - December', '2' => 'January - March', '3' => 'April - June', '4' => 'July - September')) !!}
+    {!! Form::select('report_term', array(
+      'October - December' => 'October - December',
+      'January - March' => 'January - March',
+      'April - June' => 'April - June',
+      'July - September' => 'July - September',
+    )) !!}
     <span class="help-block"></br></span>
   </div>
 </div>
@@ -87,7 +92,7 @@
     <span class="help-block"></br></span>
   </div>
 </div>
-<div class="card-footer">
+<div class="card-footer text-center">
   {!! Form::hidden('group_id', $group->id) !!}
   {!! Form::submit($submit_text, ['class' => 'btn btn-sm btn-primary']) !!}
   {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}

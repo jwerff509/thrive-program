@@ -2,11 +2,17 @@
 
 @section('content')
 
+
+  <div class="container">
+      <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+<!--
 <div class="row">
     <div class="col-md-6">
+    -->
         <div class="card">
             <div class="card-header">
-                <h2><strong>Add</strong> New Group</h2>
+                <h2><center><strong>Add</strong> New Group</center></h2>
             </div>
             <div class="card-block">
             </br></br>

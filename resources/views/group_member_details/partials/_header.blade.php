@@ -1,12 +1,10 @@
-<h2>Add Member Details for Group: {{ $group->name }}</h2>
-
-<table>
-  <tr>
-    <td>Area Program:</td>
-    <td>{{ $group->area_program }}</td>
-  </tr>
-  <tr>
-    <td>Village Name:</td>
-    <td>{{ $group->village_name }}</td>
-  </tr>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                  <p>Group:<b> {{ $group->name }}</b></p>
+                  <p>Area Program:<b> {{ $group->area_program }}</b></p>
+                  <p>Village Name:<b> {{ $group->village_name }}</b></p>
+                  <p>Reporting Term:<b> {{ $groupDetails->report_term }}, {{ $groupDetails->year }}</b></p>
+                </div>

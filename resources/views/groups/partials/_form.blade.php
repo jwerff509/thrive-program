@@ -27,7 +27,7 @@
     <span class="help-block">Enter the Village Name</span>
   </div>
 </div>
-<div class="card-footer">
+<div class="card-footer text-center">
     {!! Form::submit($submit_text, ['class' => 'btn btn-sm btn-primary']) !!}
     {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
   </div>
