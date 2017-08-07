@@ -9,4 +9,9 @@ class Group extends Model
     protected $fillable = [
       'group_id', 'name', 'area_program', 'village_name'
     ];
+
+    public function groupDetails()
+    {
+      return $this->hasMany(GroupDetails::class);
+    }
 }

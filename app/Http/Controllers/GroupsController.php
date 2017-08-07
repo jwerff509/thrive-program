@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\GroupDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 
 class GroupsController extends Controller
 {
+
+    protected $rules = [
+        'group_id' => ['required', 'numeric'],
+        'name' => ['required', 'max:191'],
+        'area_program' => ['required', 'max:191'],
+        'village_name' => ['required', 'max:191'],
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -38,12 +47,18 @@ class GroupsController extends Controller
      */
      // Old function header below, may need to restore this
     //public function store(Request $request)
-    public function store()
+    public function store(Request $request)
     {
-        $input = Input::all();
-        Group::create($input);
+        $this->validate($request, $this->rules);
 
-        return Redirect::route('groups.index')->with('message', 'Group Added Successfully');
+        $input = Input::all();
+        $newGroup = Group::create($input);
+
+        $last_inserted = $newGroup->id;
+
+        return Redirect()->action(
+          'GroupDetailsController@create', [$last_inserted]
+        );
     }
 
     /**
@@ -52,9 +67,14 @@ class GroupsController extends Controller
      * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show(Group $group)
+    public function show($id)
     {
-        //
+        // Get the group
+        $group = Group::find($id);
+
+        //Show the view and pass the group to it
+        return view('groups.show')->with('group', $group);
+
     }
 
     /**
