@@ -64,7 +64,7 @@
             }
 
 
-            #hero-image-main {
+            .hero-image-main {
                 height: 675px;
                 padding-top: 1px;
                 background: url({{ URL::asset('images/home_banner.jpg') }}) repeat-x center;
@@ -84,12 +84,11 @@
                     @endif
                 </div>
             @endif
-
             <div class="content">
                 <div class="title m-b-md">
-                    <div id="hero-image-main">Thrive Zambia</div>
+                <p>Thrive Zambia</p>
+                <div class="hero-image-main"></div>
                 </div>
-
                 <!--
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
