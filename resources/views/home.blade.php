@@ -12,7 +12,7 @@
                     <br>
                     <a href="{{ url('groups/create') }}">Enter Group Information</a>
                     <br>
-                    <a href="{{ url('household/create') }}">Enter Household PPI Information</a>
+                    <a href="{{ url('person/create') }}">Enter Person/Household Information</a>
                 </div>
             </div>
         </div>
