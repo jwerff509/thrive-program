@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
@@ -23,6 +24,10 @@
 
             .full-height {
                 height: 100vh;
+            }
+
+            .half-height {
+                height: 25vh;
             }
 
             .flex-center {
@@ -66,8 +71,9 @@
 
             .hero-image-main {
                 height: 675px;
+                width: 1200px;
                 padding-top: 1px;
-                background: url({{ URL::asset('images/home_banner.jpg') }}) repeat-x center;
+                background: url({{ URL::asset('images/home_banner.jpg') }}) center;
             }
 
         </style>
@@ -84,20 +90,12 @@
                     @endif
                 </div>
             @endif
+
             <div class="content">
-                <div class="title m-b-md">
+              <div class="title m-b-md">
                 <p>Thrive Zambia</p>
-                <div class="hero-image-main"></div>
-                </div>
-                <!--
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-              -->
+              </div>
+              <div class="hero-image-main"></div>
             </div>
         </div>
     </body>

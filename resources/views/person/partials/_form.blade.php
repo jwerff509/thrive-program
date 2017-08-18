@@ -95,12 +95,14 @@
   </div>
 </div>
 
+<!--
 <div class="form-group row">
   {!! Form::label('total_household_size', 'Total Household Size:', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-5">
     {!! Form::selectRange('total_household_size', 0, 30) !!}
   </div>
 </div>
+-->
 
 <div class="card-footer text-center">
   {!! Form::submit($submit_text, ['class' => 'btn btn-sm btn-primary']) !!}

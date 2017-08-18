@@ -163,6 +163,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         'Collective\Html\HtmlServiceProvider',
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -206,6 +208,7 @@ return [
         'DB' => Illuminate\Support\Facades\DB::class,
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'File' => Illuminate\Support\Facades\File::class,
         'Form' => 'Collective\Html\FormFacade',
         'Gate' => Illuminate\Support\Facades\Gate::class,

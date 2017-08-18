@@ -9,7 +9,7 @@
   </br></br>
 
   {!! Form::model(new App\Income, ['method' => 'POST', 'route' => ['income.store']]) !!}
-    @include('income/partials/_form', ['submit_text' => 'Add Income Sources'])
+    @include('income/partials/_form', ['submit_text' => 'Save and Add PPI'])
   {!! Form::close() !!}
 
   </div>

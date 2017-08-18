@@ -46,17 +46,33 @@ class GroupDetailsController extends Controller
     public function store(Request $request)
     {
 
-      $input = $request->except(['sales_location']);
-      $salesLocations = Input::get('sales_location[]');
+      if(is_null($request->sales_location)) {
+        $input = Input::all();
+      } else {
+        $input = $request->except(['sales_location']);
+        $salesLocations = Input::get('sales_location[]');
 
-      $temp = '';
-      foreach($request->sales_location as $salesLocation) {
+        $temp = '';
 
-        $temp = $temp . $salesLocation .", ";
+        foreach($request->sales_location as $salesLocation) {
+          $temp = $temp . $salesLocation .", ";
+        }
 
+        $input['sales_locations'] = $temp;
       }
 
-      $input['sales_locations'] = $temp;
+      if($request->report_term_desc == 'October - December') {
+        $rptDate = $request->year .'-12-31';
+      } elseif ($request->report_term_desc == 'January - March') {
+        $rptDate = $request->year .'-03-31';
+      } elseif ($request->report_term_desc == 'April - June') {
+        $rptDate = $request->year .'-06-30';
+      } else {
+        $rptDate = $request->year .'-09-30';
+      }
+
+      $input['report_term_date'] = $rptDate;
+
       $newGroupDetails = GroupDetails::create($input);
       $lastGroupID = Input::get('group_id');
       $lastGroupDetailsID = $newGroupDetails->id;
