@@ -25,49 +25,6 @@ class ReportsController extends Controller
     $year = Carbon::now();
     $year->subMonth(12);
 
-
-    // This query gets a trend for all members using improved seeds
-    /*
-    $impSeedTrend = DB::table('group_details')
-            ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
-            ->select('group_details.report_term_desc', 'group_details.report_term_date', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
-            ->where('group_member_metrics.improved_seed', '=', '1')
-            ->whereDate('group_details.report_term_date', '>', $current->subMonth(9))
-            ->groupBy('group_details.report_term_desc', 'group_details.report_term_date')
-            ->orderBy('group_details.report_term_date')
-            ->get()->toArray();
-    $labels = array_column($impSeedTrend, 'report_term_desc');
-    $impSeedTrend = array_column($impSeedTrend, 'members');
-
-    // This query gets a trend for all members using improved storage methods
-    $impStorageTrend = DB::table('group_details')
-            ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
-            ->select('group_details.report_term_desc', 'group_details.report_term_date', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
-            ->where('group_member_metrics.improved_storage', '=', '1')
-            ->whereDate('group_details.report_term_date', '>', $current->subMonth(9))
-            ->groupBy('group_details.report_term_desc', 'group_details.report_term_date')
-            ->orderBy('group_details.report_term_date')
-            ->get()->toArray();
-    $impStorageTrend = array_column($impStorageTrend, 'members');
-
-    // This query gets a trend for all members using improved farming practices
-    $impPracticesTrend = DB::table('group_details')
-            ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
-            ->select('group_details.report_term_desc', 'group_details.report_term_date', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
-            ->where('group_member_metrics.improved_practices', '=', '1')
-            ->whereDate('group_details.report_term_date', '>', $current->subMonth(9))
-            ->groupBy('group_details.report_term_desc', 'group_details.report_term_date')
-            ->orderBy('group_details.report_term_date')
-            ->get()->toArray();
-    $impPracticesTrend = array_column($impPracticesTrend, 'members');
-    */
-/*
-    echo "Seed Trend: ". json_encode($impSeedTrend) ."<br><br>";
-    echo "Storage Trend: ". json_encode($impStorageTrend) ."<br><br>";
-    echo "Practices Trend: ". json_encode($impPracticesTrend) ."<br><br>";
-    die;
-*/
-
     // This query gets the total number of members in the system (all time)
     $totalMembers = DB::table('group_member_metrics')
             ->select(DB::raw('COUNT(DISTINCT(member_id)) as total_members'))
@@ -172,7 +129,7 @@ class ReportsController extends Controller
       } elseif(substr($label, 5, 5) == '06-30') {
         $quarters[] .= 'Apr - Jun '. substr($label, 0, 4);
       } else {
-        $quarters[] .= 'Jul - Sep '. substr($lable, 0, 4);
+        $quarters[] .= 'Jul - Sep '. substr($label, 0, 4);
       }
     }
 
@@ -186,7 +143,6 @@ class ReportsController extends Controller
     */
 
     $data = array(
-
       'totalUsers' => $totalMembers[0],
       'newUsers' => $newUsers[0],
       'totalSavingsGroups' => $numSavingsGroups[0],
@@ -227,6 +183,136 @@ class ReportsController extends Controller
     //return view('charts.chartjs')->with('viewer', json_encode($improvedSeed));
     //return view('charts.dashboard')->with('viewer', json_encode($improvedSeed));
     return view('charts.dashboard')->with($data);
+
+  }
+
+  public function pillars() {
+
+    $current = Carbon::now();
+    $quarter = Carbon::now();
+    $quarter->subMonth(3);
+    $half = Carbon::now();
+    $half->subMonth(6);
+    $threeQuarter = Carbon::now();
+    $threeQuarter->subMonth(9);
+    $year = Carbon::now();
+    $year->subMonth(12);
+
+    // This query gets a trend for all members using improved seeds
+    /*
+    $impSeedTrend = DB::table('group_details')
+            ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
+            ->select('group_details.report_term_date', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
+            ->where('group_member_metrics.improved_seed', '=', '1')
+            ->whereDate('group_details.report_term_date', '>', $threeQuarter)
+            ->whereDate('group_details.report_term_date', '<=', $current)
+            ->groupBy('group_details.report_term_date')
+            ->orderBy('group_details.report_term_date')
+            ->get()->toArray();
+    $labels = array_column($impSeedTrend, 'report_term_date');
+    $impSeedTrend = array_column($impSeedTrend, 'members');
+
+    // This query gets a trend for all members using improved storage methods
+    $impStorageTrend = DB::table('group_details')
+            ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
+            ->select('group_details.report_term_date', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
+            ->where('group_member_metrics.improved_storage', '=', '1')
+            ->whereDate('group_details.report_term_date', '>', $threeQuarter)
+            ->whereDate('group_details.report_term_date', '<=', $current)
+            ->groupBy('group_details.report_term_date')
+            ->orderBy('group_details.report_term_date')
+            ->get()->toArray();
+    $impStorageTrend = array_column($impStorageTrend, 'members');
+
+    // This query gets a trend for all members using improved farming practices
+    $impPracticesTrend = DB::table('group_details')
+            ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
+            ->select('group_details.report_term_date', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
+            ->where('group_member_metrics.improved_practices', '=', '1')
+            ->whereDate('group_details.report_term_date', '>', $threeQuarter)
+            ->whereDate('group_details.report_term_date', '<=', $current)
+            ->groupBy('group_details.report_term_date')
+            ->orderBy('group_details.report_term_date')
+            ->get()->toArray();
+    $impPracticesTrend = array_column($impPracticesTrend, 'members');
+
+    // This query gets a trend for all members using some form of irrigation
+    $impIrrigationTrend = DB::table('group_details')
+            ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
+            ->select('group_details.report_term_date', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
+            ->where('group_member_metrics.hectares_with_irrigation', '>', '0')
+            ->whereDate('group_details.report_term_date', '>', $threeQuarter)
+            ->whereDate('group_details.report_term_date', '<=', $current)
+            ->groupBy('group_details.report_term_date')
+            ->orderBy('group_details.report_term_date')
+            ->get()->toArray();
+    $impIrrigationTrend = array_column($impIrrigationTrend, 'members');
+    */
+
+    // This query returns the agricultural trends for the past 9 months
+    $agTrends = DB::table('ag_trends')
+            ->select('report_term_date', 'num_imp_seed', 'num_imp_storage', 'num_imp_practices', 'num_imp_irrigation')
+            ->whereDate('report_term_date', '>', $threeQuarter)
+            ->whereDate('report_term_date', '<=', $current)
+            ->orderBy('report_term_date')
+            ->get()->toArray();
+    $labels = array_column($agTrends, 'report_term_date');
+    $impSeedTrend = array_column($agTrends, 'num_imp_seed');
+    $impStorageTrend = array_column($agTrends, 'num_imp_storage');
+    $impPracticesTrend = array_column($agTrends, 'num_imp_practices');
+    $impIrrigationTrend = array_column($agTrends, 'num_imp_irrigation');
+
+    // This query returns the financial trends for the past 9 months
+    $finTrends = DB::table('financial_trends')
+            ->select('report_term_date', 'num_members', 'num_loans_accessed', 'num_crop_insurance')
+            ->whereDate('report_term_date', '>', $threeQuarter)
+            ->whereDate('report_term_date', '<=', $current)
+            ->orderBy('report_term_date')
+            ->get()->toArray();
+    $groupMembersTrend = array_column($finTrends, 'num_members');
+    $loansTrend = array_column($finTrends, 'num_loans_accessed');
+    $cropInsTrend = array_column($finTrends, 'num_crop_insurance');
+
+
+    // This part of the financial queries will have to be on it's own chart, as it will screw
+    // up the axes for the rest of the financial data above.
+    // This query returns the total balance of all savings group accounts from the last 9 months
+    $savings = DB::table('group_details')
+            ->select(DB::raw('COUNT(id) as num_groups, SUM(account_balance) as total_savings'))
+            ->where('savings_group', '=', '1')
+            ->whereDate('report_term_date', '>', $threeQuarter)
+            ->whereDate('report_term_date', '<=', $current)
+            ->get()->toArray();
+    $numSavingsGroups = array_column($savings, 'num_groups');
+    $totalSavings = array_column($savings, 'total_savings');
+
+
+
+    $quarters = array();
+    foreach($labels as $label) {
+      if(substr($label, 5, 5) == '12-31') {
+        $quarters[] .= 'Oct - Dec '. substr($label, 0, 4);
+      } elseif(substr($label, 5, 5) == '03-31') {
+        $quarters[] .= 'Jan - Mar '. substr($label, 0, 4);
+      } elseif(substr($label, 5, 5) == '06-30') {
+        $quarters[] .= 'Apr - Jun '. substr($label, 0, 4);
+      } else {
+        $quarters[] .= 'Jul - Sep '. substr($label, 0, 4);
+      }
+    }
+
+    $data = array(
+      'quarters' => json_encode($quarters),
+      'impSeedTrend' => json_encode($impSeedTrend),
+      'impStorageTrend' => json_encode($impStorageTrend),
+      'impPracticesTrend' => json_encode($impPracticesTrend),
+      'impIrrigationTrend' => json_encode($impIrrigationTrend),
+      'groupMembersTrend' => json_encode($groupMembersTrend),
+      'loansTrend' => json_encode($loansTrend),
+      'cropInsTrend' => json_encode($cropInsTrend),
+    );
+
+    return view('charts.pillars')->with($data);
 
   }
 

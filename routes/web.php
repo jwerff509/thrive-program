@@ -45,6 +45,7 @@ Route::get('person/{id}/ppi/create', 'PpiController@create');
 // Route for chartjs
 Route::get('chartjs', 'ReportsController@chartjs');
 Route::get('dashboard', 'ReportsController@chartjs');
+Route::get('pillars', 'ReportsController@pillars');
 
 
 
