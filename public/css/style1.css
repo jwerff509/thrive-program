@@ -1,0 +1,485 @@
+/*
+    Created on : Jun 18, 2017, 1:52:12 PM
+    Author     : Justin Vanderwerff
+*/
+
+body {
+    background-color: #fff;
+    color: #777;
+    font: normal 15px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+p {
+    line-height: 20px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-family: 'Crete Round', serif;
+    font-weight: bold;
+    color: #444;
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-weight: 300;
+    color: #444;
+    font-size: 55px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 30px;
+    color: #444;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h4 {
+    font-size: 24px;
+    color: #444;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+h5 {
+    font-size: 15px;
+    color: #444;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+a {
+    text-decoration: none;
+    color: #444;
+}
+
+a:hover {
+    color: #02b8dd;
+}
+
+strong {
+    font-weight: bold;
+}
+
+small {
+    font-size: 13px;
+    color: #777;
+    font-style: italic;
+}
+
+.clear {
+    clear: both;
+}
+
+.wrapper {
+    margin: 0 auto;
+    padding: 0 10px;
+    width: 1024px;
+}
+
+
+/*
+**   Header Styles
+*/
+header {
+    height: 120px;
+}
+
+header h1 {
+    float: left;
+    margin-top: 32px;
+    margin-right: 125px;
+}
+
+header h1 .color {
+    color: #02b8dd;
+}
+
+
+
+/* Original
+header nav {
+    float: right;
+    position: relative;
+}
+
+header nav ul li {
+    float: left;
+    display: inline-block;
+    margin-top: 50px;
+}
+
+header nav ul li a {
+    color: #444;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: block;
+    margin-right: 20px;
+}
+
+*/
+
+.sub-menu-parent {
+    position: relative;
+    float:left;
+    display: inline-block;
+    margin-top: 50px;
+    padding-left: 10px;
+}
+
+.sub-menu {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  width: 100%;
+  transform: translateY(-2em);
+  z-index: -1;
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+}
+
+.sub-menu-parent:hover .sub-menu {
+  visibility: visible;
+  opacity: 1;
+  z-index: 1;
+  transform: translateY(0%);
+  transition-delay: 0s, 0s, 0.3s;
+}
+
+nav a {
+    color: #444;
+    display: block;
+    padding: 0.5em 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    /*
+    margin-right: 20px;
+    */
+}
+/*
+nav ul,
+nav ul li { list-style-type: none; padding: 0; margin: 0; }
+
+nav > ul { background: #EEE; text-align: center; }
+/*nav > ul > li { display: inline-block; border-left: solid 1px #aaa; }
+nav > ul > li:first-child { border-left: none; }
+*/
+
+.sub-menu {
+  background: #fff;
+}
+
+
+
+
+
+
+
+
+/*
+**  Hero Image Styles
+*/
+#hero-image-main {
+    height: 580px;
+    padding-top: 1px;
+    /*background: #e8eced url('../img/mechanic1.jpg') repeat-x center;*/
+    background: url({{ URL::asset('images/home_banner.jpg') }}) repeat-x center;
+}
+
+#hero-image-login {
+    height: 580px;
+    padding-top: 1px;
+    background: #e8eced url('../img/engine1.jpg') repeat-x center;
+}
+
+#hero-image-contact {
+    height: 580px;
+    padding-top: 1px;
+    background: #e8eced url('../img/start1.jpg') repeat-x center;
+}
+
+#hero-image-other {
+    height: 580px;
+    padding-top: 1px;
+    background: #e8eced;
+}
+
+#hero-image h2 {
+    margin: 180px 0 40px 0;
+}
+
+.button-1 {
+    display: block;
+    text-align: center;
+    background: #444;
+    border-radius: 3px;
+    color: #fff;
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    line-height: 50px;
+    margin: 0 auto;
+}
+
+.button-1:hover {
+    background-color: #02b8dd;
+    color: #fff;
+}
+
+/*
+**  Features Section Styles
+*/
+#features ul {
+    margin: 60px 0;
+}
+
+#features ul li {
+    width: 300px;
+    padding-top: 325px;
+    float: left;
+    margin-right: 40px;
+    text-align: center;
+}
+
+#features ul li.feature-1 {
+    background: url('../img/wrench1.png') no-repeat top center;
+}
+#features ul li.feature-2 {
+    background: url('../img/resale1.png') no-repeat top center;
+}
+#features ul li.feature-3 {
+    background: url('../img/clipboard1.png') no-repeat top center;
+}
+
+/*
+**  Garage Section Styles
+*/
+#garage {
+    background: #e8eced;
+    height: 580px;
+    padding-top: 50px;
+}
+
+#garage ul {
+    margin: 60px 0;
+}
+
+#garage ul li {
+    width: 300px;
+    padding-top: 225px;
+    float: left;
+    margin-right: 40px;
+    text-align: center;
+}
+
+#garage ul li.garage-1 {
+    background: url('../img/garage1.jpg') no-repeat top center;
+}
+#garage ul li.garage-2 {
+    background: url('../img/garage2.jpg') no-repeat top center;
+}
+#garage ul li.garage-3 {
+    background: url('../img/garage3.jpg') no-repeat top center;
+}
+
+/*
+**  Call To Action Section Styles
+*/
+#cta {
+    padding: 80px 0;
+    text-align: center;
+}
+
+#cta h3 {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 400px;
+    border-bottom: 1px solid #02b8dd;
+    padding: 0 0 20px 0;
+}
+
+.button-2 {
+    display: block;
+    margin: 0 auto;
+    border: 2px solid #02b8dd;
+    color: #02b8dd;
+    border-radius: 3px;
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    line-height: 50px;
+}
+
+.button-2:hover {
+    background-color: #02b8dd;
+    color: #fff;
+}
+
+/*
+**  Footer Styles
+*/
+
+.footer-centered{
+        background: url('../img/cf_background.jpg') repeat-x top center;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: center;
+	font: normal 18px sans-serif;
+	padding: 85px;
+	/*margin-top: 40px;*/
+}
+
+.footer-centered .footer-company-motto{
+	color:  #8d9093;
+	font-size: 24px;
+	margin: 0;
+}
+
+.footer-centered .footer-company-name{
+	color:  #8f9296;
+	font-size: 14px;
+	margin: 0;
+}
+
+.footer-centered .footer-links{
+	list-style: none;
+	font-weight: bold;
+	color:  #ffffff;
+	padding: 35px 0 23px;
+	margin: 0;
+}
+
+.footer-centered .footer-links a{
+	display:inline-block;
+	text-decoration: none;
+	color: inherit;
+}
+
+.footer-centered .footer-links a:hover {
+    color: #02b8dd;
+}
+
+@media (max-width: 600px) {
+    .footer-centered{
+        padding: 35px;
+    }
+
+    .footer-centered .footer-company-motto{
+        font-size: 18px;
+    }
+
+    .footer-centered .footer-company-name{
+        font-size: 12px;
+    }
+
+    .footer-centered .footer-links{
+        font-size: 14px;
+        padding: 25px 0 20px;
+    }
+
+    .footer-centered .footer-links a{
+        line-height: 1.8;
+    }
+}
+
+
+/*
+**  Products Section Styles
+*/
+
+#products ul {
+    margin: 80px 0;
+}
+
+#products ul li {
+    width: 300px;
+    padding-top: 240px;
+    float: left;
+    margin-right: 10px;
+    text-align: center;
+}
+
+#products ul li.products-1 {
+    background: url('../img/air_filter.jpg') no-repeat top center;
+}
+#products ul li.products-2 {
+    background: url('../img/chain_sprocket_kit.jpg') no-repeat top center;
+}
+#products ul li.products-3 {
+    background: url('../img/engine_rebuild_kit.jpg') no-repeat top center;
+}
+#products ul li.products-4{
+    background: url('../img/fork_seal_kit.jpg') no-repeat top center;
+}
+#products ul li.products-5 {
+    background: url('../img/graphics_kit.jpg') no-repeat top center;
+}
+#products ul li.products-6 {
+    background: url('../img/transmission_bearing_kit.jpg') no-repeat top center;
+}
+
+
+/*
+**  Reports Section Styles
+*/
+#reports ul {
+    margin: 100px 0;
+}
+
+#reports ul li {
+    width: 450px;
+    padding-top: 400px;
+    float: left;
+    margin-right: 60px;
+    text-align: center;
+}
+
+#reports ul li.reports-1 {
+    background: url('../img/reminder.png') no-repeat top center;
+}
+#reports ul li.reports-2 {
+    background: url('../img/expenses_chart.jpg') no-repeat top center;
+}
+#reports ul li.reports-3 {
+    background: url('../img/durability.jpg') no-repeat top center;
+}
+#reports ul li.reports-4{
+    background: url('../img/resale.jpg') no-repeat top center;
+}
+
+/*
+**  Service Section Styles
+*/
+
+#service {
+     background: #e8eced;
+     height: 580px;
+}
+
+#service ul {
+    margin: 130px 0;
+}
+
+#service ul li {
+    width: 450px;
+    padding-top: 260px;
+    float: left;
+    margin-right: 40px;
+    text-align: center;
+}
+
+#service ul li.service-1 {
+    background: url('../img/service-1.jpg') no-repeat top center;
+}
+#service ul li.service-2 {
+    background: url('../img/service-1.jpg') no-repeat top center;
+}

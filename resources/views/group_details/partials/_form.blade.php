@@ -1,7 +1,7 @@
 <div class="form-group row">
-  {!! Form::label('report_term', 'Reporting Term:', array('class' => 'col-md-5 form-control-label')) !!}
+  {!! Form::label('report_term_desc', 'Reporting Term:', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
-    {!! Form::select('report_term', array(
+    {!! Form::select('report_term_desc', array(
       'October - December' => 'October - December',
       'January - March' => 'January - March',
       'April - June' => 'April - June',

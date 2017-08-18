@@ -71,13 +71,15 @@ class GroupsController extends Controller
      * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         // Get the group
-        $group = Group::find($id);
+        $groups = Group::all();
+
+        $dbGroups = $groups->pluck('id', 'name', 'area_program', 'village_name');
 
         //Show the view and pass the group to it
-        return view('groups.show')->with('group', $group);
+        return view('groups.index')->with('groups', json_encode($dbGroups));
 
     }
 

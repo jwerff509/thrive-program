@@ -25,6 +25,8 @@ Route::resource('group_sales_locations', 'GroupSalesLocationsController');
 Route::resource('group_member_details', 'GroupMemberMetricsController');
 Route::resource('person', 'PersonController');
 Route::resource('income', 'IncomeController');
+Route::resource('ppi', 'PpiController');
+Route::resource('Dashboard', 'PpiController');
 
 Route::model('groups', 'Group');
 Route::model('group_details', 'GroupDetails');
@@ -32,10 +34,19 @@ Route::model('group_sales_locations', 'GroupSalesLocations');
 Route::model('group_member_metrics', 'GroupMemberMetrics');
 Route::model('person', 'Person');
 Route::model('income', 'Income');
+Route::model('ppi', 'Ppi');
+Route::model('dashboard', 'Ppi');
 
 Route::get('groups/{id}/group_details/create', 'GroupDetailsController@create');
 Route::get('groups/{id}/group_details/{groupDetailsID}/create', 'GroupMemberMetricsController@create');
 Route::get('person/{id}/income/create', 'IncomeController@create');
+Route::get('person/{id}/ppi/create', 'PpiController@create');
+
+// Route for chartjs
+Route::get('chartjs', 'ReportsController@chartjs');
+Route::get('dashboard', 'ReportsController@chartjs');
+
+
 
 Route::post('group_details/store', [
   'as' => 'group_details.store',
@@ -50,4 +61,9 @@ Route::post('group_member_metrics/store', [
 Route::post('income/store', [
   'as' => 'income.store',
   'uses' => 'IncomeController@store'
+  ]);
+
+Route::post('ppi/store', [
+  'as' => 'ppi.store',
+  'uses' => 'PpiController@store'
   ]);

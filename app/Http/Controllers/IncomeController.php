@@ -6,9 +6,12 @@ use App\Income;
 use App\Person;
 use App\Http\Controllers\PersonController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Redirect;
 
 class IncomeController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +52,29 @@ class IncomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+      $personID = Input::get('person_id');
+
+      foreach($request->income_source as $key=>$income_source)
+      {
+
+        If($income_source != Null) {
+
+          $income = new Income();
+          $income->person_id = $personID;
+          $income->income_source = $income_source;
+          $income->yearly_income = $request->yearly_income[$key];
+
+          $income->save();
+
+        }
+
+      }
+
+      return Redirect()->action(
+        'PpiController@create', [$personID]
+      );
+
     }
 
     /**

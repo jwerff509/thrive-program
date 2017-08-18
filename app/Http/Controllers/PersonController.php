@@ -11,11 +11,11 @@ use Redirect;
 class PersonController extends Controller
 {
 
-  protected $rules = [
-      'nrc_number' => ['required'],
-      'last_name' => ['required', 'max:191'],
-      'first_name' => ['required', 'max:191'],
-  ];
+    protected $rules = [
+        'nrc_number' => ['required'],
+        'last_name' => ['required', 'max:191'],
+        'first_name' => ['required', 'max:191'],
+    ];
 
     /**
      * Display a listing of the resource.
