@@ -41,6 +41,7 @@ Route::get('groups/{id}/group_details/create', 'GroupDetailsController@create');
 Route::get('groups/{id}/group_details/{groupDetailsID}/create', 'GroupMemberMetricsController@create');
 Route::get('person/{id}/income/create', 'IncomeController@create');
 Route::get('person/{id}/ppi/create', 'PpiController@create');
+Route::get('group-select', 'GroupsController@autoComplete');
 
 // Route for chartjs
 Route::get('chartjs', 'ReportsController@chartjs');
@@ -68,3 +69,5 @@ Route::post('ppi/store', [
   'as' => 'ppi.store',
   'uses' => 'PpiController@store'
   ]);
+
+Route::post('group-select', ['as'=>'group-select', 'uses'=>'GroupsController@autoComplete']);

@@ -17,32 +17,44 @@
 
     @include('charts.pillarsjs')
 
-    <div class="row">
-
       <div class="row">
-        <div class="col-md-8">
+
+        <div class="col-md-6">
           <div class="panel panel-default">
             <div class="panel-body">
-              <canvas id="agTrends" style="height: 140px; width: 350px;" width="350" height="140"></canvas>
+              <canvas id="agTrends" style="height: 140px; width: 350px;" width="250" height="140"></canvas>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-
-    <div class="row">
-
-      <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="panel panel-default">
             <div class="panel-body">
-              <canvas id="finTrends" style="height: 140px; width: 350px;" width="350" height="140"></canvas>
+              <canvas id="finTrends" style="height: 140px; width: 350px;" width="250" height="140"></canvas>
             </div>
           </div>
         </div>
+
       </div>
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <canvas id="chainMembers" style="height: 140px; width: 350px;" width="250" height="140"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <canvas id="chainRevenue" style="height: 140px; width: 350px;" width="250" height="140"></canvas>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="row">

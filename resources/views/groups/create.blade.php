@@ -1,17 +1,17 @@
-{{--
+
 @extends('adminlte::page')
 
-@section('title', 'At A Glance')
+@section('title', 'Add Group')
 
+{{--
 @section('content_header')
     <h1>Dashboard (all data is as of the last 3 months)</h1>
 @stop
-
-@section('content')
 --}}
 
+{{--
 @extends('layouts.app')
-
+--}}
 @section('content')
 
 

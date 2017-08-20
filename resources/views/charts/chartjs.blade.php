@@ -32,10 +32,11 @@
         data: drr
       }, {
         label: 'EWV',
-        borderColor: "#c45850",
+        borderColor: "#dee102",
         data: ewv
       }]
     };
+
 
 
     var pieChartData = {
@@ -65,6 +66,7 @@
 
     };
 
+
     window.onload = function() {
 
 
@@ -77,7 +79,7 @@
           responstive: true,
           title: {
             display: true,
-            text: 'Recent Trendlines'
+            text: 'Number of Households Engaged in These Pillars'
           }
         }
       });

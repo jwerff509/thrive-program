@@ -1,8 +1,3 @@
-
-
-
-
-
   {{-- resources/views/admin/dashboard.blade.php --}}
 
   @extends('adminlte::page')
@@ -21,8 +16,10 @@
         <div class="info-box">
           <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people-outline"></i></span>
           <div class="info-box-content">
-            <span class="info-box-text">Total Registered Members</span>
-            <span class="info-box-number">{{ $totalUsers }}</small></span>
+            <span class="info-box-text">Total Registered Members: <b>{{ $totalUsers }}</b></span>
+            <span class="info-box-text">Females: <b>{{ $totalFemales }}</b></span>
+            <span class="info-box-text">Males: <b>{{ $totalMales }}</b></span>
+            <span class="info-box-text">Unknown/Unreported: <b>{{ $totalUnreported }}</b></span>
           </div>
         </div>
       </div>
@@ -31,8 +28,9 @@
         <div class="info-box">
           <span class="info-box-icon bg-green"><i class="ion ion-ios-people-outline"></i></span>
           <div class="info-box-content">
-            <span class="info-box-text">New Members Registered in Last 3 Months</span>
-            <span class="info-box-number">{{ $newUsers }}</span>
+            <span class="info-box-text">Total Children Registered: <b>{{ $totalChildren }}</b></span>
+            <span class="info-box-text">Female Children: <b>{{ $totalFemaleChildren }}</b></span>
+            <span class="info-box-text">Male Children: <b>{{ $totalMaleChildren }}</b></span>
           </div>
         </div>
       </div>
@@ -42,10 +40,8 @@
           <span class="info-box-icon bg-red"><i class="fa fa-dollar"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Total Savings Groups:</span>
-            <span class="info-box-number">{{ number_format($totalSavingsGroups) }}</span>
-            <span class="info-box-text">Total Balance for Savings Groups</span>
-            <span class="info-box-number">${{ number_format($savingsBalance) }}</span>
+            <span class="info-box-text">Total Savings Groups: <b>{{ number_format($totalSavingsGroups) }}</b></span>
+            <span class="info-box-text">Total Balance for Savings Groups: <b>${{ number_format($savingsBalance) }}</b></span>
           </div>
         </div>
       </div>
@@ -67,6 +63,8 @@
     </div>
 
     @include('charts.chartjs')
+
+
 
     <div class="row">
       <div class="col-md-8">

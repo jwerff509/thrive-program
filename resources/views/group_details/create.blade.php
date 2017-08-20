@@ -1,8 +1,20 @@
-@extends('layouts.app')
 
+@extends('adminlte::page')
+
+@section('title', 'Add Group Details')
+
+{{--
+@section('content_header')
+    <h1>Dashboard (all data is as of the last 3 months)</h1>
+@stop
+--}}
+
+{{--
+@extends('layouts.app')
+--}}
 @section('content')
 
-@include('group_details/partials/_header');
+@include('group_details/partials/_header')
 
 <div class="panel-body">
   <h2><center><strong>Add</strong> Group Details</center></h2>

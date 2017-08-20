@@ -1,5 +1,17 @@
-@extends('layouts.app')
 
+@extends('adminlte::page')
+
+@section('title', 'Add New Household')
+
+{{--
+@section('content_header')
+    <h1>Dashboard (all data is as of the last 3 months)</h1>
+@stop
+--}}
+
+{{--
+@extends('layouts.app')
+--}}
 @section('content')
 
 <div class="container">

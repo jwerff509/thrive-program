@@ -17,14 +17,13 @@
     <!-- icons -->
     <link href="{{ asset('css/simple-line-icons.css') }}" rel="stylesheet">
 
-    <!-- Select2.js files for dynamic select boxes -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
     <!-- jQuery file -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-			  crossorigin="anonymous"></script>
+			  crossorigin="anonymous">
+    </script>
 
 </head>
 <body>
@@ -101,9 +100,16 @@
         @endif
 
         @yield('content')
+
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Select2.js files for dynamic select boxes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+
+
 </body>
 </html>

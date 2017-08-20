@@ -1,6 +1,19 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app') --}}
+
+
+@extends('adminlte::page')
+
+@section('title', 'Home')
+
+{{--
+@section('content_header')
+    <h1>Dashboard (all data is as of the last 3 months)</h1>
+@stop
+--}}
+
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -18,4 +31,5 @@
         </div>
     </div>
 </div>
+
 @endsection

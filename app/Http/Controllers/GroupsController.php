@@ -14,6 +14,7 @@ class GroupsController extends Controller
     protected $rules = [
         'group_id' => ['required', 'numeric'],
         'name' => ['required', 'max:191'],
+        'zone' => ['required', 'max:191'],
         'area_program' => ['required', 'max:191'],
         'village_name' => ['required', 'max:191'],
     ];
@@ -122,4 +123,41 @@ class GroupsController extends Controller
 
         return Redirect::route('groups.index')->with('message', 'Group Deleted Successfully');
     }
+
+
+/*
+    public function autoComplete(Request $request) {
+
+      $input = request('q');
+      $groups = Group::where('group_id', 'like', $input.'%')
+            ->orWhere('group_id', 'like', '%'.$input.'%')->get(['name AS text', 'id'])->toArray();
+
+      if($input != '') {
+        return response()->json(['results' => $groups]);
+      } else {
+        return response()->json(['results' => '']);
+      }
+
+
+    }
+
+*/
+
+
+    public function autoComplete(Request $request) {
+        $data = [];
+
+        if($request->has('q')) {
+          $search = $request->q;
+          $data = DB::table('group')
+                ->select('group_id', 'name')
+                ->where('group_id', 'LIKE', '%$search%')
+                ->get();
+        }
+
+        return response()->json($data);
+
+    }
+
+
 }

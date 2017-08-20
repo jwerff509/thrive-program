@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\GroupMemberMetrics;
+use App\Person;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 use DB;
@@ -25,11 +26,30 @@ class ReportsController extends Controller
     $year = Carbon::now();
     $year->subMonth(12);
 
-    // This query gets the total number of members in the system (all time)
-    $totalMembers = DB::table('group_member_metrics')
-            ->select(DB::raw('COUNT(DISTINCT(member_id)) as total_members'))
+    // Get total number of members and break it out by sex
+    $totalMembers = Person::count();
+    $totalFemales = Person::where('sex', 'Female')->count();
+    $totalMales = Person::where('sex', 'Male')->count();
+    $totalUnreported = Person::where('sex','Unknown')->count();
+
+    // Count the total number of children.
+    $totalChildren = DB::table('person')
+            ->select(DB::raw('sum(males_under_59_months + females_under_59_months + males_6_to_14 + females_6_to_14 + males_15_to_18 + females_15_to_18) as num_children'))
             ->get()->toArray();
-    $totalMembers = array_column($totalMembers, 'total_members');
+    $totalChildren = array_column($totalChildren, 'num_children');
+
+    // Count the total number of female children.
+    $totalFemaleChildren = DB::table('person')
+            ->select(DB::raw('sum(females_under_59_months + females_6_to_14 + females_15_to_18) as num_female_children'))
+            ->get()->toArray();
+    $totalFemaleChildren = array_column($totalFemaleChildren, 'num_female_children');
+
+    // Count the total number of male children.
+    $totalMaleChildren = DB::table('person')
+            ->select(DB::raw('sum(males_under_59_months + males_6_to_14 + males_15_to_18) as num_male_children'))
+            ->get()->toArray();
+    $totalMaleChildren = array_column($totalMaleChildren, 'num_male_children');
+
 
     // This query gets the number of members that were registered in the last 3 months
     $newUsers = DB::table('group_member_metrics')
@@ -142,8 +162,15 @@ class ReportsController extends Controller
     'impPracticesTrend' => json_encode($impPracticesTrend),
     */
 
+
     $data = array(
-      'totalUsers' => $totalMembers[0],
+      'totalUsers' => $totalMembers,
+      'totalFemales' => $totalFemales,
+      'totalMales' => $totalMales,
+      'totalUnreported' => $totalUnreported,
+      'totalChildren' => $totalChildren[0],
+      'totalFemaleChildren' => $totalFemaleChildren[0],
+      'totalMaleChildren' => $totalMaleChildren[0],
       'newUsers' => $newUsers[0],
       'totalSavingsGroups' => $numSavingsGroups[0],
       'totalProducers' => $totalProducers[0],
@@ -153,10 +180,10 @@ class ReportsController extends Controller
       'impPractices' => json_encode($impPractices),
       'ppi' => json_encode($ppi),
       'labels' => json_encode($quarters),
-      'endToEnd' => $numEndtoEnd[0],
-      'nrm' => $numNrm[0],
-      'drr' => $numDrr[0],
-      'ewv' => $numEwv[0]
+      'endToEnd' => json_encode($numEndtoEnd),
+      'nrm' => json_encode($numNrm),
+      'drr' => json_encode($numDrr),
+      'ewv' => json_encode($numEwv),
     );
 
 /*
@@ -286,6 +313,17 @@ class ReportsController extends Controller
     $numSavingsGroups = array_column($savings, 'num_groups');
     $totalSavings = array_column($savings, 'total_savings');
 
+    // Get the number of farmers engaged in project value chains for the last 3 months
+    $valueChains = DB::table('group_details')
+            ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
+            ->select('group_details.report_term_date', 'group_details.value_chain', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
+            ->whereDate('group_details.report_term_date', '>', $quarter)
+            ->whereDate('group_details.report_term_date', '<=', $current)
+            ->groupBy('group_details.report_term_date', 'group_details.value_chain')
+            ->orderBy('group_details.report_term_date')
+            ->get()->toArray();
+    $chainLabels = array_column($valueChains, 'value_chain');
+    $chainMembers = array_column($valueChains, 'members');
 
 
     $quarters = array();
@@ -310,6 +348,8 @@ class ReportsController extends Controller
       'groupMembersTrend' => json_encode($groupMembersTrend),
       'loansTrend' => json_encode($loansTrend),
       'cropInsTrend' => json_encode($cropInsTrend),
+      'chainLabels' => json_encode($chainLabels),
+      'chainMembers' => json_encode($chainMembers),
     );
 
     return view('charts.pillars')->with($data);
