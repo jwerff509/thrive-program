@@ -1,9 +1,17 @@
 
+<!--
 <div class="form-group row">
-  {!! Form::label('group_id1', 'ID1: Group ID', array('class' => 'col-md-3 form-control-label')) !!}
+  {!! Form::label('country', 'Select Your Country', array('class' => 'col-md-3 form-control-label')) !!}
   <div class="col-sm-5">
-  {!! Form::select('group_id1', $groups, null, array('id' => 'group_id1', 'placeholder' => 'Type a Group ID', 'class' => 'form-control')) !!}
-
+  {!! Form::select('country', array(
+    '' => '-- Select Your Country --',
+    'Honduras' => 'Honduras',
+    'Malawi' => 'Malawi',
+    'Rwanda' => 'Rwanda',
+    'Tanzania' => 'Tanzania',
+    'Zambia' => 'Zambia'
+  )) !!}
+-->
   <!--
   <script type="text/javascript">
         $('#group_id').select2({
@@ -25,7 +33,7 @@
   </script>
 -->
 
-  <script type="text/javascript">
+  <!--
         $('#group_id1').select2({
           placeholder: 'Groups',
           ajax: {
@@ -46,7 +54,7 @@
           }
         });
   </script>
-
+-->
 
   </div>
   <span class="help-block"><br></span>
@@ -85,21 +93,15 @@
   </div>
 </div>
 <div class="form-group row">
-  {!! Form::label('zone', 'ID4: Zone', array('class' => 'col-md-3 form-control-label')) !!}
+  {!! Form::label('zone', 'ID4: Zone Code', array('class' => 'col-md-3 form-control-label')) !!}
   <div class="col-md-4">
-    {!! Form::select('zone', array(
-      '' => 'Select a Zone...',
-      'Mwamba' => 'Mwamba',
-      'Mpika' => 'Mpika',
-      'Katete' => 'Katete',
-      'Buyantanshi' => 'Buyantanshi',
-      'Kawaza' => 'Kawaza',
-    )) !!}
-    <span class="help-block">Select the Zone</span>
+    {!! Form::text('zone', '', array('class' => 'form-control')) !!}
+  <span class="help-block">Enter the Zone Code</span>
+
   </div>
 </div>
 <div class="form-group row">
-  {!! Form::label('village_name', 'ID4: Village Name', array('class' => 'col-md-3 form-control-label')) !!}
+  {!! Form::label('village_name', 'ID5: Village Name', array('class' => 'col-md-3 form-control-label')) !!}
   <div class="col-sm-5">
     {!! Form::text('village_name', '', array('class' => 'form-control')) !!}
     <span class="help-block">Enter the Village Name</span>

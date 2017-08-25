@@ -69,5 +69,3 @@ Route::post('ppi/store', [
   'as' => 'ppi.store',
   'uses' => 'PpiController@store'
   ]);
-
-Route::post('group-select', ['as'=>'group-select', 'uses'=>'GroupsController@autoComplete']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\GroupDetails;
+use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -37,6 +38,7 @@ class GroupsController extends Controller
      */
     public function create()
     {
+
         $groups = Group::all();
 
         $dbGroups = $groups->pluck('name', 'id');
@@ -56,6 +58,14 @@ class GroupsController extends Controller
     {
         $this->validate($request, $this->rules);
 
+/*
+        $countryData = Input::only('country');
+        $country = new Country;
+        $country->name = $countryData->country;
+        $country->save();
+*/
+
+        //$input = Input::except('country');
         $input = Input::all();
         $newGroup = Group::create($input);
 
@@ -74,6 +84,7 @@ class GroupsController extends Controller
      */
     public function show()
     {
+
         // Get the group
         $groups = Group::all();
 
@@ -81,6 +92,7 @@ class GroupsController extends Controller
 
         //Show the view and pass the group to it
         return view('groups.index')->with('groups', json_encode($dbGroups));
+
 
     }
 
@@ -123,41 +135,5 @@ class GroupsController extends Controller
 
         return Redirect::route('groups.index')->with('message', 'Group Deleted Successfully');
     }
-
-
-/*
-    public function autoComplete(Request $request) {
-
-      $input = request('q');
-      $groups = Group::where('group_id', 'like', $input.'%')
-            ->orWhere('group_id', 'like', '%'.$input.'%')->get(['name AS text', 'id'])->toArray();
-
-      if($input != '') {
-        return response()->json(['results' => $groups]);
-      } else {
-        return response()->json(['results' => '']);
-      }
-
-
-    }
-
-*/
-
-
-    public function autoComplete(Request $request) {
-        $data = [];
-
-        if($request->has('q')) {
-          $search = $request->q;
-          $data = DB::table('group')
-                ->select('group_id', 'name')
-                ->where('group_id', 'LIKE', '%$search%')
-                ->get();
-        }
-
-        return response()->json($data);
-
-    }
-
 
 }

@@ -42,7 +42,8 @@
       <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-body">
-            <canvas id="chainMembers" style="height: 140px; width: 350px;" width="250" height="140"></canvas>
+            <label for = "chainMembers"># of Farmers Engaged in Value Chain Activities<br /></label>
+            <canvas id="chainMembers" style="height: 140px; width: 350px;" width="250" height="150"></canvas>
           </div>
         </div>
       </div>
@@ -50,7 +51,8 @@
       <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-body">
-            <canvas id="chainRevenue" style="height: 140px; width: 350px;" width="250" height="140"></canvas>
+            <label for = "chainRevenue">Gross Revenue of Value Chain per Project Participant<br /></label>
+            <canvas id="chainRevenue" style="height: 150px; width: 350px;" width="250" height="150"></canvas>
           </div>
         </div>
       </div>

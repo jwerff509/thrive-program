@@ -79,24 +79,28 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref quarter-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
                     @endif
                 </div>
             @endif
 
-            <div class="content">
-              <div class="title m-b-md">
-                <p>Thrive Zambia</p>
+            <div class="content" style="align-content: center;">
+                <div class="title m-b-md">
+                  <p><img style="float: left; padding: 0 20px 0 0" src="{{ URL::asset('/images/world_vision.png') }}" width="190" height="75" />Thrive Zambia
+                  <img style="float: right; padding: 0 0 0 20px" src="{{ URL::asset('/images/tango.jpg') }}" width="190" height="75" /></p>
+                </div>
+
+              <div class="row">
+                <div class="hero-image-main"></div>
               </div>
-              <div class="hero-image-main"></div>
             </div>
         </div>
+
     </body>
 </html>

@@ -1,5 +1,5 @@
 <div class="form-group row">
-  {!! Form::label('report_term_desc', 'ID4: Time Frame', array('class' => 'col-md-5 form-control-label')) !!}
+  {!! Form::label('report_term_desc', 'ID6: Time Frame', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
     {!! Form::select('report_term_desc', array(
       'October - December' => 'October - December',
@@ -11,7 +11,7 @@
   </div>
 </div>
 <div class="form-group row">
-  {!! Form::label('year', 'ID5: Reporting Year', array('class' => 'col-md-5 form-control-label')) !!}
+  {!! Form::label('year', 'ID7: Reporting Year', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
     {!! Form::select('year', array(
       '2019' => '2019',
@@ -60,6 +60,7 @@
     <span class="help-block"></br></span>
   </div>
 </div>
+<!--
 <div class="form-group row">
   {!! Form::label('value_chain_unit', 'G5: What Unit is the Value Chain Typically Sold In', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
@@ -73,15 +74,16 @@
     <span class="help-block"></br></span>
   </div>
 </div>
+-->
 <div class="form-group row">
-  {!! Form::label('sales_price', 'G6: Current Sales Price per Unit', array('class' => 'col-md-5 form-control-label')) !!}
+  {!! Form::label('sales_price', 'G5: Current Sales Price per KG (ZMK)', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
     {!! Form::text('sales_price', '', array('class' => 'form-control')) !!}
     <span class="help-block"></br></span>
   </div>
 </div>
 <div class="form-group row">
-  {!! Form::label('sales_location', 'G7: Select All Locations Where Group Has Sold Goods', array('class' => 'col-md-5 form-control-label')) !!}
+  {!! Form::label('sales_location', 'G6: Select All Locations Where Group Has Sold Goods', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
     {!! Form::checkbox('sales_location[]', 'Village Market') !!}<span> Village Market <br></span>
     {!! Form::checkbox('sales_location[]', 'Town Market') !!}<span> Town Market <br></span>

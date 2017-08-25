@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Thrive</b>Zambia',
+    'logo' => '<b><span style="color:#f3912d">Thrive </span></b>',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b><span style="color:#f3912d">TZ</span></b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -87,9 +87,9 @@ return [
 
     'dashboard_url' => '',
 
-    'logout_url' => 'home',
+    'logout_url' => '/logout',
 
-    'logout_method' => null,
+    'logout_method' => NULL,
 
     'login_url' => 'login',
 
@@ -120,12 +120,12 @@ return [
             'icon_color'  => 'orange',
         ],
         [
-            'text'        => 'Enter Group Info',
+            'text'        => 'Quarterly Monitoring',
             'url'         => 'groups/create',
             'icon_color'  => 'orange',
         ],
         [
-            'text'        => 'Enter Household Info',
+            'text'        => 'Registration Information',
             'url'         => 'person/create',
             'icon_color'  => 'orange',
         ],

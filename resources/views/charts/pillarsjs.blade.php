@@ -18,6 +18,8 @@
     var chainMembers = <?php echo $chainMembers; ?>;
 
 
+
+
     var agTrendsData = {
       labels: quarters,
       datasets: [{
@@ -106,16 +108,24 @@
           labels: ['Aquaculture', 'Beans', 'Dairy', 'Groundnuts', 'Maize', 'Poultry'],
           datasets: [
             {
-              label: "Farmers Engaged in Value Chains",
-              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#dee102"],
-              data: [137, 265, 99, 240, 200, 175]
+              label: "Males",
+              backgroundColor: ["#114577", "#114577","#114577","#114577","#114577", "#114577"],
+              data: [80, 100, 45, 120, 80, 100]
+            }, {
+              label: "Females",
+              backgroundColor: ["#0082FF", "#0082FF","#0082FF","#0082FF","#0082FF", "#0082FF"],
+              data: [57, 165, 55, 120, 120, 75]
+            }, {
+              label: "Total",
+              backgroundColor: ["#FF9F00", "#FF9F00","#FF9F00","#FF9F00","#FF9F00", "#FF9F00"],
+              data: [137, 265, 100, 240, 200, 175]
             }
           ]
         },
         options: {
           legend: { display: true },
           title: true,
-          text: 'Farmers Engaged In Project Value Chains'
+          text: 'Farmers Engaged In Project Value Chains',
         }
       });
 
@@ -127,16 +137,24 @@
           labels: ['Aquaculture', 'Beans', 'Dairy', 'Groundnuts', 'Maize', 'Poultry'],
           datasets: [
             {
-              label: "Gross Revenue of Harvest per Value Chain ($)",
-              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#dee102"],
+              label: "Males",
+              backgroundColor: ["#114577", "#114577","#114577","#114577","#114577", "#114577"],
+              data: [800, 200, 874, 175, 200, 254]
+            }, {
+              label: "Females",
+              backgroundColor: ["#0082FF", "#0082FF","#0082FF","#0082FF","#0082FF", "#0082FF"],
+              data: [709, 250, 800, 200, 213, 254]
+            }, {
+              label: "Total",
+              backgroundColor: ["#FF9F00", "#FF9F00","#FF9F00","#FF9F00","#FF9F00", "#FF9F00"],
               data: [1509, 450, 1674, 375, 413, 508]
-            }
+            },
           ]
         },
         options: {
-          legend: { display: true },
           title: true,
-          text: 'Gross Revenue of Harvest per Value Chain'
+          text: 'Gross Revenue of Value Chain per Project Participant',
+          multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
         }
       });
 

@@ -17,7 +17,7 @@
 @include('ppi/partials/_header')
 
 <div class="panel-body">
-  <h2><center><strong>Add</strong> Household Income Sources</center></h2>
+  <h2><center><strong>Add</strong> PPI Information</center></h2>
   </br></br>
 
   {!! Form::model(new App\Ppi, ['method' => 'POST', 'route' => ['ppi.store']]) !!}

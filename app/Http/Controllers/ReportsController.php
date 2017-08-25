@@ -87,6 +87,7 @@ class ReportsController extends Controller
     */
 
     // This query will return the number of members using improved seed in the last 3 months
+    /*
     $impSeed = DB::table('group_member_metrics')
             ->join('group_details', 'group_member_metrics.group_details_id', '=', 'group_details.id')
             ->select(DB::raw('COUNT(DISTINCT(group_member_metrics.member_id)) as num_members'))
@@ -112,6 +113,8 @@ class ReportsController extends Controller
             ->whereDate('group_details.report_term_date', '>', $quarter)
             ->get()->toArray();
     $impPractices = array_column($impPractices, 'num_members');
+*/
+
 
     // This query returns the number of members in each risk group based on their ppi scores
     $ppi = DB::table('ppi_scores')
@@ -121,6 +124,7 @@ class ReportsController extends Controller
             sum(case when total_ppi_score >= 0 and total_ppi_score < 25 then 1 else 0 end) as num_xtrm_risk'))
             ->whereDate('report_term_date', '>', $quarter)
             ->get();
+
 
     $pillars = DB::table('pillar_members_quarterly')
             ->select('report_term_date', 'num_end_to_end', 'num_nrm', 'num_drr', 'num_ewv')
@@ -133,6 +137,62 @@ class ReportsController extends Controller
     $numNrm = array_column($pillars, 'num_nrm');
     $numDrr = array_column($pillars, 'num_drr');
     $numEwv = array_column($pillars, 'num_ewv');
+
+
+    $newThreeQtr =  $threeQuarter->toDateString();
+    $newCurr = $current->toDateString();
+
+    // This query shows the number of households involved in each pillar over the past 9 months
+    $pillar_one = DB::table('members_per_pillar_by_quarter')
+            ->select(DB::Raw('report_term_date', 'SUM(pillar_one) as pillar_one'))
+            ->whereDate('report_term_date', '>', $threeQuarter)
+            ->whereDate('report_term_date', '<=', $current)
+            ->groupBy('report_term_date')
+            ->get()->toArray();
+    $pillar_one = array_column($pillar_one, 'pillar_one');
+
+    $pillar_two = DB::table('members_per_pillar_by_quarter')
+            ->select(DB::Raw('report_term_date', 'SUM(pillar_two) as pillar_two'))
+            ->whereDate('report_term_date', '>', $threeQuarter)
+            ->whereDate('report_term_date', '<=', $current)
+            ->groupBy('report_term_date')
+            ->get()->toArray();
+    $pillar_two = array_column($pillar_two, 'pillar_two');
+
+    $pillar_three = DB::table('members_per_pillar_by_quarter')
+            ->select(DB::Raw('report_term_date', 'SUM(pillar_three) as pillar_three'))
+            ->whereDate('report_term_date', '>', $threeQuarter)
+            ->whereDate('report_term_date', '<=', $current)
+            ->groupBy('report_term_date')
+            ->get()->toArray();
+    $pillar_three = array_column($pillar_three, 'pillar_three');
+
+    $pillar_four = DB::table('members_per_pillar_by_quarter')
+            ->select(DB::Raw('report_term_date', 'SUM(pillar_four) as pillar_four'))
+            ->whereDate('report_term_date', '>', $threeQuarter)
+            ->whereDate('report_term_date', '<=', $current)
+            ->groupBy('report_term_date')
+            ->get()->toArray();
+    $pillar_four = array_column($pillar_four, 'pillar_four');
+
+
+    // This query returns the number of households at each graduation step for the past 3 months
+    $gradSteps = DB::table('members_by_grad_step_by_quarter')
+            ->select(DB::raw('num_grad_step, sex, count(distinct(member_id)) as num_members'))
+            ->whereDate('report_term_date', '>', $quarter)
+            ->whereDate('report_term_date', '<=', $current)
+            ->groupBy('sex', 'num_grad_step')
+            ->get()->toArray();
+
+    // This query returns the number of pillars that each household is involved in.
+    // Ie - How many households are involved in activities from 2 different pillars, 3 different pillars, etc.
+    $pillarsByHousehold = DB::table('pillar_members_count_by_quarter')
+            ->select(DB::raw('num_pillars, count(distinct(member_id)) as num_members'))
+            ->whereDate('report_term_date', '>', $quarter)
+            ->whereDate('report_term_date', '<=', $current)
+            ->groupBy('num_pillars')
+            ->get()->toArray();
+
 /*
     $ppi->map(function($i) {
       return array_values((array)$i);
@@ -175,15 +235,18 @@ class ReportsController extends Controller
       'totalSavingsGroups' => $numSavingsGroups[0],
       'totalProducers' => $totalProducers[0],
       'savingsBalance' => $totalSavings[0],
-      'impSeed' => json_encode($impSeed),
-      'impStorage' => json_encode($impStorage),
-      'impPractices' => json_encode($impPractices),
       'ppi' => json_encode($ppi),
       'labels' => json_encode($quarters),
       'endToEnd' => json_encode($numEndtoEnd),
       'nrm' => json_encode($numNrm),
       'drr' => json_encode($numDrr),
       'ewv' => json_encode($numEwv),
+      'pillarOne' => json_encode($pillar_one),
+      'pillarTwo' => json_encode($pillar_two),
+      'pillarThree' => json_encode($pillar_three),
+      'pillarFour' => json_encode($pillar_four),
+      'gradSteps' => json_encode($gradSteps),
+      'pillarsByHousehold' => json_encode($pillarsByHousehold),
     );
 
 /*
@@ -316,14 +379,17 @@ class ReportsController extends Controller
     // Get the number of farmers engaged in project value chains for the last 3 months
     $valueChains = DB::table('group_details')
             ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
-            ->select('group_details.report_term_date', 'group_details.value_chain', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
+            ->join('person', 'person.nrc_number', '=', 'group_member_metrics.member_id')
+            ->select('group_details.report_term_date', 'group_details.value_chain', 'person.sex', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
             ->whereDate('group_details.report_term_date', '>', $quarter)
             ->whereDate('group_details.report_term_date', '<=', $current)
-            ->groupBy('group_details.report_term_date', 'group_details.value_chain')
+            ->groupBy('person.sex', 'group_details.value_chain', 'group_details.report_term_date')
             ->orderBy('group_details.report_term_date')
             ->get()->toArray();
     $chainLabels = array_column($valueChains, 'value_chain');
     $chainMembers = array_column($valueChains, 'members');
+
+
 
 
     $quarters = array();
