@@ -12,49 +12,32 @@
     'Zambia' => 'Zambia'
   )) !!}
 -->
-  <!--
-  <script type="text/javascript">
-        $('#group_id').select2({
-          placeholder: 'Groups',
-          tags: true,
-          tokenSeparators: [',',' '],
-          ajax: {
-            url: '/groups/create',
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<div class="form-group row">
+  {!! Form::label('group_id1', 'Select a Group', array('class' => 'col-md-3 form-control-label')) !!}
+  <div class="col-sm-5">
+  {!! Form::select('group_id1', $groups, array('id' => 'group_id1', 'class' => 'form-control') ) !!}
+<script>
+    $('#group_id1').select2({
+        placeholder: "Choose groups...",
+        minimumInputLength: 2,
+        ajax: {
+            url: '/groups/find',
             dataType: 'json',
-            delay: 250,
             data: function (params) {
-              return {q: params.term }
+                return {
+                    q: $.trim(params.term)
+                };
             },
-            processResults:  function (data) {
-              return data;
-            }
-          }
-        });
-  </script>
--->
-
-  <!--
-        $('#group_id1').select2({
-          placeholder: 'Groups',
-          ajax: {
-            url: '/groups/create',
-            dataType: 'json',
-            delay: 250,
             processResults: function (data) {
-              return {
-                results:  $.map(data, function (item) {
-                      return {
-                          text: item.name,
-                          id: item.id
-                      }
-                  })
-              };
+                return {
+                    results: data
+                };
             },
             cache: true
-          }
-        });
-  </script>
--->
+        }
+    });
+</script>
 
   </div>
   <span class="help-block"><br></span>

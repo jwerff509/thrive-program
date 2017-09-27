@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::resource('groups', 'GroupsController');
 Route::resource('groups.group_details', 'GroupDetailsController');
 Route::resource('group_sales_locations', 'GroupSalesLocationsController');
@@ -41,7 +42,13 @@ Route::get('groups/{id}/group_details/create', 'GroupDetailsController@create');
 Route::get('groups/{id}/group_details/{groupDetailsID}/create', 'GroupMemberMetricsController@create');
 Route::get('person/{id}/income/create', 'IncomeController@create');
 Route::get('person/{id}/ppi/create', 'PpiController@create');
-Route::get('group-select', 'GroupsController@autoComplete');
+
+Route::get('groups/search', function() {
+    return view('groups.search');
+});
+Route::get('groups/find', 'GroupsController@find');
+
+
 
 // Route for chartjs
 Route::get('chartjs', 'ReportsController@chartjs');

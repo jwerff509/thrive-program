@@ -165,6 +165,7 @@ return [
         'Collective\Html\HtmlServiceProvider',
         Maatwebsite\Excel\ExcelServiceProvider::class,
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+        Sofa\Eloquence\ServiceProvider::class,
 
         /*
          * Package Service Providers...

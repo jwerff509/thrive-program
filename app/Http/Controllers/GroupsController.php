@@ -136,4 +136,24 @@ class GroupsController extends Controller
         return Redirect::route('groups.index')->with('message', 'Group Deleted Successfully');
     }
 
+
+    public function find(Request $request)
+    {
+        $term = trim($request->q);
+
+        if (empty($term)) {
+            return \Response::json([]);
+        }
+
+        $tags = Group::search($term)->limit(5)->get();
+
+        $formatted_tags = [];
+
+        foreach ($tags as $tag) {
+            $formatted_tags[] = ['id' => $tag->id, 'text' => $tag->name];
+        }
+
+        return \Response::json($formatted_tags);
+    }
+
 }
