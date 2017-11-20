@@ -184,6 +184,8 @@ class ReportsController extends Controller
             ->groupBy('sex', 'num_grad_step')
             ->get()->toArray();
 
+
+
     // This query returns the number of pillars that each household is involved in.
     // Ie - How many households are involved in activities from 2 different pillars, 3 different pillars, etc.
     $pillarsByHousehold = DB::table('pillar_members_count_by_quarter')

@@ -49,13 +49,14 @@
   {!! Form::label('value_chain', 'G4: Primary Value Chain', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
     {!! Form::select('value_chain', array(
-      '1' => 'Aquaculture',
-      '2' => 'Beans',
-      '3' => 'Dairy',
-      '4' => 'Goats',
-      '5' => 'Groundnuts',
-      '6' => 'Horticulture',
-      '7' => 'Poultry'
+      '1' => 'Goats (units)',
+      '2' => 'Horticulture (KG)',
+      '3' => 'Groundnuts (KG)',
+      '4' => 'Maize (KG)',
+      '5' => 'Beans (KG)',
+      '6' => 'Poultry (units)',
+      '7' => 'Dairy (liters)',
+      '8' => 'Aquaculture (KG)'
     )) !!}
     <span class="help-block"></br></span>
   </div>
