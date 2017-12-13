@@ -177,20 +177,32 @@ class ReportsController extends Controller
 
 
     // This query returns the number of households at each graduation step for the past 3 months
+/*
+    \DB::listen(function($gradSteps) {
+    var_dump($gradSteps);
+});
+*/
+
+
     $gradSteps = DB::table('members_by_grad_step_by_quarter')
             ->select(DB::raw('num_grad_step, sex, count(distinct(member_id)) as num_members'))
-            ->whereDate('report_term_date', '>', $quarter)
+            ->whereDate('report_term_date', '>', $threeQuarter)
             ->whereDate('report_term_date', '<=', $current)
             ->groupBy('sex', 'num_grad_step')
             ->get()->toArray();
 
+
+/*
+          echo json_encode($gradSteps) ."<br>";
+          exit;
+*/
 
 
     // This query returns the number of pillars that each household is involved in.
     // Ie - How many households are involved in activities from 2 different pillars, 3 different pillars, etc.
     $pillarsByHousehold = DB::table('pillar_members_count_by_quarter')
             ->select(DB::raw('num_pillars, count(distinct(member_id)) as num_members'))
-            ->whereDate('report_term_date', '>', $quarter)
+            ->whereDate('report_term_date', '>', $threeQuarter)
             ->whereDate('report_term_date', '<=', $current)
             ->groupBy('num_pillars')
             ->get()->toArray();
