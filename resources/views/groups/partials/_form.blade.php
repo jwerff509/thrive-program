@@ -11,13 +11,17 @@
     'Zambia' => 'Zambia'
   )) !!}
 -->
+
+<!--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <div class="form-group row">
   {!! Form::label('group_id1', 'Select a Group', array('class' => 'col-md-3 form-control-label')) !!}
   <div class="col-sm-5">
   {!! Form::select('group_id1', $groups, array('id' => 'group_id1', 'class' => 'form-control') ) !!}
-
+  <span class="help-block"><br>OR Enter a Group ID </span>
 <script>
+  $(document).ready(function() {
+
     $('#group_id1').select2({
         placeholder: "Choose groups...",
         minimumInputLength: 2,
@@ -37,12 +41,13 @@
             cache: true
         }
     });
+  });
 </script>
 
   </div>
-  <span class="help-block"><br></span>
-</div>
 
+</div>
+-->
 
 
 <div class="form-group row">
@@ -88,7 +93,7 @@
       'Katete' => 'Katete',
       'Buyantanshi' => 'Buyantanshi',
       'Kawaza' => 'Kawaza',
-    )) !!}
+    'class' => 'form-control')) !!}
     <span class="help-block">
       @if ($errors->has('area_program'))
         {{ $errors->first('area_program') }}

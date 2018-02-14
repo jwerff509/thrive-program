@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Person;
+use App\PersonSurvey;
 use App\Income;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -12,7 +12,7 @@ class PersonController extends Controller
 {
 
     protected $rules = [
-        'nrc_number' => ['required'],
+        'member_id' => ['required'],
         'last_name' => ['required', 'max:191'],
         'first_name' => ['required', 'max:191'],
     ];
@@ -49,13 +49,23 @@ class PersonController extends Controller
       $this->validate($request, $this->rules);
 
       $input = Input::all();
-      $newPerson = Person::create($input);
+
+      $newPerson = PersonSurvey::create($input);
 
       $last_inserted = $newPerson->id;
+      $next = Input::get('submitbutton');
 
-      return Redirect()->action(
-        'IncomeController@create', [$last_inserted]
-      );
+      If($next == 'Save and Add Another')
+      {
+        $lastGroupID = Input::get('group_id');
+        $lastGroupDetailsID = Input::get('group_details_id');
+
+        return Redirect()->action(
+          'PersonController@create', [$last_inserted]
+        );
+      } else {
+        return view('home');
+      }
 
     }
 

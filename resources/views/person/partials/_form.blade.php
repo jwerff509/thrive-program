@@ -1,110 +1,143 @@
 <div class="form-group row">
-  {!! Form::label('nrc_number', 'Farmer ID (NRC Number):', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-5">
-    {!! Form::text('nrc_number', '', array('class' => 'form-control')) !!}
+  <div class="form-group <?php echo ($errors->has('member_id')) ? 'has-error' : ''; ?>">
+    {!! Form::label('member_id', 'NRC#: Unique ID', array('class' => 'col-md-5 form-control-label')) !!}
+      <div class="col-md-4">
+        {!! Form::text('member_id', '', array('class' => 'form-control')) !!}
+        <span class="help-block">
+          @if ($errors->has('member_id'))
+            {{ $errors->first('member_id') }}
+          @endif
+        </span>
+      </div>
   </div>
 </div>
 
 <div class="form-group row">
-  {!! Form::label('last_name', 'Last Name:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-5">
-    {!! Form::text('last_name', '', array('class' => 'form-control')) !!}
+  <div class="form-group <?php echo ($errors->has('last_name')) ? 'has-error' : ''; ?>">
+    {!! Form::label('last_name', 'HHID2: Family Name', array('class' => 'col-md-5 form-control-label')) !!}
+      <div class="col-md-4">
+        {!! Form::text('last_name', '', array('class' => 'form-control')) !!}
+        <span class="help-block">
+          @if ($errors->has('last_name'))
+            {{ $errors->first('last_name') }}
+          @endif
+        </span>
+      </div>
   </div>
 </div>
 
 <div class="form-group row">
-  {!! Form::label('first_name', 'First Name:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-5">
-    {!! Form::text('first_name', '', array('class' => 'form-control')) !!}
+  <div class="form-group <?php echo ($errors->has('first_name')) ? 'has-error' : ''; ?>">
+    {!! Form::label('first_name', 'HHID3: Other Names', array('class' => 'col-md-5 form-control-label')) !!}
+      <div class="col-md-4">
+        {!! Form::text('first_name', '', array('class' => 'form-control')) !!}
+        <span class="help-block">
+          @if ($errors->has('first_name'))
+            {{ $errors->first('first_name') }}
+          @endif
+        </span>
+      </div>
   </div>
 </div>
 
 <div class="form-group row">
-  {!! Form::label('middle_name', 'Middle Name:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-5">
-    {!! Form::text('middle_name', '', array('class' => 'form-control')) !!}
+  {!! Form::label('improved_seed', 'H1: Improved seed', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::select('improved_seed', array('0' => 'No', '1' => 'Yes')) !!}
   </div>
 </div>
-
 <div class="form-group row">
-  {!! Form::label('sex', 'Sex:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-5">
-    {!! Form::select('sex', array('Female' => 'Female', 'Male' => 'Male')) !!}
+  {!! Form::label('improved_storage', 'H2: Improved storage', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::select('improved_storage', array('0' => 'No', '1' => 'Yes')) !!}
   </div>
 </div>
-
 <div class="form-group row">
-  {!! Form::label('cellphone_number', 'Cellphone Number:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-5">
-    {!! Form::text('cellphone_number', '', array('class' => 'form-control')) !!}
+  {!! Form::label('improved_practices', 'H3: Improved practices', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::select('improved_practices', array('0' => 'No', '1' => 'Yes')) !!}
   </div>
 </div>
-
 <div class="form-group row">
-  {!! Form::label('spouse_name', 'Spouse Name:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-5">
-    {!! Form::text('spouse_name', '', array('class' => 'form-control')) !!}
+  {!! Form::label('hectares_with_irrigation', 'H4: # hectares with irrigation:', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::text('hectares_with_irrigation', '', array('class' => 'form-control')) !!}
   </div>
 </div>
-
 <div class="form-group row">
-  {!! Form::label('children_under_59_months', '# of Children 0-59 Months:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-2">
-    {!! Form::selectRange('males_under_59_months', 0, 15) !!}
-    <span class="help-block">Males</span>
-  </div>
-  <div class="col-md-2">
-    {!! Form::selectRange('females_under_59_months', 0, 15) !!}
-    <span class="help-block">Females</span>
+  {!! Form::label('accessed_vf_loan', 'H5: Accessed VF loan', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::select('accessed_vf_loan', array('0' => 'No', '1' => 'Yes')) !!}
   </div>
 </div>
-
 <div class="form-group row">
-  {!! Form::label('children_6_to_14', '# of Children 6-14 Years:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-2">
-    {!! Form::selectRange('males_6_to_14', 0, 15) !!}
-    <span class="help-block">Males</span>
-  </div>
-  <div class="col-md-2">
-    {!! Form::selectRange('females_6_to_14', 0, 15) !!}
-    <span class="help-block">Females</span>
+  {!! Form::label('crop_insurance', 'H6: Crop Insurance', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::select('crop_insurance', array('0' => 'No', '1' => 'Yes')) !!}
   </div>
 </div>
-
 <div class="form-group row">
-  {!! Form::label('children_6_to_14', '# of Children 15-18 Years:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-2">
-    {!! Form::selectRange('males_15_to_18', 0, 15) !!}
-    <span class="help-block">Males</span>
-  </div>
-  <div class="col-md-2">
-    {!! Form::selectRange('females_15_to_18', 0, 15) !!}
-    <span class="help-block">Females</span>
+  {!! Form::label('hectares_harvested', 'H7: Hectares harvested (of VC)', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::text('hectares_harvested', '', array('class' => 'form-control')) !!}
   </div>
 </div>
-
 <div class="form-group row">
-  {!! Form::label('adults_over_19', '# of Adults 19 Years and Above:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-2">
-    {!! Form::selectRange('male_adults', 0, 15) !!}
-    <span class="help-block">Males</span>
-  </div>
-  <div class="col-md-2">
-    {!! Form::selectRange('female_adults', 0, 15) !!}
-    <span class="help-block">Females</span>
+  {!! Form::label('kgs_harvested', 'H8: # of KGs Harvested (of VC)', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::text('kgs_harvested', '', array('class' => 'form-control')) !!}
   </div>
 </div>
-
-<!--
 <div class="form-group row">
-  {!! Form::label('total_household_size', 'Total Household Size:', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-5">
-    {!! Form::selectRange('total_household_size', 0, 30) !!}
+  {!! Form::label('vc_units_sold', 'HH9: # of units sold', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::text('vc_units_sold', '', array('class' => 'form-control')) !!}
   </div>
 </div>
--->
-
+<div class="form-group row">
+  {!! Form::label('hectares_reclaimed', 'HH10: # Hectares reclaimed', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::text('hectares_reclaimed', '', array('class' => 'form-control')) !!}
+  </div>
+</div>
+<div class="form-group row">
+  {!! Form::label('hectares_under_conservation', 'HH11: # Hectares soil/water conservation', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::text('hectares_under_conservation', '', array('class' => 'form-control')) !!}
+  </div>
+</div>
+<div class="form-group row">
+  {!! Form::label('water_catchment_used', 'HH12: Water catchment used', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::select('water_catchment_used', array('0' => 'No', '1' => 'Yes')) !!}
+  </div>
+</div>
+<div class="form-group row">
+  {!! Form::label('emergency_savings', 'HH13: Have savings for emergency', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::select('emergency_savings', array('0' => 'No', '1' => 'Yes')) !!}
+  </div>
+</div>
+<div class="form-group row">
+  {!! Form::label('use_ews', 'HH14: Use EWS', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::select('use_ews', array('0' => 'No', '1' => 'Yes')) !!}
+  </div>
+</div>
+<div class="form-group row">
+  {!! Form::label('ewv_training', 'HH15: EWV Training', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::select('ewv_training', array('0' => 'No', '1' => 'Yes')) !!}
+  </div>
+</div>
+<div class="form-group row">
+  {!! Form::label('mindset_change', 'HH16: Mindset change', array('class' => 'col-md-5 form-control-label')) !!}
+  <div class="col-md-4">
+    {!! Form::select('mindset_change', array('0' => 'No', '1' => 'Yes')) !!}
+  </div>
+</div>
 <div class="card-footer text-center">
-  {!! Form::submit($submit_text, ['class' => 'btn btn-sm btn-primary']) !!}
+  {!! Form::submit('Save and Add Another', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
+  {!! Form::submit('Save and Close', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
   {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
 </div>

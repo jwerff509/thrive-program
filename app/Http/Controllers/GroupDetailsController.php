@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\GroupDetails;
+use App\ValueChains;
+use App\ReportingTerms;
+use App\Vegetables;
+use App\ValueChainUnits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -31,10 +35,15 @@ class GroupDetailsController extends Controller
         // Get the group
         $group = Group::find($id);
 
+        $valueChains = ValueChains::pluck('description', 'id');
+        $reportingTerms = ReportingTerms::pluck('description', 'id');
+        $vegetables = Vegetables::pluck('description', 'id');
+        $valueChainUnits = ValueChainUnits::pluck('description', 'id');
+
         // Get the reporting terms
         // This needs to be added later
 
-        return view('group_details.create')->with('group', $group);
+        return view('group_details.create', compact('group', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits'));
     }
 
     /**

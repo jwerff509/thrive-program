@@ -22,11 +22,12 @@
 
                 <div class="panel-body">
                     Please choose one of the following:
-                    <br>
-                    <a href="{{ url('groups/create') }}">Enter Group Information</a>
-                    <br>
-                    <a href="{{ url('person/create') }}">Enter Person/Household Information</a>
+                    <br><br>
+                    <a href="{{ url('groups/create') }}">Enter Group Survey</a>
+                    <br><br>
+                    <a href="{{ url('person/create') }}">Enter Individual Survey</a>
                 </div>
+
             </div>
         </div>
     </div>

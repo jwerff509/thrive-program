@@ -7,6 +7,8 @@ use App\GroupDetails;
 use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Redirect;
 
 class GroupsController extends Controller
@@ -25,6 +27,7 @@ class GroupsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $groups = Group::all();
@@ -41,7 +44,7 @@ class GroupsController extends Controller
 
         $groups = Group::all();
 
-        $dbGroups = $groups->pluck('name', 'id');
+        $dbGroups = $groups->pluck('group_id', 'name');
 
         return view('groups.create', ['groups' => $dbGroups]);
     }
@@ -67,6 +70,7 @@ class GroupsController extends Controller
 
         //$input = Input::except('country');
         $input = Input::all();
+
         $newGroup = Group::create($input);
 
         $last_inserted = $newGroup->id;
@@ -91,7 +95,7 @@ class GroupsController extends Controller
         $dbGroups = $groups->pluck('id', 'name', 'area_program', 'village_name');
 
         //Show the view and pass the group to it
-        return view('groups.index')->with('groups', json_encode($dbGroups));
+        return view('groups.search')->with('groups', json_encode($dbGroups));
 
 
     }
@@ -106,6 +110,7 @@ class GroupsController extends Controller
     {
         return view('groups.edit', compact('groups'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -123,6 +128,7 @@ class GroupsController extends Controller
         return Redirect::route('groups.show', $group->id)->with('message', 'Group Updated Successfully');
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -135,6 +141,7 @@ class GroupsController extends Controller
 
         return Redirect::route('groups.index')->with('message', 'Group Deleted Successfully');
     }
+
 
 
     public function find(Request $request)
@@ -155,5 +162,7 @@ class GroupsController extends Controller
 
         return \Response::json($formatted_tags);
     }
+
+
 
 }

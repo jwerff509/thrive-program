@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<b><span style="color:#f3912d">Thrive </span></b>',
+    'logo' => '<b><span style="color:#f3912d">Thrive</span></b>',
 
     'logo_mini' => '<b><span style="color:#f3912d">TZ</span></b>',
 
@@ -120,25 +120,35 @@ return [
             'icon_color'  => 'orange',
         ],
         [
-            'text'        => 'Quarterly Monitoring',
+            'text'        => 'Enter Group Survey',
+            'icon'        => 'group',
             'url'         => 'groups/create',
             'icon_color'  => 'orange',
+
         ],
         [
-            'text'        => 'Registration Information',
+            'text'        => 'Enter Individual Survey',
+            'icon'        => 'user-plus',
             'url'         => 'person/create',
             'icon_color'  => 'orange',
         ],
         'REPORTS',
         [
             'text'        => 'Main Dashboard',
+            'icon'        => 'dashboard',
             'url'         => '/dashboard',
             'icon_color'  => 'green',
         ],
         [
             'text'        => 'Business Metrics',
+            'icon'        => 'line-chart',
             'url'         => '/pillars',
             'icon_color'  => 'green',
+        ],
+        [
+            'text'        => 'Search test',
+            'url'         => 'groups/search',
+            'icon_color'  => 'red',
         ],
         /*
         [

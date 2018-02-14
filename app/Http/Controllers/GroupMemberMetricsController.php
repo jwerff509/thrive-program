@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Group;
 use App\GroupDetails;
 use App\GroupMemberMetrics;
+use App\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
+Use DB;
 
 class GroupMemberMetricsController extends Controller
 {
@@ -42,8 +44,26 @@ class GroupMemberMetricsController extends Controller
       // Get the reporting terms
       // This needs to be added later
 
-      return view('group_member_details.create')->with('group', $group)->with('groupDetails', $groupDetails);
+      //$members = Person::pluck('nrc_number', 'last_name', 'first_name', 'sex', 'cellphone_number');
+      $members = DB::table('person')
+              ->join('group_member_metrics', 'group_member_metrics.member_id', '=', 'person.nrc_number')
+              ->select('person.nrc_number', 'person.last_name', 'person.first_name', 'person.sex', 'person.cellphone_number')
+              ->where('group_member_metrics.group_id', '=', '4')
+              ->get()->toArray();
+      //$members = array_column($members, 'num_members');
+      //$members = Person::find(1);
+      //$members = Person::all();
 
+
+
+
+
+      //$test = compact('members');
+      //var_dump($members);
+      //exit;
+
+      //return view('group_member_details.create')->with('group', $group)->with('groupDetails', $groupDetails)->with('members', $members);
+      return view('group_member_details.create', compact('group', 'groupDetails', 'members'));
     }
 
     /**

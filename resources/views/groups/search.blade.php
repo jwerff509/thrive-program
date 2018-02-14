@@ -16,7 +16,7 @@
 
                 <form>
                     <div class="form-group">
-                        <label for="tag_list">Tags:</label>
+                        <label for="tag_list">Tags Testing:</label>
                         <select id="tag_list" name="tag_list[]" class="form-control" multiple></select>
                     </div>
                 </form>

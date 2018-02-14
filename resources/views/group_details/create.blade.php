@@ -1,4 +1,3 @@
-
 @extends('adminlte::page')
 
 @section('title', 'Add Group Details')
@@ -9,9 +8,8 @@
 @stop
 --}}
 
-{{--
-@extends('layouts.app')
---}}
+{{-- @extends('layouts.app') --}}
+
 @section('content')
 
 @include('group_details/partials/_header')

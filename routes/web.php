@@ -33,20 +33,36 @@ Route::model('groups', 'Group');
 Route::model('group_details', 'GroupDetails');
 Route::model('group_sales_locations', 'GroupSalesLocations');
 Route::model('group_member_metrics', 'GroupMemberMetrics');
-Route::model('person', 'Person');
+Route::model('person', 'PersonSurvey');
 Route::model('income', 'Income');
 Route::model('ppi', 'Ppi');
 Route::model('dashboard', 'Ppi');
 
 Route::get('groups/{id}/group_details/create', 'GroupDetailsController@create');
 Route::get('groups/{id}/group_details/{groupDetailsID}/create', 'GroupMemberMetricsController@create');
+/*
+Route::get('groups/{id}/group_details/{groupDetailsID}/create', function() {
+  $members = Person::all();
+  return view('group_member_details.create')->with('members', $members);
+});
+*/
 Route::get('person/{id}/income/create', 'IncomeController@create');
 Route::get('person/{id}/ppi/create', 'PpiController@create');
 
-Route::get('groups/search', function() {
+
+
+Route::get('/search', function() {
     return view('groups.search');
 });
-Route::get('groups/find', 'GroupsController@find');
+Route::get('/groups/find', 'GroupsController@find');
+
+
+// Routes for testing Select2.js
+Route::get('/tags', function() {
+  return view('tags');
+});
+Route::get('/tags/find', 'TagController@find');
+
 
 
 

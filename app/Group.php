@@ -11,11 +11,12 @@ class Group extends Model
   use Eloquence;
 
   protected $searchableColumns = ['name'];
-
+  
 
   protected $fillable = [
     'group_id', 'name', 'area_program', 'zone', 'village_name'
   ];
+
 
   public function groupDetails()
   {
