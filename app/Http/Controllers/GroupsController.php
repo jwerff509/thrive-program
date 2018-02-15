@@ -15,7 +15,6 @@ class GroupsController extends Controller
 {
 
     protected $rules = [
-        'group_id' => ['required', 'numeric'],
         'name' => ['required', 'max:191'],
         'zone' => ['required', 'max:191'],
         'area_program' => ['required', 'max:191'],
@@ -43,7 +42,6 @@ class GroupsController extends Controller
     {
 
         $groups = Group::all();
-
         $dbGroups = $groups->pluck('group_id', 'name');
 
         return view('groups.create', ['groups' => $dbGroups]);
@@ -70,7 +68,6 @@ class GroupsController extends Controller
 
         //$input = Input::except('country');
         $input = Input::all();
-
         $newGroup = Group::create($input);
 
         $last_inserted = $newGroup->id;
@@ -96,7 +93,6 @@ class GroupsController extends Controller
 
         //Show the view and pass the group to it
         return view('groups.search')->with('groups', json_encode($dbGroups));
-
 
     }
 

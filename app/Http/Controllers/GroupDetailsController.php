@@ -35,15 +35,15 @@ class GroupDetailsController extends Controller
         // Get the group
         $group = Group::find($id);
 
-        $valueChains = ValueChains::pluck('description', 'id');
-        $reportingTerms = ReportingTerms::pluck('description', 'id');
-        $vegetables = Vegetables::pluck('description', 'id');
-        $valueChainUnits = ValueChainUnits::pluck('description', 'id');
+        $valueChains = ValueChains::pluck('description', 'id')->all();
+        $reportingTerms = ReportingTerms::pluck('description', 'id')->all();
+        $vegetables = Vegetables::pluck('description', 'id')->all();
+        $valueChainUnits = ValueChainUnits::pluck('description', 'id')->all();
 
         // Get the reporting terms
         // This needs to be added later
 
-        return view('group_details.create', compact('group', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits'));
+        return view('group_details.create', compact('group', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations'));
     }
 
     /**

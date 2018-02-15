@@ -13,8 +13,6 @@
       '2018' => '2018',
       '2017' => '2017',
       '2016' => '2016',
-      '2015' => '2015',
-      '2014' => '2014',
     )) !!}
     <span class="help-block"></br></span>
   </div>
@@ -27,9 +25,9 @@
   </div>
 </div>
 <div class="form-group row">
-  {!! Form::label('savings_group', 'G2: Members actively saving in a savings group in the last 3 months', array('class' => 'col-md-5 form-control-label')) !!}
+  {!! Form::label('savings_group_members', 'G2: Members actively saving in a savings group in the last 3 months', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
-    {!! Form::select('savings_group', array('0' => 'No', '1' => 'Yes')) !!}
+    {!! Form::text('savings_group_members', '', array('class' => 'form-control')) !!}
     <span class="help-block"></br></span>
   </div>
 </div>
@@ -44,15 +42,21 @@
 <div class="form-group row">
   {!! Form::label('value_chain', 'G4: PRIMARY THRIVE Supported Value Chain', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
-    {!! Form::select('value_chain', $valueChains, array('id' => 'id', 'class' => 'form-control')) !!}
+    {!! Form::select('value_chain', array('default' => 'Select a value chain...') + $valueChains, array('id' => 'id', 'class' => 'form-control')) !!}
     <span class="help-block"></br></span>
   </div>
 </div>
 
+
+
+<!-- Need to add logic here to only show the vegetable select box if the Primary Thrive supported value chain is horticulture   -->
+
+
+
 <div class="form-group row">
   {!! Form::label('primary_veg', 'G5: PRIMARY vegetbale grown during this quarter', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
-    {!! Form::select('primary_veg', $vegetables, array('id' => 'id', 'class' => 'form-control')) !!}
+    {!! Form::select('primary_veg', array('default' => 'Select a vegetable...') + $vegetables, array('id' => 'id', 'class' => 'form-control')) !!}
     <span class="help-block"></br></span>
   </div>
 </div>
@@ -60,7 +64,7 @@
 <div class="form-group row">
   {!! Form::label('sales_unit', 'G6a: PRIMARY unit of sale for this value chain', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
-    {!! Form::select('sales_unit', $valueChainUnits, array('id' => 'id', 'class' => 'form-control')) !!}
+    {!! Form::select('sales_unit', array('default' => 'Select a value chain unit...') + $valueChainUnits, array('id' => 'id', 'class' => 'form-control')) !!}
     <span class="help-block"></br></span>
   </div>
 </div>
@@ -78,7 +82,7 @@
   <div class="col-md-4">
     {!! Form::checkbox('sales_location[]', 'Village Market') !!}<span> Village Market <br></span>
     {!! Form::checkbox('sales_location[]', 'District Market') !!}<span> District Market <br></span>
-    {!! Form::checkbox('sales_location[]', 'Regional Market') !!}<span> Regional Market <br></span>
+    {!! Form::checkbox('sales_location[]', 'Provincial/Regional Market') !!}<span> Regional Market <br></span>
     {!! Form::checkbox('sales_location[]', 'National Market') !!}<span> National Market <br></span>
     {!! Form::checkbox('sales_location[]', 'International Market') !!}<span> International Market <br></span>
     <span class="help-block"></br></span>
@@ -86,7 +90,7 @@
 </div>
 
 
-
+<!--
 
 <div class="form-group row">
   {!! Form::label('trees_planted', 'G8: Number of trees planted/regenerated during this quarter', array('class' => 'col-md-5 form-control-label')) !!}
@@ -207,6 +211,8 @@
     <span class="help-block"></br></span>
   </div>
 </div>
+-->
+
 
 <div class="card-footer text-center">
   {!! Form::hidden('group_id', $group->id) !!}
