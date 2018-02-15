@@ -44,11 +44,13 @@ class GroupMemberMetricsController extends Controller
       // Get the reporting terms
       // This needs to be added later
 
+
+      //  Need to edit this code to display existing group members on this page!!!!
+
       //$members = Person::pluck('nrc_number', 'last_name', 'first_name', 'sex', 'cellphone_number');
-      $members = DB::table('person')
-              ->join('group_member_metrics', 'group_member_metrics.member_id', '=', 'person.nrc_number')
-              ->select('person.nrc_number', 'person.last_name', 'person.first_name', 'person.sex', 'person.cellphone_number')
-              ->where('group_member_metrics.group_id', '=', '4')
+      $members = DB::table('group_members')
+              ->select('nrc_number', 'family_name', 'other_name', 'sex', 'phone_number')
+              ->where('group_id', '=', $group->ID)
               ->get()->toArray();
       //$members = array_column($members, 'num_members');
       //$members = Person::find(1);
@@ -63,7 +65,10 @@ class GroupMemberMetricsController extends Controller
       //exit;
 
       //return view('group_member_details.create')->with('group', $group)->with('groupDetails', $groupDetails)->with('members', $members);
+
+
       return view('group_member_details.create', compact('group', 'groupDetails', 'members'));
+
     }
 
     /**
@@ -77,8 +82,16 @@ class GroupMemberMetricsController extends Controller
 
         $this->validate($request, $this->rules);
 
-        $input = Input::all();
-        $newMember = GroupMemberMetrics::create($input);
+        foreach($request as $input) {
+          $input = Input::all();
+          $newMember = GroupMemberMetrics::insert($input);
+        }
+
+
+
+
+
+
         $next = Input::get('submitbutton');
 
         If($next == 'Save and Add Another')

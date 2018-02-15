@@ -7,37 +7,78 @@
   {!! Form::label('phone_num', 'HHID5: Phone #', array('class' => 'col-md-1 form-control-label')) !!}
 </div>
 
-@foreach($members as $member)
 
-  <div class="form-inline">
+@if(count($members) > 0)
 
-    <div class="col-sm-1">
-      {!! Form::checkbox('active', '1', array('class' => 'form-control')) !!}
+  @foreach($members as $member)
+
+    <div class="form-inline">
+
+      <div class="col-sm-1">
+        {!! Form::checkbox('active', '1', array('class' => 'form-control')) !!}
+      </div>
+
+      <div class="col-sm-2">
+        {!! Form::text('member_id', $member->nrc_number, array('class' => 'form-control')) !!}
+      </div>
+
+      <div class="col-md-3">
+        {!! Form::text('family_name', $member->last_name, array('class' => 'form-control')) !!}
+      </div>
+
+      <div class="col-md-3">
+        {!! Form::text('other_name', $member->first_name, array('class' => 'form-control')) !!}
+      </div>
+
+      <div class="col-sm-1">
+        {!! Form::text('sex', $member->sex, array('class' => 'form-control')) !!}
+      </div>
+
+      <div class="col-md-2">
+        {!! Form::text('phone_number', $member->cellphone_number, array('class' => 'form-control')) !!}
+      </div>
+
     </div>
 
-    <div class="col-sm-2">
-      {!! Form::text('member_id', $member->nrc_number, array('class' => 'form-control')) !!}
+  @endforeach
+
+@else
+
+  @for($i=1; $i<=10; $i++)
+
+    <div class="form-inline">
+
+      <div class="col-sm-1">
+        {!! Form::checkbox('active[]', '1', array('class' => 'form-control')) !!}
+      </div>
+
+      <div class="col-sm-2">
+        {!! Form::text('member_id[]', '', array('class' => 'form-control')) !!}
+      </div>
+
+      <div class="col-md-3">
+        {!! Form::text('family_name[]', '', array('class' => 'form-control')) !!}
+      </div>
+
+      <div class="col-md-3">
+        {!! Form::text('other_name[]', '', array('class' => 'form-control')) !!}
+      </div>
+
+      <div class="col-sm-1">
+        {!! Form::text('sex[]', '', array('class' => 'form-control')) !!}
+      </div>
+
+      <div class="col-md-2">
+        {!! Form::text('phone_number[]', '', array('class' => 'form-control')) !!}
+      </div>
+
     </div>
 
-    <div class="col-md-3">
-      {!! Form::text('family_name', $member->last_name, array('class' => 'form-control')) !!}
-    </div>
+  @endfor
 
-    <div class="col-md-3">
-      {!! Form::text('other_name', $member->first_name, array('class' => 'form-control')) !!}
-    </div>
+@endif
 
-    <div class="col-sm-1">
-      {!! Form::text('sex', $member->sex, array('class' => 'form-control')) !!}
-    </div>
 
-    <div class="col-md-2">
-      {!! Form::text('phone_num', $member->cellphone_number, array('class' => 'form-control')) !!}
-    </div>
-
-  </div>
-
-@endforeach
 
 <div class="card-footer text-center">
   {!! Form::hidden('group_id', $group->id) !!}
