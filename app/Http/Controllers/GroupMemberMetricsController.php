@@ -36,6 +36,16 @@ class GroupMemberMetricsController extends Controller
     public function create($groupID, $groupDetailsID)
     {
 
+      /*
+      **  See this link - you need to change this function around!!!!
+      **
+      **  After the $members query, you need the IF statement - if there are members, send them to the edit group members page
+      **  If there aren't any members, send them to the create group members page.
+      **
+      **  https://selftaughtcoders.com/from-idea-to-launch/lesson-23/laravel-5-application-form-model-binding-laravelcollective-forms-html-library-bootstrap-framework/
+      **
+      */
+
       // Get the group
       $group = Group::find($groupID);
 
@@ -80,18 +90,34 @@ class GroupMemberMetricsController extends Controller
     public function store(Request $request)
     {
 
-        $this->validate($request, $this->rules);
+        //$inputs = $request->all();
 
-        foreach($request as $input) {
-          $input = Input::all();
-          $newMember = GroupMemberMetrics::insert($input);
+        //$inputs = Input::get('member_id');
+
+        $data = array(
+          'nrc_number' => $request->nrc_number,
+          'family_name' => $request->family_name,
+          'other_name' => $request->other_name,
+          'sex' => $request->sex,
+          'phone_number' => $request->phone_number
+        );
+
+
+
+        foreach($request as $key => $value) {
+
+
         }
 
 
+        exit;
 
 
 
+        $this->validate($request, $this->rules);
 
+        $input = Input::all();
+        $newMember = GroupMemberMetrics::insert($input);
         $next = Input::get('submitbutton');
 
         If($next == 'Save and Add Another')

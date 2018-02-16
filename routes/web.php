@@ -23,7 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('groups', 'GroupsController');
 Route::resource('groups.group_details', 'GroupDetailsController');
 Route::resource('group_sales_locations', 'GroupSalesLocationsController');
+
 Route::resource('group_member_details', 'GroupMemberMetricsController');
+
 Route::resource('person', 'PersonController');
 Route::resource('income', 'IncomeController');
 Route::resource('ppi', 'PpiController');
@@ -32,7 +34,9 @@ Route::resource('Dashboard', 'PpiController');
 Route::model('groups', 'Group');
 Route::model('group_details', 'GroupDetails');
 Route::model('group_sales_locations', 'GroupSalesLocations');
+
 Route::model('group_member_metrics', 'GroupMemberMetrics');
+
 Route::model('person', 'PersonSurvey');
 Route::model('income', 'Income');
 Route::model('ppi', 'Ppi');
