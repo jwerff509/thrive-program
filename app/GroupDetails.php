@@ -8,7 +8,7 @@ class GroupDetails extends Model
 {
 
     protected $fillable = [
-      'group_id', 'report_term_desc', 'year', 'report_term_date', 'savings_group', 'account_balance', 'producers_group', 'value_chain', 'value_chain_unit', 'sales_price', 'sales_locations'
+      'group_id', 'reporting_term', 'year', 'report_term_date', 'savings_group', 'account_balance', 'producers_group', 'value_chain', 'value_chain_unit', 'sales_price', 'sales_locations'
     ];
 
     public function groups()

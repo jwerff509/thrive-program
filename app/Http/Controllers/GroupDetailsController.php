@@ -44,6 +44,7 @@ class GroupDetailsController extends Controller
         // This needs to be added later
 
         return view('group_details.create', compact('group', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations'));
+
     }
 
     /**
@@ -56,39 +57,55 @@ class GroupDetailsController extends Controller
     {
 
       if(is_null($request->sales_location)) {
+
         $input = Input::all();
+
       } else {
+
         $input = $request->except(['sales_location']);
         $salesLocations = Input::get('sales_location[]');
 
         $temp = '';
 
         foreach($request->sales_location as $salesLocation) {
+
           $temp = $temp . $salesLocation .", ";
+
         }
 
         $input['sales_locations'] = $temp;
+
       }
 
-      if($request->report_term_desc == 'October - December') {
-        $rptDate = $request->year .'-12-31';
-      } elseif ($request->report_term_desc == 'January - March') {
-        $rptDate = $request->year .'-03-31';
-      } elseif ($request->report_term_desc == 'April - June') {
-        $rptDate = $request->year .'-06-30';
-      } else {
-        $rptDate = $request->year .'-09-30';
-      }
+      //$rptTerm = ReportingTerms::where('id', $request->reporting_term)->first();
 
-      $input['report_term_date'] = $rptDate;
+      //$input['reporting_term'] = $rptTerm->id;
+
+      $next = Input::get('submitbutton');
 
       $newGroupDetails = GroupDetails::create($input);
+
       $lastGroupID = Input::get('group_id');
+
       $lastGroupDetailsID = $newGroupDetails->id;
 
-      return Redirect()->action(
-        'GroupMemberMetricsController@create', [$lastGroupID, $lastGroupDetailsID]
-      );
+      if($next == 'Add Group Members') {
+
+        return Redirect()->action(
+          'GroupMemberMetricsController@create', [$lastGroupID, $lastGroupDetailsID]
+        );
+
+      } else {
+
+        return Redirect()->action(
+
+          'PersonController@create', [$lastGroupID, $lastGroupDetailsID]
+
+        );
+
+      }
+
+
 
     }
 

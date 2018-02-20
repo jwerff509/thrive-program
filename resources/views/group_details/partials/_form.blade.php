@@ -9,9 +9,9 @@
   {!! Form::label('year', 'ID7: Reporting Year', array('class' => 'col-md-5 form-control-label')) !!}
   <div class="col-md-4">
     {!! Form::select('year', array(
-      '2018' => '2018',
       '2017' => '2017',
-      '2016' => '2016',
+      '2018' => '2018',
+      '2019' => '2019',
     )) !!}
     <span class="help-block"></br></span>
   </div>
@@ -238,6 +238,7 @@
 
 <div class="card-footer text-center">
   {!! Form::hidden('group_id', $group->id) !!}
-  {!! Form::submit($submit_text, ['class' => 'btn btn-sm btn-primary']) !!}
+  {!! Form::submit('Add Group Members', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
+  {!! Form::submit('Add Individual Data', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
   {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
 </div>

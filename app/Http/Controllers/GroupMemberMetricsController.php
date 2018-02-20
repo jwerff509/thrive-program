@@ -6,6 +6,7 @@ use App\Group;
 use App\GroupDetails;
 use App\GroupMemberMetrics;
 use App\Person;
+use App\ReportingTerms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -15,7 +16,9 @@ class GroupMemberMetricsController extends Controller
 {
 
     protected $rules = [
-      'member_id' => 'required',
+      'nrc_number' => 'required',
+      'family_name' => 'required|string',
+      'other_name' => 'required|string',
     ];
 
     /**
@@ -46,13 +49,24 @@ class GroupMemberMetricsController extends Controller
       **
       */
 
+
+
+      /* When you get to the point of showing existing group members!
+      **
+      ** Have an "IF" statement - if there are members, redirect to the edit page
+      ** If not, redirect to the create page.
+      */
+
+
       // Get the group
       $group = Group::find($groupID);
 
       // Get the group details record
       $groupDetails = GroupDetails::find($groupDetailsID);
+
       // Get the reporting terms
-      // This needs to be added later
+      $rptTerm = ReportingTerms::find($groupDetails->reporting_term);
+
 
 
       //  Need to edit this code to display existing group members on this page!!!!
@@ -77,7 +91,7 @@ class GroupMemberMetricsController extends Controller
       //return view('group_member_details.create')->with('group', $group)->with('groupDetails', $groupDetails)->with('members', $members);
 
 
-      return view('group_member_details.create', compact('group', 'groupDetails', 'members'));
+      return view('group_member_details.create', compact('group', 'groupDetails', 'members', 'rptTerm'));
 
     }
 
@@ -90,47 +104,37 @@ class GroupMemberMetricsController extends Controller
     public function store(Request $request)
     {
 
-        //$inputs = $request->all();
+      foreach($request->nrc_number as $key => $value) {
 
-        //$inputs = Input::get('member_id');
+        if($request->nrc_number[$key] <> '') {
 
-        $data = array(
-          'nrc_number' => $request->nrc_number,
-          'family_name' => $request->family_name,
-          'other_name' => $request->other_name,
-          'sex' => $request->sex,
-          'phone_number' => $request->phone_number
-        );
+/*
+          $this->validate($request, [
+            'nrc_number.*.nrc_number' => 'required|string',
+            'nrc_number.*.family_name' => 'required|string',
+          ]);
+*/
+          $member = array(
 
+            'group_id' => Input::get('group_id'),
+            'group_details_id' => Input::get('group_details_id'),
+            'nrc_number' => $request->nrc_number[$key],
+            'family_name' => $request->family_name[$key],
+            'other_name' => $request->other_name[$key],
+            'sex' => $request->sex[$key],
+            'phone_number' => $request->phone_number[$key],
 
-
-        foreach($request as $key => $value) {
-
-
-        }
-
-
-        exit;
-
-
-
-        $this->validate($request, $this->rules);
-
-        $input = Input::all();
-        $newMember = GroupMemberMetrics::insert($input);
-        $next = Input::get('submitbutton');
-
-        If($next == 'Save and Add Another')
-        {
-          $lastGroupID = Input::get('group_id');
-          $lastGroupDetailsID = Input::get('group_details_id');
-
-          return Redirect()->action(
-            'GroupMemberMetricsController@create', [$lastGroupID, $lastGroupDetailsID]
           );
-        } else {
-          return view('home');
+
+          GroupMemberMetrics::insert($member);
+
         }
+
+      }
+
+      $request->session()->flash('alert-success', 'Group members saved successfully');
+
+      return redirect()->route('home');
 
     }
 

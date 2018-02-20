@@ -19,7 +19,7 @@
   </br></br>
 
   {!! Form::model(new App\GroupDetails, ['method' => 'POST', 'route' => ['group_details.store']]) !!}
-    @include('group_details/partials/_form', ['submit_text' => 'Add Group Details'])
+    @include('group_details/partials/_form')
   {!! Form::close() !!}
 
   </div>

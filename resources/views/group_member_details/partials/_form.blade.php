@@ -1,5 +1,27 @@
 <div class="container-fluid">
 
+
+<div class="flash-message">
+  @foreach(['danger', 'warning', 'success', 'info'] as $msg)
+    @if(Session::has('alert-'. $msg))
+      <p class="alert alert-{{ $msg }}">{{ Session::get('alert-'. $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+    @endif
+  @endforeach
+</div>
+
+
+<!-- {{-- }}
+  @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+-->  --}}
+
 <div class="form-group row">
   <!-- {!! Form::label('active', 'Active ?', array('class' => 'col-sm-1 form-control-label')) !!} -->
   {!! Form::label('member_id', 'NRC #', array('class' => 'col-md-2 form-control-label')) !!}
@@ -57,7 +79,7 @@
       </div>
 -->
       <div class="col-md-2">
-        {!! Form::text('member_id[]', '', array('class' => 'form-control')) !!}
+        {!! Form::text('nrc_number[]', '', array('class' => 'form-control')) !!}
       </div>
 
       <div class="col-md-3">
@@ -90,7 +112,6 @@
 <div class="card-footer text-center">
   {!! Form::hidden('group_id', $group->id) !!}
   {!! Form::hidden('group_details_id', $groupDetails->id) !!}
-  {!! Form::submit('Save and Add Another', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
-  {!! Form::submit('Save and Close', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
+  {!! Form::submit('Save Members', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
   {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
 </div>
