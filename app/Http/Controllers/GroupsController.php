@@ -42,6 +42,7 @@ class GroupsController extends Controller
     {
 
         $groups = Group::all();
+
         $dbGroups = $groups->pluck('group_id', 'name');
 
         return view('groups.create', ['groups' => $dbGroups]);

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\PersonSurvey;
 use App\Income;
+use App\GroupMemberMetrics;
+use App\Group;
+use App\GroupDetails;
+use App\ReportingTerms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -36,6 +40,34 @@ class PersonController extends Controller
     {
           return view('person.create');
     }
+
+
+
+
+
+
+    public function create2($groupID, $groupDetailsID)
+    {
+
+      // Get the group
+      $group = Group::find($groupID);
+
+      // Get the group details record
+      $groupDetails = GroupDetails::find($groupDetailsID);
+
+      // Get the reporting terms
+      $rptTerm = ReportingTerms::find($groupDetails->reporting_term);
+
+      return view('person.create2', compact('group', 'groupDetails', 'rptTerm'));
+
+    }
+
+
+
+
+
+
+
 
     /**
      * Store a newly created resource in storage.

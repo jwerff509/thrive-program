@@ -14,6 +14,9 @@
 --}}
 @section('content')
 
+{{-- @include('person/partials/_header2') --}}
+
+{{--
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
@@ -23,8 +26,9 @@
         </div>
         <div class="card-block">
         </br></br>
+        --}}
         {!! Form::model(new App\PersonSurvey, ['method' => 'POST', 'route' => ['person.store']]) !!}
-          @include('person/partials/_form', ['submit_text' => 'Save'])
+          @include('person/partials/_form2', ['submit_text' => 'Save'])
         {!! Form::close() !!}
 
 @endsection

@@ -23,9 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('groups', 'GroupsController');
 Route::resource('groups.group_details', 'GroupDetailsController');
 Route::resource('group_sales_locations', 'GroupSalesLocationsController');
-
 Route::resource('group_member_details', 'GroupMemberMetricsController');
-
 Route::resource('person', 'PersonController');
 Route::resource('income', 'IncomeController');
 Route::resource('ppi', 'PpiController');
@@ -53,6 +51,18 @@ Route::get('groups/{id}/group_details/{groupDetailsID}/create', function() {
 Route::get('person/{id}/income/create', 'IncomeController@create');
 Route::get('person/{id}/ppi/create', 'PpiController@create');
 
+
+
+Route::get('groups/{id}/group_details/{groupDetailsID}/person/create2', 'PersonController@create2');
+
+/*
+Route::get('create2', function() {
+  return view('person.create2', [
+    'groupID' => $groupID,
+    'groupDetailsID' => $groupDetailsID
+  ]);
+});
+*/
 
 
 Route::get('/search', function() {

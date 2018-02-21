@@ -95,17 +95,19 @@ class GroupDetailsController extends Controller
           'GroupMemberMetricsController@create', [$lastGroupID, $lastGroupDetailsID]
         );
 
+      } elseif($next == 'Add Individual Data (Beta)') {
+
+        return Redirect()->action(
+          'PersonController@create2', [$lastGroupID, $lastGroupDetailsID]
+        );
+
       } else {
 
         return Redirect()->action(
-
           'PersonController@create', [$lastGroupID, $lastGroupDetailsID]
-
         );
 
       }
-
-
 
     }
 

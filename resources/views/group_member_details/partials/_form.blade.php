@@ -21,7 +21,7 @@
     </div>
   @endif
 -->  --}}
-
+-->
 <div class="form-group row">
   <!-- {!! Form::label('active', 'Active ?', array('class' => 'col-sm-1 form-control-label')) !!} -->
   {!! Form::label('member_id', 'NRC #', array('class' => 'col-md-2 form-control-label')) !!}
@@ -49,11 +49,11 @@
       </div>
 
       <div class="col-md-3">
-        {!! Form::text('family_name', $member->last_name, array('class' => 'form-control')) !!}
+        {!! Form::text('family_name', $member->family_name, array('class' => 'form-control')) !!}
       </div>
 
       <div class="col-md-3">
-        {!! Form::text('other_name', $member->first_name, array('class' => 'form-control')) !!}
+        {!! Form::text('other_name', $member->other_name, array('class' => 'form-control')) !!}
       </div>
 
       <div class="col-sm-1">
@@ -61,7 +61,7 @@
       </div>
 
       <div class="col-md-2">
-        {!! Form::text('phone_number', $member->cellphone_number, array('class' => 'form-control')) !!}
+        {!! Form::text('phone_number', $member->phone_number, array('class' => 'form-control')) !!}
       </div>
 
     </div>

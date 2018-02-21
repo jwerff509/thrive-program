@@ -239,6 +239,7 @@
 <div class="card-footer text-center">
   {!! Form::hidden('group_id', $group->id) !!}
   {!! Form::submit('Add Group Members', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
+  {!! Form::submit('Add Individual Data (Beta)', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
   {!! Form::submit('Add Individual Data', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
   {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
 </div>
