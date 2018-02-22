@@ -36,9 +36,19 @@ class PersonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($groupID, $groupDetailsID)
     {
-          return view('person.create');
+
+      // Get the group
+      $group = Group::find($groupID);
+
+      // Get the group details record
+      $groupDetails = GroupDetails::find($groupDetailsID);
+
+      // Get the reporting terms
+      $rptTerm = ReportingTerms::find($groupDetails->reporting_term);
+          return view('person.create', compact('group', 'groupDetails', 'rptTerm'));
+
     }
 
 

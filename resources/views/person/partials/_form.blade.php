@@ -1,6 +1,11 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+
 <div class="form-group row">
   <div class="form-group <?php echo ($errors->has('member_id')) ? 'has-error' : ''; ?>">
-    {!! Form::label('member_id', 'NRC#: Unique ID', array('class' => 'col-md-5 form-control-label')) !!}
+    {!! Form::label('member_id', 'NRC#: Unique ID', array('class' => 'col-md-3 form-control-label')) !!}
       <div class="col-md-4">
         {!! Form::text('member_id', '', array('class' => 'form-control')) !!}
         <span class="help-block">
@@ -101,8 +106,8 @@
   </div>
 </div>
 <div class="form-group row">
-  {!! Form::label('hectares_under_conservation', 'HH11: # Hectares soil/water conservation', array('class' => 'col-md-5 form-control-label')) !!}
-  <div class="col-md-4">
+  {!! Form::label('hectares_under_conservation', 'HH11: # Hectares soil/water conservation', array('class' => 'col-md-2 form-control-label')) !!}
+  <div class="col-md-2">
     {!! Form::text('hectares_under_conservation', '', array('class' => 'form-control')) !!}
   </div>
 </div>
@@ -140,4 +145,8 @@
   {!! Form::submit('Save and Add Another', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
   {!! Form::submit('Save and Close', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
   {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
+</div>
+
+</div>
+</div>
 </div>

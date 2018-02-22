@@ -14,7 +14,7 @@
 --}}
 @section('content')
 
-{{-- @include('person/partials/_header2') --}}
+@include('person/partials/_header2')
 
 {{--
 <div class="container">
@@ -28,7 +28,7 @@
         </br></br>
         --}}
         {!! Form::model(new App\PersonSurvey, ['method' => 'POST', 'route' => ['person.store']]) !!}
-          @include('person/partials/_form2', ['submit_text' => 'Save'])
+          @include('person/partials/_form', ['submit_text' => 'Save'])
         {!! Form::close() !!}
 
 @endsection

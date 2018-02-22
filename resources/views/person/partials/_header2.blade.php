@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
           <div class="box box-info">
             <div class="box-header with-border">
                 <div class="panel-heading text-center">
@@ -11,3 +11,6 @@
                 </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>

@@ -54,6 +54,7 @@ Route::get('person/{id}/ppi/create', 'PpiController@create');
 
 
 Route::get('groups/{id}/group_details/{groupDetailsID}/person/create2', 'PersonController@create2');
+Route::get('groups/{id}/group_details/{groupDetailsID}/person/create', 'PersonController@create');
 
 /*
 Route::get('create2', function() {

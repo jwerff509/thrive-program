@@ -59,6 +59,10 @@ class ReportsController extends Controller
     $newUsers = array_column($newUsers, 'new_members');
 
     // This query returns the total balance of all savings group accounts from the last 3 months
+    // 2/21/2018 - This query is being commented out because the data collection method changed
+    // and we are no longer tracking if the group is a savings group, we are only tracking the
+    // number of savings group members.
+    /*
     $savings = DB::table('group_details')
             ->select(DB::raw('COUNT(id) as num_groups, SUM(account_balance) as total_savings'))
             ->where('savings_group', '=', '1')
@@ -66,6 +70,7 @@ class ReportsController extends Controller
             ->get()->toArray();
     $numSavingsGroups = array_column($savings, 'num_groups');
     $totalSavings = array_column($savings, 'total_savings');
+    */
 
     // This query returns the total balance of all producers groups
     $producers = DB::table('group_details')
@@ -246,7 +251,7 @@ class ReportsController extends Controller
       'totalFemaleChildren' => $totalFemaleChildren[0],
       'totalMaleChildren' => $totalMaleChildren[0],
       'newUsers' => $newUsers[0],
-      'totalSavingsGroups' => $numSavingsGroups[0],
+    //  'totalSavingsGroups' => $numSavingsGroups[0],
       'totalProducers' => $totalProducers[0],
       'savingsBalance' => $totalSavings[0],
       'ppi' => json_encode($ppi),
