@@ -14,21 +14,16 @@
 --}}
 @section('content')
 
-@include('person/partials/_header2')
+@include('person/partials/_header')
 
-{{--
 <div class="container">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="card">
-        <div class="card-header">
-          <h2><center><strong>Add</strong> New Person</center></h2>
-        </div>
-        <div class="card-block">
-        </br></br>
-        --}}
-        {!! Form::model(new App\PersonSurvey, ['method' => 'POST', 'route' => ['person.store']]) !!}
-          @include('person/partials/_form', ['submit_text' => 'Save'])
-        {!! Form::close() !!}
+  <div class="row col-md-8 col-md-offset-2">
+    <h2><center><strong>Add</strong> Individual Data</center></h2><br><br>
+  </div>
+</div>
+
+  {!! Form::model(new App\PersonSurvey, ['class' => 'justify-content-center', 'method' => 'POST', 'route' => ['person.store']]) !!}
+    @include('person/partials/_form', ['submit_text' => 'Save'])
+  {!! Form::close() !!}
 
 @endsection

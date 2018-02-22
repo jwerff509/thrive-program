@@ -14,9 +14,10 @@
     var loansTrend = <?php echo $loansTrend; ?>;
     var cropInsTrend = <?php echo $cropInsTrend; ?>;
 
+{{--
     var chainLabels = <?php echo $chainLabels; ?>;
     var chainMembers = <?php echo $chainMembers; ?>;
-
+--}}
 
 
 
@@ -58,6 +59,7 @@
       }]
     };
 
+/*
     var chainMembersData = {
       labels: chainLabels,
       datasets: [{
@@ -66,7 +68,7 @@
         data: chainMembers
       }]
     };
-
+*/
 
     window.onload = function() {
 
@@ -100,6 +102,7 @@
         }
       });
 
+/*
       var valChainMembers = document.getElementById("chainMembers").getContext("2d");
 
       window.valChainMembers = new Chart(valChainMembers, {
@@ -128,7 +131,7 @@
           text: 'Farmers Engaged In Project Value Chains',
         }
       });
-
+*/
       var valChainRevenue = document.getElementById("chainRevenue").getContext("2d");
 
       window.valChainRevenue = new Chart(valChainRevenue, {

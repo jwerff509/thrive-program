@@ -59,18 +59,18 @@ class ReportsController extends Controller
     $newUsers = array_column($newUsers, 'new_members');
 
     // This query returns the total balance of all savings group accounts from the last 3 months
-    // 2/21/2018 - This query is being commented out because the data collection method changed
+    // 2/21/2018 - This query has been edited because the data collection method changed
     // and we are no longer tracking if the group is a savings group, we are only tracking the
-    // number of savings group members.
-    /*
+    // number of savings group members, so I commented out the $numSavingsGroups variable at the end.
+
     $savings = DB::table('group_details')
             ->select(DB::raw('COUNT(id) as num_groups, SUM(account_balance) as total_savings'))
-            ->where('savings_group', '=', '1')
+            ->where('savings_group_members', '>', '0')
             ->whereDate('report_term_date', '>', $quarter)
             ->get()->toArray();
     $numSavingsGroups = array_column($savings, 'num_groups');
     $totalSavings = array_column($savings, 'total_savings');
-    */
+
 
     // This query returns the total balance of all producers groups
     $producers = DB::table('group_details')
@@ -251,7 +251,7 @@ class ReportsController extends Controller
       'totalFemaleChildren' => $totalFemaleChildren[0],
       'totalMaleChildren' => $totalMaleChildren[0],
       'newUsers' => $newUsers[0],
-    //  'totalSavingsGroups' => $numSavingsGroups[0],
+      'totalSavingsGroups' => $numSavingsGroups[0],
       'totalProducers' => $totalProducers[0],
       'savingsBalance' => $totalSavings[0],
       'ppi' => json_encode($ppi),
@@ -388,7 +388,7 @@ class ReportsController extends Controller
     // This query returns the total balance of all savings group accounts from the last 9 months
     $savings = DB::table('group_details')
             ->select(DB::raw('COUNT(id) as num_groups, SUM(account_balance) as total_savings'))
-            ->where('savings_group', '=', '1')
+            ->where('savings_group_members', '>', '0')
             ->whereDate('report_term_date', '>', $threeQuarter)
             ->whereDate('report_term_date', '<=', $current)
             ->get()->toArray();
@@ -396,6 +396,10 @@ class ReportsController extends Controller
     $totalSavings = array_column($savings, 'total_savings');
 
     // Get the number of farmers engaged in project value chains for the last 3 months
+    /*  2/22/2018 - JV.  This query no longer functions due to a change in the way we are
+    **  recording the data. We need to revisit this indicator and change the criteria or
+    **  come up with a different indicator.
+
     $valueChains = DB::table('group_details')
             ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
             ->join('person', 'person.nrc_number', '=', 'group_member_metrics.member_id')
@@ -407,7 +411,7 @@ class ReportsController extends Controller
             ->get()->toArray();
     $chainLabels = array_column($valueChains, 'value_chain');
     $chainMembers = array_column($valueChains, 'members');
-
+    */
 
 
 
@@ -433,8 +437,8 @@ class ReportsController extends Controller
       'groupMembersTrend' => json_encode($groupMembersTrend),
       'loansTrend' => json_encode($loansTrend),
       'cropInsTrend' => json_encode($cropInsTrend),
-      'chainLabels' => json_encode($chainLabels),
-      'chainMembers' => json_encode($chainMembers),
+  //    'chainLabels' => json_encode($chainLabels),
+  //    'chainMembers' => json_encode($chainMembers),
     );
 
     return view('charts.pillars')->with($data);
