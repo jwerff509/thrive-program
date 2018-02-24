@@ -14,6 +14,13 @@ use Redirect;
 
 class GroupDetailsController extends Controller
 {
+
+
+    protected $rules = [
+        'reporting_term' => ['required'],
+        'year' => ['required'],
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -56,6 +63,14 @@ class GroupDetailsController extends Controller
     public function store(Request $request)
     {
 
+      $term = Input::get('reporting_term');
+      $year = Input::get('year');
+
+      //echo $term ."<br>". $year;
+      //exit;
+
+      $this->validate($request, $this->rules);
+
       if(is_null($request->sales_location)) {
 
         $input = Input::all();
@@ -82,9 +97,7 @@ class GroupDetailsController extends Controller
       //$input['reporting_term'] = $rptTerm->id;
 
       $next = Input::get('submitbutton');
-
       $newGroupDetails = GroupDetails::create($input);
-
       $lastGroupID = Input::get('group_id');
 
       $lastGroupDetailsID = $newGroupDetails->id;

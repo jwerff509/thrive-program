@@ -65,6 +65,10 @@ Route::get('create2', function() {
 });
 */
 
+/* Testing */
+Route::get('groups.create', 'AjaxDemoController@groupsCreate');
+Route::post('select-ajax', ['as' => 'select-ajax', 'uses' => 'AjaxDemoController@selectAjax']);
+
 
 Route::get('/search', function() {
     return view('groups.search');

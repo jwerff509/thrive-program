@@ -15,8 +15,8 @@
     var cropInsTrend = <?php echo $cropInsTrend; ?>;
 
 {{--
-    var chainLabels = <?php echo $chainLabels; ?>;
-    var chainMembers = <?php echo $chainMembers; ?>;
+    var chainLabels = <?php //echo $chainLabels; ?>;
+    var chainMembers = <?php //echo $chainMembers; ?>;
 --}}
 
 
