@@ -120,14 +120,14 @@ return [
             'icon_color'  => 'orange',
         ],
         [
-            'text'        => 'Enter Group Survey',
+            'text'        => 'Enter Survey with Members',
             'icon'        => 'group',
             'url'         => 'groups/create',
             'icon_color'  => 'orange',
 
         ],
         [
-            'text'        => 'Enter Individual Survey',
+            'text'        => 'Enter Survey with Individuals',
             'icon'        => 'user-plus',
             'url'         => 'person/create',
             'icon_color'  => 'orange',
@@ -145,11 +145,13 @@ return [
             'url'         => '/pillars',
             'icon_color'  => 'green',
         ],
+        /*
         [
             'text'        => 'Search test',
             'url'         => 'groups/search',
             'icon_color'  => 'red',
         ],
+        */
         /*
         [
             'text'    => 'Multilevel',

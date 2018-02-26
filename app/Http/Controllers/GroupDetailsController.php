@@ -19,6 +19,7 @@ class GroupDetailsController extends Controller
     protected $rules = [
         'reporting_term' => ['required'],
         'year' => ['required'],
+        'data_collector' => ['required'],
     ];
 
     /**
@@ -55,6 +56,34 @@ class GroupDetailsController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ind_survey_details($id)
+    {
+
+        // Get the group
+        $group = Group::find($id);
+
+        $valueChains = ValueChains::pluck('description', 'id')->all();
+        $reportingTerms = ReportingTerms::pluck('description', 'id')->all();
+        $vegetables = Vegetables::pluck('description', 'id')->all();
+        $valueChainUnits = ValueChainUnits::pluck('description', 'id')->all();
+
+        // Get the reporting terms
+        // This needs to be added later
+
+        return view('group_details.individual.create', compact('group', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations'));
+
+    }
+
+
+
+
+
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -65,9 +94,6 @@ class GroupDetailsController extends Controller
 
       $term = Input::get('reporting_term');
       $year = Input::get('year');
-
-      //echo $term ."<br>". $year;
-      //exit;
 
       $this->validate($request, $this->rules);
 
@@ -92,11 +118,8 @@ class GroupDetailsController extends Controller
 
       }
 
-      //$rptTerm = ReportingTerms::where('id', $request->reporting_term)->first();
-
-      //$input['reporting_term'] = $rptTerm->id;
-
       $next = Input::get('submitbutton');
+
       $newGroupDetails = GroupDetails::create($input);
       $lastGroupID = Input::get('group_id');
 
@@ -106,12 +129,6 @@ class GroupDetailsController extends Controller
 
         return Redirect()->action(
           'GroupMemberMetricsController@create', [$lastGroupID, $lastGroupDetailsID]
-        );
-
-      } elseif($next == 'Add Individual Data (Beta)') {
-
-        return Redirect()->action(
-          'PersonController@create2', [$lastGroupID, $lastGroupDetailsID]
         );
 
       } else {

@@ -138,7 +138,7 @@
   <br><br>
 
   <div class="card-footer text-center">
-    {!! Form::submit('Add Members List', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
+    {!! Form::submit('Add Individual Data', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
     {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
   </div>
 

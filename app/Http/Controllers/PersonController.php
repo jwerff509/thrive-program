@@ -16,9 +16,9 @@ class PersonController extends Controller
 {
 
     protected $rules = [
-        'member_id' => ['required'],
-        'last_name' => ['required', 'max:191'],
-        'first_name' => ['required', 'max:191'],
+        'nrc_number' => ['required'],
+        'family_name' => ['required', 'max:191'],
+        'other_name' => ['required', 'max:191'],
     ];
 
     /**
@@ -51,34 +51,6 @@ class PersonController extends Controller
 
     }
 
-
-
-
-
-
-    public function create2($groupID, $groupDetailsID)
-    {
-
-      // Get the group
-      $group = Group::find($groupID);
-
-      // Get the group details record
-      $groupDetails = GroupDetails::find($groupDetailsID);
-
-      // Get the reporting terms
-      $rptTerm = ReportingTerms::find($groupDetails->reporting_term);
-
-      return view('person.create2', compact('group', 'groupDetails', 'rptTerm'));
-
-    }
-
-
-
-
-
-
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -95,6 +67,7 @@ class PersonController extends Controller
       $newPerson = PersonSurvey::create($input);
 
       $last_inserted = $newPerson->id;
+
       $next = Input::get('submitbutton');
 
       If($next == 'Save and Add Another')
@@ -102,9 +75,14 @@ class PersonController extends Controller
         $lastGroupID = Input::get('group_id');
         $lastGroupDetailsID = Input::get('group_details_id');
 
+        $request->session()->flash('alert-success', 'Data was saved successfully!');
+        return redirect()->back()->with('message', 'Success');
+
+/*
         return Redirect()->action(
           'PersonController@create', [$last_inserted]
         );
+        */
       } else {
         return view('home');
       }

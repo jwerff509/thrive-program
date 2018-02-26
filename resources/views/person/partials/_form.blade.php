@@ -1,13 +1,21 @@
 <div class="container-fluid">
 
+  <div class="flash-message col-md-5 col-md-offset-3">
+    @foreach(['danger', 'warning', 'success', 'info'] as $msg)
+      @if(Session::has('alert-' . $msg))
+        <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a hrfe="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+      @endif
+    @endforeach
+  </div>
+
   <div class="form-group row">
-    <div class="form-group <?php echo ($errors->has('member_id')) ? 'has-error' : ''; ?>">
-      {!! Form::label('member_id', 'NRC#: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    <div class="form-group <?php echo ($errors->has('nrc_number')) ? 'has-error' : ''; ?>">
+      {!! Form::label('nrc_number', 'NRC#: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
         <div class="col-md-2">
-          {!! Form::text('member_id', '', array('class' => 'form-control', 'placeholder' => 'NRC #')) !!}
+          {!! Form::text('nrc_number', '', array('class' => 'form-control', 'placeholder' => 'NRC #')) !!}
           <span class="help-block">
-            @if ($errors->has('member_id'))
-              {{ $errors->first('member_id') }}
+            @if ($errors->has('nrc_number'))
+              {{ $errors->first('nrc_number') }}
             @endif
           </span>
       </div>
@@ -16,12 +24,12 @@
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('last_name')) ? 'has-error' : ''; ?>">
-      {!! Form::label('last_name', 'HHID2: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('family_name', 'HHID2: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
         <div class="col-md-2">
-          {!! Form::text('last_name', '', array('class' => 'form-control', 'placeholder' => 'Family Name')) !!}
+          {!! Form::text('family_name', '', array('class' => 'form-control', 'placeholder' => 'Family Name')) !!}
           <span class="help-block">
-            @if ($errors->has('last_name'))
-              {{ $errors->first('last_name') }}
+            @if ($errors->has('family_name'))
+              {{ $errors->first('family_name') }}
             @endif
           </span>
         </div>
@@ -30,12 +38,12 @@
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('first_name')) ? 'has-error' : ''; ?>">
-      {!! Form::label('first_name', 'HHID3: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('other_name', 'HHID3: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
         <div class="col-md-2">
-          {!! Form::text('first_name', '', array('class' => 'form-control', 'placeholder' => 'Other Name')) !!}
+          {!! Form::text('other_name', '', array('class' => 'form-control', 'placeholder' => 'Other Name')) !!}
           <span class="help-block">
-            @if ($errors->has('first_name'))
-              {{ $errors->first('first_name') }}
+            @if ($errors->has('other_name'))
+              {{ $errors->first('other_name') }}
             @endif
           </span>
         </div>
@@ -127,7 +135,7 @@
   </div>
 
   <div class="form-group row">
-    {!! Form::label('emergency_savings', 'HH13: Have savings for emergency', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('emergency_savings', 'HH13: Has emergency savings', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::select('emergency_savings', array('0' => 'No', '1' => 'Yes')) !!}
     </div>
@@ -157,6 +165,8 @@
 <br><br>
 
   <div class="card-footer text-center col-md-7 col-md-offset-2">
+    {!! Form::hidden('group_id', $group->id) !!}
+    {!! Form::hidden('group_details_id', $groupDetails->id) !!}
     {!! Form::submit('Save and Add Another', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
     {!! Form::submit('Save and Close', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
     {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}

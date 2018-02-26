@@ -27,10 +27,16 @@ class ReportsController extends Controller
     $year->subMonth(12);
 
     // Get total number of members and break it out by sex
+    /*
     $totalMembers = Person::count();
     $totalFemales = Person::where('sex', 'Female')->count();
     $totalMales = Person::where('sex', 'Male')->count();
     $totalUnreported = Person::where('sex','Unknown')->count();
+    */
+    $totalMembers = GroupMemberMetrics::count();
+    $totalFemales = GroupMemberMetrics::where('sex', 'Female')->count();
+    $totalMales = GroupMemberMetrics::where('sex', 'Male')->count();
+    $totalUnreported = GroupMemberMetrics::where('sex','Unknown')->count();
 
     // Count the total number of children.
     $totalChildren = DB::table('person')

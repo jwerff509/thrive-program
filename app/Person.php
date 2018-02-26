@@ -12,6 +12,6 @@ class Person extends Model
     'males_6_to_14', 'females_6_to_14', 'males_15_to_18', 'females_15_to_18', 'male_adults', 'female_adults', 'total_household_size',
   ];
 
-  protected $table = "person";
+  //protected $table = "person_surveys";
 
 }

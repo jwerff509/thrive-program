@@ -15,6 +15,7 @@ class GroupsController extends Controller
 {
 
     protected $rules = [
+        'group_id' => ['nullable', 'numeric'],
         'name' => ['required', 'max:191'],
         'zone' => ['required', 'max:191'],
         'area_program' => ['required', 'max:191'],
@@ -34,7 +35,7 @@ class GroupsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new group with member list survey.
      *
      * @return \Illuminate\Http\Response
      */
@@ -49,6 +50,21 @@ class GroupsController extends Controller
     }
 
     /**
+     * Show the form for creating a new group with individual data survey
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ind_survey()
+    {
+
+        $groups = Group::all();
+
+        $dbGroups = $groups->pluck('group_id', 'name');
+
+        return view('groups.individual.create', ['groups' => $dbGroups]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -60,22 +76,19 @@ class GroupsController extends Controller
     {
         $this->validate($request, $this->rules);
 
-/*
-        $countryData = Input::only('country');
-        $country = new Country;
-        $country->name = $countryData->country;
-        $country->save();
-*/
-
-        //$input = Input::except('country');
         $input = Input::all();
         $newGroup = Group::create($input);
-
+        $next = Input::get('submitbutton');
         $last_inserted = $newGroup->id;
 
-        return Redirect()->action(
-          'GroupDetailsController@create', [$last_inserted]
-        );
+        if($next == 'Add Members List') {
+          return Redirect()->action(
+            'GroupDetailsController@create', [$last_inserted]);
+        } else {
+          return Redirect()->action(
+            'GroupDetailsController@ind_survey_details', [$last_inserted]);
+        }
+
     }
 
     /**
@@ -84,6 +97,7 @@ class GroupsController extends Controller
      * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
+     /*
     public function show()
     {
 
@@ -96,6 +110,7 @@ class GroupsController extends Controller
         return view('groups.search')->with('groups', json_encode($dbGroups));
 
     }
+    */
 
     /**
      * Show the form for editing the specified resource.
@@ -139,26 +154,6 @@ class GroupsController extends Controller
         return Redirect::route('groups.index')->with('message', 'Group Deleted Successfully');
     }
 
-
-
-    public function find(Request $request)
-    {
-        $term = trim($request->q);
-
-        if (empty($term)) {
-            return \Response::json([]);
-        }
-
-        $tags = Group::search($term)->limit(5)->get();
-
-        $formatted_tags = [];
-
-        foreach ($tags as $tag) {
-            $formatted_tags[] = ['id' => $tag->id, 'text' => $tag->name];
-        }
-
-        return \Response::json($formatted_tags);
-    }
 
 
 
