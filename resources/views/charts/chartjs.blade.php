@@ -6,6 +6,7 @@
     var quarter = <?php echo $labels ?>;
 
     var endToEnd = <?php echo $endToEnd; ?>;
+
     var nrm = <?php echo $nrm; ?>;
     var drr = <?php echo $drr; ?>;
     var ewv = <?php echo $ewv; ?>;
@@ -24,8 +25,11 @@
     var totalMembers = 0;
     var y = 0;
 
+    var pillarsByHousehold = <?php echo $pillarsByHousehold; ?>;
+
     // Need to figure out a way to sum up the totals for each pillar.
     // That would be each time i is incremented to the next level
+
     for(i=0; i < gradSteps.length; i++) {
 
       if(i==0) {
@@ -53,18 +57,24 @@
 
     }
 
-    var gradMembers2 = gradSteps[1].num_members;
-    var gradMembers3 = gradSteps[2].num_members;
-    var gradMembers4 = gradSteps[3].num_members;
+    if(gradSteps.length > 0) {
 
-    var pillarsByHousehold = <?php echo $pillarsByHousehold; ?>;
-    var zeroPillarMembers = pillarsByHousehold[0].num_members;
-    var onePillarMembers = pillarsByHousehold[1].num_members;
-    var twoPillarMembers = pillarsByHousehold[2].num_members;
-    var threePillarMembers = pillarsByHousehold[3].num_members;
-    var fourPillarMembers = pillarsByHousehold[4].num_members;
+      var gradMembers2 = gradSteps[1].num_members;
+      var gradMembers3 = gradSteps[2].num_members;
+      var gradMembers4 = gradSteps[3].num_members;
+
+    }
+
+    if(pillarsByHousehold.length > 0) {
 
 
+      var zeroPillarMembers = pillarsByHousehold[0].num_members;
+      var onePillarMembers = pillarsByHousehold[1].num_members;
+      var twoPillarMembers = pillarsByHousehold[2].num_members;
+      var threePillarMembers = pillarsByHousehold[3].num_members;
+      var fourPillarMembers = pillarsByHousehold[4].num_members;
+
+    }
 
     var lineChartData = {
       labels: quarter,
@@ -99,17 +109,36 @@
 
       var ctx = document.getElementById("lineChart").getContext("2d");
 
-      window.myLine = new Chart(ctx, {
-        type: 'line',
-        data: lineChartData,
-        options: {
-          responstive: true,
-          title: {
-            display: true,
-            text: 'Number of Households Engaged in These Pillars'
+/*
+      if(endToEnd.length === 0) {
+
+        window.myLine = new Chart(ctx, {
+          type: 'line',
+          options: {
+            responsive: true,
+            title: {
+              display: true,
+              text: 'Number of Households Engaged in These Pillars',
+            },
+          },
+        });
+
+      } else {
+*/
+        window.myLine = new Chart(ctx, {
+          type: 'line',
+          data: lineChartData,
+          options: {
+            responstive: true,
+            title: {
+              display: true,
+              text: 'Number of Households Engaged in These Pillars'
+            }
           }
-        }
-      });
+        });
+
+      //}
+
 
       var ctx1 = document.getElementById("pieChart").getContext("2d");
 

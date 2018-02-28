@@ -1,10 +1,3 @@
-
-
-
-
-
-  {{-- resources/views/admin/dashboard.blade.php --}}
-
   @extends('adminlte::page')
 
   @section('title', 'End to End Business Dashboard')

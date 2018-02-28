@@ -14,11 +14,10 @@
     var loansTrend = <?php echo $loansTrend; ?>;
     var cropInsTrend = <?php echo $cropInsTrend; ?>;
 
-{{--
-    var chainLabels = <?php //echo $chainLabels; ?>;
-    var chainMembers = <?php //echo $chainMembers; ?>;
---}}
+    var chainLabels = <?php echo $chainLabels; ?>;
+    var chainMembers = <?php echo $chainMembers; ?>;
 
+    console.log(chainLabels);
 
 
     var agTrendsData = {
@@ -59,7 +58,7 @@
       }]
     };
 
-/*
+
     var chainMembersData = {
       labels: chainLabels,
       datasets: [{
@@ -68,7 +67,7 @@
         data: chainMembers
       }]
     };
-*/
+
 
     window.onload = function() {
 
@@ -102,13 +101,14 @@
         }
       });
 
-/*
+
       var valChainMembers = document.getElementById("chainMembers").getContext("2d");
 
       window.valChainMembers = new Chart(valChainMembers, {
         type: 'bar',
         data: {
-          labels: ['Aquaculture', 'Beans', 'Dairy', 'Groundnuts', 'Maize', 'Poultry'],
+          //labels: ['Aquaculture', 'Beans', 'Dairy', 'Groundnuts', 'Maize', 'Poultry'],
+          labels: chainLabels,
           datasets: [
             {
               label: "Males",
@@ -131,7 +131,7 @@
           text: 'Farmers Engaged In Project Value Chains',
         }
       });
-*/
+
       var valChainRevenue = document.getElementById("chainRevenue").getContext("2d");
 
       window.valChainRevenue = new Chart(valChainRevenue, {

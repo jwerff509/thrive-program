@@ -129,7 +129,7 @@ return [
         [
             'text'        => 'Enter Survey with Individuals',
             'icon'        => 'user-plus',
-            'url'         => 'person/create',
+            'url'         => 'groups/ind_survey',
             'icon_color'  => 'orange',
         ],
         'REPORTS',

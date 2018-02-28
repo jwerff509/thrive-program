@@ -12,7 +12,7 @@
   </div>
 </div>
 
-{!! Form::model(new App\GroupMemberMetrics, ['method' => 'POST', 'route' => ['group_member_metrics.store'], 'style' => 'display:inline-block']) !!}
+{!! Form::model(new App\GroupMemberMetrics, ['method' => 'POST', 'route' => ['group_member_metrics.store']]) !!}
   @include('group_member_details/partials/_form', ['submit_text' => 'Add Group Members'])
 {!! Form::close() !!}
 

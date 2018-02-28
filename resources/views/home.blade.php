@@ -23,9 +23,9 @@
                 <div class="panel-body">
                     Please choose one of the following:
                     <br><br>
-                    <a href="{{ url('groups/create') }}">Enter Group Survey with Members List</a>
+                    <a href="{{ url('groups/create') }}">Enter Survey with Members List</a>
                     <br><br>
-                    <a href="{{ url('groups/ind_survey') }}">Enter Group Survey with Individual Data</a>
+                    <a href="{{ url('groups/ind_survey') }}">Enter Survey with Individual Data</a>
                 </div>
 
             </div>

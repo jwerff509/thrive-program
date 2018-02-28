@@ -139,8 +139,8 @@ class ReportsController extends Controller
 
     $pillars = DB::table('pillar_members_quarterly')
             ->select('report_term_date', 'num_end_to_end', 'num_nrm', 'num_drr', 'num_ewv')
-            ->whereDate('report_term_date', '>', $threeQuarter)
-            ->whereDate('report_term_date', '<=', $current)
+            //->whereDate('report_term_date', '>', $threeQuarter)
+            //->whereDate('report_term_date', '<=', $current)
             ->orderBy('report_term_date')
             ->get()->toArray();
     $labels = array_column($pillars, 'report_term_date');
@@ -148,7 +148,6 @@ class ReportsController extends Controller
     $numNrm = array_column($pillars, 'num_nrm');
     $numDrr = array_column($pillars, 'num_drr');
     $numEwv = array_column($pillars, 'num_ewv');
-
 
     $newThreeQtr =  $threeQuarter->toDateString();
     $newCurr = $current->toDateString();
@@ -188,13 +187,6 @@ class ReportsController extends Controller
 
 
     // This query returns the number of households at each graduation step for the past 3 months
-/*
-    \DB::listen(function($gradSteps) {
-    var_dump($gradSteps);
-});
-*/
-
-
     $gradSteps = DB::table('members_by_grad_step_by_quarter')
             ->select(DB::raw('num_grad_step, sex, count(distinct(member_id)) as num_members'))
             ->whereDate('report_term_date', '>', $threeQuarter)
@@ -202,11 +194,6 @@ class ReportsController extends Controller
             ->groupBy('sex', 'num_grad_step')
             ->get()->toArray();
 
-
-/*
-          echo json_encode($gradSteps) ."<br>";
-          exit;
-*/
 
 
     // This query returns the number of pillars that each household is involved in.
@@ -218,12 +205,6 @@ class ReportsController extends Controller
             ->groupBy('num_pillars')
             ->get()->toArray();
 
-/*
-    $ppi->map(function($i) {
-      return array_values((array)$i);
-    });
-*/
-  //echo json_encode($labels) ."<br>";
 
     $quarters = array();
     foreach($labels as $label) {
@@ -405,19 +386,21 @@ class ReportsController extends Controller
     /*  2/22/2018 - JV.  This query no longer functions due to a change in the way we are
     **  recording the data. We need to revisit this indicator and change the criteria or
     **  come up with a different indicator.
-
+    */
     $valueChains = DB::table('group_details')
-            ->join('group_member_metrics', 'group_details.id', '=', 'group_member_metrics.group_details_id')
-            ->join('person', 'person.nrc_number', '=', 'group_member_metrics.member_id')
-            ->select('group_details.report_term_date', 'group_details.value_chain', 'person.sex', DB::raw('count(distinct(group_member_metrics.member_id)) as members'))
+            ->join('group_members', 'group_details.id', '=', 'group_members.group_details_id')
+            ->join('value_chain', 'group_details.primary_value_chain', '=', 'value_chain.id')
+            ->select('value_chain.description', DB::raw('count(distinct(group_members.nrc_number)) as members'))
             ->whereDate('group_details.report_term_date', '>', $quarter)
             ->whereDate('group_details.report_term_date', '<=', $current)
-            ->groupBy('person.sex', 'group_details.value_chain', 'group_details.report_term_date')
-            ->orderBy('group_details.report_term_date')
+            ->groupBy('value_chain.description')
             ->get()->toArray();
-    $chainLabels = array_column($valueChains, 'value_chain');
+    $chainLabels = array_column($valueChains, 'description');
     $chainMembers = array_column($valueChains, 'members');
-    */
+
+    echo json_encode($chainLabels);
+    exit;
+
 
 
 
@@ -443,8 +426,8 @@ class ReportsController extends Controller
       'groupMembersTrend' => json_encode($groupMembersTrend),
       'loansTrend' => json_encode($loansTrend),
       'cropInsTrend' => json_encode($cropInsTrend),
-  //    'chainLabels' => json_encode($chainLabels),
-  //    'chainMembers' => json_encode($chainMembers),
+      'chainLabels' => json_encode($chainLabels),
+      'chainMembers' => json_encode($chainMembers),
     );
 
     return view('charts.pillars')->with($data);
