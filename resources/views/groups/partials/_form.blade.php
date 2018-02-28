@@ -57,7 +57,8 @@
 -->
 
   <div class="container-fluid">
-
+    <!--
+{{--
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('group_id')) ? 'has-error' : ''; ?>">
       {!! Form::label('group_id', 'ID1: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
@@ -71,6 +72,9 @@
       </div>
     </div>
   </div>
+
+--}}
+-->
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('name')) ? 'has-error' : ''; ?>">
@@ -136,6 +140,12 @@
   </div>
 
   <br><br>
+
+  <!--
+  Put a hidden variable in the form to pass to the controller as to which screen they should go to next
+  Because if you change the value (text) of the submit button the program will always default to going
+  to the individual survey, and never the group survey.
+-->
 
   <div class="card-footer text-center">
     {!! Form::submit('Add Members List', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
