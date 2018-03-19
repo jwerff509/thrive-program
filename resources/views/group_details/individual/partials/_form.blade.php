@@ -2,9 +2,9 @@
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('reporting_term')) ? 'has-error' : ''; ?>">
-      {!! Form::label('reporting_term', 'ID6: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('reporting_term', 'ID6 - Time Frame (Quarter):', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
-        {!! Form::select('reporting_term', array('' => 'Reporting Term...') + $reportingTerms, array('id' => 'id', 'class' => 'form-control')) !!}
+        {!! Form::select('reporting_term', array('' => 'Select Quarter...') + $reportingTerms, array('id' => 'id', 'class' => 'form-control')) !!}
         <span class="help-block">
           @if ($errors->has('reporting_term'))
             {{ $errors->first('reporting_term') }}
@@ -16,10 +16,10 @@
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('reporting_term')) ? 'has-error' : ''; ?>">
-      {!! Form::label('year', 'ID7: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('year', 'ID7 - Year:', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('year', array(
-          '' => 'Reporting Year...',
+          '' => 'Select Year...',
           '2017' => '2017',
           '2018' => '2018',
           '2019' => '2019',
@@ -34,30 +34,30 @@
   </div>
 
   <div class="form-group row">
-    {!! Form::label('producers_group', 'G1: Producers Group', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('producers_group', 'G1 - Producers Group:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::select('producers_group', array('0' => 'No', '1' => 'Yes')) !!}
     </div>
   </div>
 
   <div class="form-group row">
-    {!! Form::label('savings_group_members', 'G2: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('savings_group_members', 'G2 - # Members Actively Saving (Last 90 Days):', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::text('savings_group_members', '', array('class' => 'form-control', 'placeholder' => '# Members Actively Saving')) !!}
     </div>
   </div>
 
   <div class="form-group row">
-    {!! Form::label('account_balance', 'G3: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('account_balance', 'G3 - Total Amount Saved:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::text('account_balance', '', array('class' => 'form-control', 'placeholder' => 'Total Savings Acct Balance')) !!}
     </div>
   </div>
 
   <div class="form-group row">
-    {!! Form::label('primary_value_chain', 'G4: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('primary_value_chain', 'G4 - Primary THRIVE Supported Value Chain:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
-      {!! Form::select('primary_value_chain', array('default' => 'Primary Value Chain...') + $valueChains, array('id' => 'id', 'class' => 'form-control')) !!}
+      {!! Form::select('primary_value_chain', array('default' => 'None or N/A') + $valueChains, array('id' => 'id', 'class' => 'form-control')) !!}
     </div>
   </div>
 
@@ -76,28 +76,28 @@
   </script>
 
   <div class="form-group row" id="horticulture" style="display:none;">
-    {!! Form::label('primary_veg', 'G5: IF HORTICULTURE ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('primary_veg', 'G5 - What is/was the PRIMARY Vegetable Grown:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::select('primary_veg', array('default' => 'Select a vegetable...') + $vegetables, array('id' => 'id', 'class' => 'form-control')) !!}
     </div>
   </div>
 
   <div class="form-group row">
-    {!! Form::label('sales_unit', 'G6a: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('sales_unit', 'G6a - PRIMARY Unit of Sale for Value Chain:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
-      {!! Form::select('sales_unit', array('default' => 'Primary Value Chain Unit...') + $valueChainUnits, array('id' => 'id', 'class' => 'form-control')) !!}
+      {!! Form::select('sales_unit', array('default' => 'None or N/A') + $valueChainUnits, array('id' => 'id', 'class' => 'form-control')) !!}
     </div>
   </div>
 
   <div class="form-group row">
-    {!! Form::label('sales_price', 'G6b: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('sales_price', 'G6b - Current Sales Price per Value Chain Unit:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::text('sales_price', '', array('class' => 'form-control', 'placeholder' => 'Sales Price per VC Unit')) !!}
     </div>
   </div>
 
   <div class="form-group row">
-    {!! Form::label('sales_location', 'G7: Select All Locations Where Group Has Sold Goods this quarter', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('sales_location', 'G7 - Select All Locations Where Group Has Sold Goods this quarter:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::checkbox('sales_location[]', 'Village Market') !!}<span> Village Market <br></span>
       {!! Form::checkbox('sales_location[]', 'District Market') !!}<span> District Market <br></span>
@@ -108,21 +108,21 @@
   </div>
 
   <div class="form-group row">
-    {!! Form::label('trees_planted', 'G8: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('trees_planted', 'G8 - # of Trees Planted/Regenerated During This Quarter:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::text('trees_planted', '', array('class' => 'form-control', 'placeholder' => '# Trees Planted/Regenerated')) !!}
     </div>
   </div>
 
   <div class="form-group row">
-    {!! Form::label('hectares_reclaimed2', 'G9: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('hectares_reclaimed2', 'G9 - Size of Land Regenerated/Reclaimed This Quarter:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::text('hectares_reclaimed2', '', array('class' => 'form-control', 'placeholder' => 'Hectares Land Regen/Reclaimed')) !!}
     </div>
   </div>
 
   <div class="form-group row">
-    {!! Form::label('group_meetings', 'G10: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('group_meetings', 'G10 - # of Group Meetings (Last 90 Days):', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::text('group_meetings', '', array('class' => 'form-control', 'placeholder' => '# Meetings in Last 90 Days')) !!}
     </div>
