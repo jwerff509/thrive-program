@@ -26,19 +26,14 @@
 {{--}}
 <!--
   <div class="form-group form-inline col-md-offset-1">
--->
     <div class="d-flex flex-row">
-
       <!-- {!! Form::label('active', 'Active ?', array('class' => 'form-control-label')) !!} -->
         {!! Form::label('member_id', 'NRC #', array('class' => 'form-control-label')) !!}
         {!! Form::label('family_name', 'HHID2', array('class' => 'form-control-label ')) !!}
         {!! Form::label('other_name', 'HHID3', array('class' => 'form-control-label col-2')) !!}
-
         {!! Form::label('sex', 'HHID4: Sex', array('class' => 'form-control-label col-2')) !!}
-
         {!! Form::label('phone_num', 'HHID5: Phone #', array('class' => 'form-control-label col-2')) !!}
     </div>
-<!--
   </div>
 -->
 --}}
@@ -83,13 +78,51 @@
 
     @for($i=1; $i<=20; $i++)
 
+      <!--
+      {{-- }}
+
       <div class="form-group row form-inline col-md-offset-1">
-          {!! Form::text('nrc_number[]', '', array('class' => 'form-control col-3', 'placeholder' => 'NRC #')) !!}
-          {!! Form::text('family_name[]', '', array('class' => 'form-control col-3', 'placeholder' => 'Family Name')) !!}
+          {!! Form::text('nrc_number[]', '', array('class' => 'form-control col-2', 'placeholder' => 'NRC #')) !!}
+          {!! Form::text('family_name[]', '', array('class' => 'form-control col-2', 'placeholder' => 'Family Name')) !!}
           {!! Form::text('other_name[]', '', array('class' => 'form-control col-2', 'placeholder' => 'Other Name')) !!}
-          {!! Form::select('sex[]', array('' => 'Sex...', 'M' => 'Male', 'F' => 'Female'), null, ['class' => 'form-control col-2']) !!}
-          {!! Form::text('phone_number[]', '', array('class' => 'form-control col-2', 'placeholder' => 'Phone Number')) !!}
+          {!! Form::select('sex[]', array('' => 'Sex...', 'M' => 'Male', 'F' => 'Female'), null, ['class' => 'form-control col-3']) !!}
+          {!! Form::text('phone_number[]', '', array('class' => 'form-control col-3', 'placeholder' => 'Phone Number')) !!}
+          {{-- }
+          {!! Form::text('length[]', '', array('class' => 'form-control col', 'placeholder' => 'Length')) !!}
+          {!! Form::text('width[]', '', array('class' => 'form-control col', 'placeholder' => 'Width')) !!}
+          --}}
       </div>
+
+
+    <fieldset class="scheduler-border">
+	<legend class="scheduler-border">Bootstrap two column Form</legend>
+	<form class="form-horizontal">
+        -->
+
+
+		<div class="row">
+
+			<div class="form-group col-sm-6">
+				<label for="formGroupExampleInput" class="control-label col-sm-2">Name</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Jane Doe">
+				</div>
+			</div>
+
+			<div class="form-group col-sm-6">
+				<label for="formGroupExampleInput2" class="control-label col-sm-2">Email</label>
+				<div class="col-sm-10">
+				 <input type="email" class="form-control" id="formGroupExampleInput2" placeholder="jane.doe@example.com">
+				</div>
+			</div>
+
+		</div>
+
+    <!--
+		<button type="submit" class="btn btn-primary">Sign in</button>
+	</form>
+</fieldset>
+-->
 
     @endfor
 

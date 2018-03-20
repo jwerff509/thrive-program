@@ -74,19 +74,24 @@ class GroupsController extends Controller
     //public function store(Request $request)
     public function store(Request $request)
     {
+
         $this->validate($request, $this->rules);
 
         $input = Input::all();
         $newGroup = Group::create($input);
-        $next = Input::get('submitbutton');
         $last_inserted = $newGroup->id;
+        $next = Input::get('submitbutton');
 
         if($next == 'Add Members List') {
+
           return Redirect()->action(
             'GroupDetailsController@create', [$last_inserted]);
+
         } else {
+
           return Redirect()->action(
             'GroupDetailsController@ind_survey_details', [$last_inserted]);
+
         }
 
     }

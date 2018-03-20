@@ -15,7 +15,6 @@ use Redirect;
 class GroupDetailsController extends Controller
 {
 
-
     protected $rules = [
         'reporting_term' => ['required'],
         'year' => ['required'],
@@ -37,10 +36,14 @@ class GroupDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     // Original function call
+    //public function create($id)
+
+    // New fuction call
     public function create($id)
     {
 
-        // Get the group
         $group = Group::find($id);
 
         $valueChains = ValueChains::pluck('description', 'id')->all();

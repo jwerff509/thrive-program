@@ -34,9 +34,9 @@
   </div>
 
   <div class="form-group row">
-    {!! Form::label('producers_group', 'ID8 - Producers Group', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('group_type', 'ID8 - Producers Group, Farmer Field School, or Farmer Unit Group', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
-      {!! Form::select('producers_group', array('0' => 'No', '1' => 'Yes')) !!}
+      {!! Form::select('group_type', array('None' => 'None or N/A', 'Producers Group' => 'Producers Group', 'Farmer Field School' => 'Farmer Field School', 'Farmer Unit Group' => 'Farmer Unit Group')) !!}
     </div>
   </div>
 
@@ -140,24 +140,85 @@
 
 
 <!-- Need to make this 2 input boxes, one for width and one for length and then calculate the hectares from there. -->
+<!-- 3/20/18 - Moving this to the members list section as per Moffat's request.
+{{--
   <div class="form-group row">
     {!! Form::label('hectares_reclaimed1', 'G10 - How Much Land Was Reclaimed for Agricultural Purposes (Last 90 Days):', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::text('hectares_reclaimed1', '', array('class' => 'form-control', 'placeholder' => '# Hectares of AG Land Reclaimed')) !!}
     </div>
   </div>
+  --}}
+-->
 
   <div class="form-group row">
-    {!! Form::label('members_using_soil_water_cons', 'G11 - # Members Currently Practicing Soil & Water Conservation:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('members_using_soil_water_cons', 'G11 - # Members Currently Practicing Soil Conservation Techniques:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+  </div>
+
+  <div class="form-group row">
+    {!! Form::label('members_using_ripping', 'G11a - Ripping: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
-      {!! Form::text('members_using_soil_water_cons', '', array('class' => 'form-control', 'placeholder' => '# Practicing Soil/Water Cons')) !!}
+      {!! Form::text('members_using_ripping', '', array('class' => 'form-control', 'placeholder' => 'Ripping')) !!}
     </div>
   </div>
 
   <div class="form-group row">
-    {!! Form::label('members_using_water_catchment', 'G12 - # Members Using Water Catchment Techniques:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('members_using_mulching', 'G11b - Mulching: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
-      {!! Form::text('members_using_water_catchment', '', array('class' => 'form-control', 'placeholder' => '# Using Water Catchment')) !!}
+      {!! Form::text('members_using_mulching', '', array('class' => 'form-control', 'placeholder' => 'Mulching')) !!}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    {!! Form::label('members_using_composting_liming', 'G11c - Composting / Liming: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    <div class="col-md-2">
+      {!! Form::text('members_using_composting_liming', '', array('class' => 'form-control', 'placeholder' => 'Composting / Liming')) !!}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    {!! Form::label('members_using_crop_rotation', 'G11d - Crop Rotation: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    <div class="col-md-2">
+      {!! Form::text('members_using_crop_rotation', '', array('class' => 'form-control', 'placeholder' => 'Crop Rotation')) !!}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    {!! Form::label('members_using_multiple_techniques', 'G11e - 3 or More Techniques on Same Land: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    <div class="col-md-2">
+      {!! Form::text('members_using_multiple_techniques', '', array('class' => 'form-control', 'placeholder' => '3 or More Techniques')) !!}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    {!! Form::label('water_catchment', 'How Many Members are CURRENTLY Using the Following Water Catchment Techniques:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+  </div>
+
+  <div class="form-group row">
+    {!! Form::label('members_using_contour_ridges', 'G12a - Contour Ridges:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    <div class="col-md-2">
+      {!! Form::text('members_using_contour_ridges', '', array('class' => 'form-control', 'placeholder' => 'Contour Ridges')) !!}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    {!! Form::label('members_using_vetiver_grass', 'G12b - Vetiver Grass:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    <div class="col-md-2">
+      {!! Form::text('members_using_vetiver_grass', '', array('class' => 'form-control', 'placeholder' => 'Vetiver Grass')) !!}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    {!! Form::label('members_using_weir', 'G12c - Weir:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    <div class="col-md-2">
+      {!! Form::text('members_using_weir', '', array('class' => 'form-control', 'placeholder' => 'Weir')) !!}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    {!! Form::label('members_using_fallow', 'G12d - Fallow:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    <div class="col-md-2">
+      {!! Form::text('members_using_fallow', '', array('class' => 'form-control', 'placeholder' => 'Fallow')) !!}
     </div>
   </div>
 
@@ -169,7 +230,7 @@
   </div>
 
   <div class="form-group row">
-    {!! Form::label('units_sold', 'G14 - # Units of Value Chain Sold by Members (Last 90 Days):', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('units_sold', 'G14 - How Much Was Sold From the Value Chain in the Last 3 Months by the Group Members:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::text('units_sold', '', array('class' => 'form-control', 'placeholder' => '# VC Units Sold')) !!}
     </div>
@@ -204,7 +265,8 @@
   <div class="form-group row">
     {!! Form::label('hectares_reclaimed2', 'G18 - Size of Land Regenerated/Reclaimed This Quarter:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
-      {!! Form::text('hectares_reclaimed2', '', array('class' => 'form-control', 'placeholder' => 'Hectares Land Regen/Reclaimed')) !!}
+      {!! Form::text('hectares_reclaimed_width', '', array('class' => 'form-control', 'placeholder' => 'Width (meters)')) !!}
+      {!! Form::text('hectares_reclaimed_length', '', array('class' => 'form-control', 'placeholder' => 'Length (meters)')) !!}
     </div>
   </div>
 

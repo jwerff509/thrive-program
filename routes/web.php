@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::get('groups/ind_survey', 'GroupsController@ind_survey');
 Route::get('groups/{id}/group_details/ind_survey_details', 'GroupDetailsController@ind_survey_details');
 
@@ -39,6 +40,7 @@ Route::model('person', 'PersonSurvey');
 Route::model('income', 'Income');
 Route::model('ppi', 'Ppi');
 Route::model('dashboard', 'Ppi');
+
 
 Route::get('groups/{id}/group_details/create', 'GroupDetailsController@create');
 Route::get('groups/{id}/group_details/{groupDetailsID}/create', 'GroupMemberMetricsController@create');

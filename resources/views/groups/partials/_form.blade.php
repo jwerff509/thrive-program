@@ -100,8 +100,7 @@
           'Mpika' => 'Mpika',
           'Katete' => 'Katete',
           'Buyantanshi' => 'Buyantanshi',
-          'Kawaza' => 'Kawaza',
-        'class' => 'form-control')) !!}
+          'Kawaza' => 'Kawaza')) !!}
         <span class="help-block">
           @if ($errors->has('area_program'))
             {{ $errors->first('area_program') }}
