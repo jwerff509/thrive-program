@@ -58,6 +58,8 @@
 
   <div class="container-fluid">
 
+<!--
+{{--
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('group_id')) ? 'has-error' : ''; ?>">
       {!! Form::label('group_id', 'ID1: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
@@ -71,10 +73,14 @@
       </div>
     </div>
   </div>
+  --}}
+  -->
+
+
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('name')) ? 'has-error' : ''; ?>">
-    {!! Form::label('name', 'ID2: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('name', 'ID2 - Group Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::text('name', '', array('class' => 'form-control', 'placeholder' => 'Group Name')) !!}
         <span class="help-block">
@@ -88,7 +94,7 @@
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('area_program')) ? 'has-error' : ''; ?>">
-    {!! Form::label('area_program', 'ID3: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('area_program', 'ID3 - Area Program:', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('area_program', array(
           '' => 'Select an Area Program...',
@@ -109,9 +115,9 @@
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('zone')) ? 'has-error' : ''; ?>">
-    {!! Form::label('zone', 'ID4: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('zone', 'ID4 - Zone Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
-        {!! Form::text('zone', '', array('class' => 'form-control', 'placeholder' => 'Zone Code')) !!}
+        {!! Form::text('zone', '', array('class' => 'form-control', 'placeholder' => 'Zone Name')) !!}
         <span class="help-block">
           @if ($errors->has('zone'))
             {{ $errors->first('zone') }}
@@ -123,7 +129,7 @@
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('village_name')) ? 'has-error' : ''; ?>">
-    {!! Form::label('village_name', 'ID5: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('village_name', 'ID5 - Village Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::text('village_name', '', array('class' => 'form-control', 'placeholder' => 'Village Name')) !!}
         <span class="help-block">
