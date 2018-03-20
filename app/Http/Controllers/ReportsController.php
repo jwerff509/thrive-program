@@ -282,6 +282,8 @@ class ReportsController extends Controller
 
   }
 
+
+
   public function pillars() {
 
     $current = Carbon::now();
@@ -431,6 +433,19 @@ class ReportsController extends Controller
     );
 
     return view('charts.pillars')->with($data);
+
+  }
+
+
+
+
+
+  public function survey_reports() {
+
+    // List the total number of groups currently entered in the system
+    $groups = Groups::count();
+
+
 
   }
 

@@ -53,6 +53,7 @@ Route::get('groups/{id}/group_details/{groupDetailsID}/person/create', 'PersonCo
 Route::get('chartjs', 'ReportsController@chartjs');
 Route::get('dashboard', 'ReportsController@chartjs');
 Route::get('pillars', 'ReportsController@pillars');
+Route::get('survey_reports', 'ReportsController@survey_reports');
 
 Route::post('group_details/store', [
   'as' => 'group_details.store',

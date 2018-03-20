@@ -145,6 +145,12 @@ return [
             'url'         => '/pillars',
             'icon_color'  => 'green',
         ],
+        [
+            'text'        => 'Progress Reports (Beta)',
+            'icon'        => 'bar-chart',
+            'url'         => '/progress',
+            'icon_color'  => 'green',
+        ],
         /*
         [
             'text'        => 'Search test',
