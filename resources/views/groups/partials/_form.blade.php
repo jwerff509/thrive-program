@@ -15,48 +15,78 @@
   )) !!}
   --}}
 -->
+<div class="container-fluid">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+<!--
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+<div class="form-group row">
+
+  {!! Form::label('group_id1', 'Select a Group', array('class' => 'col-md-5 form-control-label text-right')) !!}
+  <div class="col-md-2">
+  {!! Form::input('typeahead', array('class' => 'col-md-2 form-control')) !!}
+
+  <script type="text/javascript">
+    var path = "{{ route('autocomplete') }}";
+
+    $('input.typeahead').typeahead({
+
+      source:  function (query, process) {
+
+      return $.get(path, { query: query }, function (data) {
+
+              return process(data);
+
+          });
+
+      }
+
+  });
+
+</script>
 <!--
 {{--
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-<div class="form-group row">
-  {!! Form::label('group_id1', 'Select a Group', array('class' => 'col-md-3 form-control-label')) !!}
-  <div class="col-sm-5">
-  {!! Form::select('group_id1', $groups, array('id' => 'group_id1', 'class' => 'form-control') ) !!}
-  <span class="help-block"><br>OR Enter a Group ID </span>
-<script>
-  $(document).ready(function() {
+  {!! Form::select('group_id1[]', $groups, array('class' => 'form-control', 'id' => 'group_id1') ) !!}
 
-    $('#group_id1').select2({
-        placeholder: "Choose groups...",
-        minimumInputLength: 2,
-        ajax: {
-            url: '/groups/find',
-            dataType: 'json',
-            data: function (params) {
-                return {
-                    q: $.trim(params.term)
-                };
-            },
-            processResults: function (data) {
-                return {
-                    results: data
-                };
-            },
-            cache: true
-        }
+  <script>
+    $(document).ready(function() {
+
+      $('#group_id1').select2({
+          placeholder: "Choose groups...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/groups/find',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
     });
-  });
-</script>
+  </script>
+--}}
+-->
 
   </div>
 
 </div>
 
---}}
--->
 
-  <div class="container-fluid">
+
+
     <!--
 {{--
   <div class="form-group row">

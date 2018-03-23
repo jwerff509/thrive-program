@@ -27,12 +27,13 @@ class GroupsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
         $groups = Group::all();
         return view('groups.index', compact('groups'));
     }
+
+
 
     /**
      * Show the form for creating a new group with member list survey.
@@ -42,12 +43,15 @@ class GroupsController extends Controller
     public function create()
     {
 
-        $groups = Group::all();
+        //$groups = Group::all();
 
-        $dbGroups = $groups->pluck('group_id', 'name');
+        $groups = Group::pluck('name', 'id');
 
-        return view('groups.create', ['groups' => $dbGroups]);
+        //return view('groups.create', ['groups' => $dbGroups]);
+        return view('groups.create', compact('groups'));
     }
+
+
 
     /**
      * Show the form for creating a new group with individual data survey
@@ -63,6 +67,8 @@ class GroupsController extends Controller
 
         return view('groups.individual.create', ['groups' => $dbGroups]);
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -96,6 +102,8 @@ class GroupsController extends Controller
 
     }
 
+
+
     /**
      * Display the specified resource.
      *
@@ -117,6 +125,8 @@ class GroupsController extends Controller
     }
     */
 
+
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -127,6 +137,7 @@ class GroupsController extends Controller
     {
         return view('groups.edit', compact('groups'));
     }
+
 
 
     /**
@@ -157,6 +168,38 @@ class GroupsController extends Controller
         $group->delete();
 
         return Redirect::route('groups.index')->with('message', 'Group Deleted Successfully');
+    }
+
+
+    public function find(Request $request)
+    {
+
+      $term = trim($request->q);
+
+      if(empty($term)) {
+        return \Response::json([]);
+      }
+
+      $groups = Group::search($term)->limit(10)->get();
+
+      $formatted_groups = [];
+
+      foreach ($groups as $group) {
+        $formatted_groups[] = ['id' => $group->id, 'name' => $group->name];
+      }
+
+      return \Response::json($formatted_groups);
+
+    }
+
+
+
+    public function autocomplete(Request $request)
+    {
+
+      $data = Group::select('name')->where("name", "LIKE", "%{$request->input('query')}%")->get();
+      return response()->json($data);
+
     }
 
 
