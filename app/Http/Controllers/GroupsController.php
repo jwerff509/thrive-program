@@ -22,6 +22,13 @@ class GroupsController extends Controller
         'village_name' => ['required', 'max:191'],
     ];
 
+    public function group_details()
+    {
+
+      return $this->hasMany('App\GroupDetails');
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,9 +50,7 @@ class GroupsController extends Controller
     {
 
         $groups = Group::all();
-
         $dbGroups = $groups->pluck('group_id', 'name');
-
         return view('groups.create', ['groups' => $dbGroups]);
     }
 
@@ -58,9 +63,7 @@ class GroupsController extends Controller
     {
 
         $groups = Group::all();
-
         $dbGroups = $groups->pluck('group_id', 'name');
-
         return view('groups.individual.create', ['groups' => $dbGroups]);
     }
 
@@ -157,6 +160,28 @@ class GroupsController extends Controller
         $group->delete();
 
         return Redirect::route('groups.index')->with('message', 'Group Deleted Successfully');
+    }
+
+
+    public function find(Request $request)
+    {
+
+      $term = trim($request->q);
+
+      if(empty($term)) {
+        return \Response::json([]);
+      }
+
+      $groups = Group::search($term)->limit(10)->get();
+
+      $formatted_groups = [];
+
+      foreach ($groups as $group) {
+        $formatted_groups[] = ['id' => $group->id, 'name' => $group->name];
+      }
+
+      return \Response::json($formatted_groups);
+
     }
 
 

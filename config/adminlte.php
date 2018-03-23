@@ -148,7 +148,7 @@ return [
         [
             'text'        => 'Progress Reports (Beta)',
             'icon'        => 'bar-chart',
-            'url'         => '/progress',
+            'url'         => '/progress_reports',
             'icon_color'  => 'green',
         ],
         /*

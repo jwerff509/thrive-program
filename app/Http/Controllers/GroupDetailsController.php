@@ -21,6 +21,20 @@ class GroupDetailsController extends Controller
         'data_collector' => ['required'],
     ];
 
+    public function group()
+    {
+
+      return $this->belongsTo('App\Group');
+
+    }
+
+    public function group_members()
+    {
+
+      return $this->hasMany('App\GroupMembers');
+
+    }
+
     /**
      * Display a listing of the resource.
      *

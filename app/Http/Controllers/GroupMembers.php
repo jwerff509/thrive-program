@@ -16,6 +16,16 @@ Use DB;
 
 class GroupMembers extends Controller
 {
+
+
+    public function group_details()
+    {
+
+      return $this->belongsTo('App\GroupDetails');
+      
+    }
+
+
     /**
      * Display a listing of the resource.
      *

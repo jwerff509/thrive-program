@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\GroupMemberMetrics;
 use App\Person;
+Use App\Group;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 use DB;
@@ -68,7 +69,6 @@ class ReportsController extends Controller
     // 2/21/2018 - This query has been edited because the data collection method changed
     // and we are no longer tracking if the group is a savings group, we are only tracking the
     // number of savings group members, so I commented out the $numSavingsGroups variable at the end.
-
     $savings = DB::table('group_details')
             ->select(DB::raw('COUNT(id) as num_groups, SUM(account_balance) as total_savings'))
             ->where('savings_group_members', '>', '0')
@@ -400,9 +400,10 @@ class ReportsController extends Controller
     $chainLabels = array_column($valueChains, 'description');
     $chainMembers = array_column($valueChains, 'members');
 
+/*
     echo json_encode($chainLabels);
     exit;
-
+*/
 
 
 
@@ -440,10 +441,30 @@ class ReportsController extends Controller
 
 
 
-  public function survey_reports() {
+  public function progress_reports() {
 
-    // List the total number of groups currently entered in the system
-    $groups = Groups::count();
+    $groups = Group::all();
+
+    // This query returns the financial trends for the past 9 months
+    $memEntered = DB::table('members_entered_by_group')
+            ->get();
+            //->get()->toArray();
+            /*
+    $groupMembersTrend = array_column($finTrends, 'num_members');
+    $loansTrend = array_column($finTrends, 'num_loans_accessed');
+    $cropInsTrend = array_column($finTrends, 'num_crop_insurance');
+
+
+  foreach($memEntered as $memEntered) {
+    echo $memEntered->group_name ."<br>";
+  }
+
+  var_dump($memEntered);
+  echo "<br><br><br>";
+  echo json_encode($memEntered);
+  exit;
+*/
+    return view('charts.progress_reports', compact('groups', 'memEntered'));
 
 
 
