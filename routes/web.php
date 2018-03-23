@@ -19,6 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Testing bootstrap typeahed js functionality on Groups page
+Route::get('/groups/find', array('as' => 'find', 'uses' => 'GroupsController@find'));
+Route::get('autocomplete', array('as' => 'autocomplete', 'uses' => 'GroupsController@autocomplete'));
+
 
 Route::get('groups/ind_survey', 'GroupsController@ind_survey');
 Route::get('groups/{id}/group_details/ind_survey_details', 'GroupDetailsController@ind_survey_details');
