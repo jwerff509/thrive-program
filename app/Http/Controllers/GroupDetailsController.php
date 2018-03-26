@@ -217,25 +217,29 @@ class GroupDetailsController extends Controller
       ];
 
       $newSurveyDetails = SurveyDetails::create($details);
-      $last_inserted = $newSurveyDetails->id;
+      $surveyDetailsID = $newSurveyDetails->survey_details_id;
 
-      $input['survey_details_id'] = $last_inserted;
+      $input['survey_details_id'] = $surveyDetailsID;
 
       $newGroupDetails = GroupDetails::create($input);
-      $lastGroupID = Input::get('group_id');
 
-      $lastGroupDetailsID = $newGroupDetails->id;
+      // This should no longer be needed
+      //$lastGroupID = Input::get('group_id');
+
+      $groupDetailsID = $newGroupDetails->id;
 
       if($next == 'Add Group Members') {
 
         return Redirect()->action(
-          'GroupMemberMetricsController@create', [$lastGroupID, $lastGroupDetailsID]
+          //'GroupMemberMetricsController@create', [$lastSurveyID, $lastGroupDetailsID]
+          'GroupMemberMetricsController@create', compact('surveyDetailsID', 'groupDetailsID')
+
         );
 
       } else {
 
         return Redirect()->action(
-          'PersonController@create', [$lastGroupID, $lastGroupDetailsID]
+          'PersonController@create', [$lastSurveyID, $lastGroupDetailsID]
         );
 
       }

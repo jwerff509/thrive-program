@@ -7,6 +7,10 @@ use App\GroupDetails;
 use App\GroupMemberMetrics;
 use App\Person;
 use App\ReportingTerms;
+use App\SurveyDetails;
+use App\AreaProgram;
+use App\Zone;
+use App\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -36,7 +40,7 @@ class GroupMemberMetricsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($groupID, $groupDetailsID)
+    public function create($surveyDetailsID, $groupDetailsID)
     {
 
       /*
@@ -58,8 +62,9 @@ class GroupMemberMetricsController extends Controller
       */
 
 
-      // Get the group
-      $group = Group::find($groupID);
+      // Get the survey details
+      //$surveyDetails = SurveyDetails::where('survey_details_id', '=', $surveyDetailsID)->first();
+      $surveyDetails = SurveyDetails::find($surveyDetailsID);
 
       // Get the group details record
       $groupDetails = GroupDetails::find($groupDetailsID);
@@ -67,6 +72,15 @@ class GroupMemberMetricsController extends Controller
       // Get the reporting terms
       $rptTerm = ReportingTerms::find($groupDetails->reporting_term);
 
+      // Build the header information
+      $header = [
+        'group_name' => Group::get('name')->where('id', '=', $surveyDetails->group_id),
+        'ap_name' => AreaProgram::get('name')->where('id', '=', $surveyDetails->area_program_id),
+        'zone_name' => Zone::get('name')->where('id', '=', $surveyDetails->zone_id),
+        'village_name' => Village::get('name')->where('id', '=', $surveyDetails->village_id),
+        'reporting_term' => $rptTerm->description,
+        'year' => $groupDetails->year
+      ];
 
 
       //  Need to edit this code to display existing group members on this page!!!!
@@ -74,15 +88,11 @@ class GroupMemberMetricsController extends Controller
       //$members = Person::pluck('nrc_number', 'last_name', 'first_name', 'sex', 'cellphone_number');
       $members = DB::table('group_members')
               ->select('nrc_number', 'family_name', 'other_name', 'sex', 'phone_number')
-              ->where('group_id', '=', $group->ID)
+              ->where('group_id', '=', $surveyDetails->group_id)
               ->get()->toArray();
       //$members = array_column($members, 'num_members');
       //$members = Person::find(1);
       //$members = Person::all();
-
-
-
-
 
       //$test = compact('members');
       //var_dump($members);
@@ -90,8 +100,7 @@ class GroupMemberMetricsController extends Controller
 
       //return view('group_member_details.create')->with('group', $group)->with('groupDetails', $groupDetails)->with('members', $members);
 
-
-      return view('group_member_details.create', compact('group', 'groupDetails', 'members', 'rptTerm'));
+      return view('group_member_details.create', compact('header', 'groupDetails', 'members'));
 
     }
 

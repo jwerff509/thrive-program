@@ -53,8 +53,7 @@ Route::get('/group_details/create', 'GroupDetailsController@create');
 // Old route below
 //Route::get('groups/{id}/group_details/create', 'GroupDetailsController@create');
 
-
-Route::get('groups/{id}/group_details/{groupDetailsID}/create', 'GroupMemberMetricsController@create');
+Route::get('groups/{surveyDetailsID}/group_details/{groupDetailsID}/create', 'GroupMemberMetricsController@create');
 
 Route::get('person/{id}/income/create', 'IncomeController@create');
 Route::get('person/{id}/ppi/create', 'PpiController@create');

@@ -12,4 +12,6 @@ class SurveyDetails extends Model
     'group_id', 'area_program_id', 'zone_id', 'village_id'
   ];
 
+  protected $primaryKey = 'survey_details_id';
+
 }
