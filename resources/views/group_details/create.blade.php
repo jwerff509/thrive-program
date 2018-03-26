@@ -12,7 +12,13 @@
   </div>
 </div>
 
+<!-- Old Form::model opening -->
+{{--}}
 {!! Form::model(new App\GroupDetails, ['method' => 'POST', 'route' => ['group_details.store']]) !!}
+--}}
+
+<!-- New Form opening -->
+{!! Form::open(['method' => 'POST', 'route' => 'group_details.store']) !!}
   @include('group_details/partials/_form')
 {!! Form::close() !!}
 

@@ -19,9 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Testing bootstrap typeahed js functionality on Groups page
-Route::get('/groups/find', array('as' => 'find', 'uses' => 'GroupsController@find'));
-Route::get('autocomplete', array('as' => 'autocomplete', 'uses' => 'GroupsController@autocomplete'));
+// Bootstrap typeahed js functionality for the Group creation page
+Route::get('groupsFind/{QUERY}', array('as' => 'groupsFind', 'uses' => 'GroupDetailsController@groupsFind'));
+//Route::get('groupsFind', array('as' => 'groupsFind', 'uses' => 'GroupsController@find'));
+Route::get('zonesFind/{QUERY}', array('as' => 'zonesFind', 'uses' => 'GroupDetailsController@zonesFind'));
+Route::get('villagesFind/{QUERY}', array('as' => 'villagesFind', 'uses' => 'GroupDetailsController@villagesFind'));
 
 
 Route::get('groups/ind_survey', 'GroupsController@ind_survey');
@@ -46,7 +48,12 @@ Route::model('ppi', 'Ppi');
 Route::model('dashboard', 'Ppi');
 
 
-Route::get('groups/{id}/group_details/create', 'GroupDetailsController@create');
+// New route that gets the Groups form array data
+Route::get('/group_details/create', 'GroupDetailsController@create');
+// Old route below
+//Route::get('groups/{id}/group_details/create', 'GroupDetailsController@create');
+
+
 Route::get('groups/{id}/group_details/{groupDetailsID}/create', 'GroupMemberMetricsController@create');
 
 Route::get('person/{id}/income/create', 'IncomeController@create');

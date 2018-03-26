@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Group;
 use App\GroupDetails;
 use App\Country;
+use App\AreaProgram;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
@@ -52,10 +53,11 @@ class GroupsController extends Controller
 
         //$groups = Group::all();
 
-        $groups = Group::pluck('name', 'id');
+        $groups = Group::pluck('name', 'group_id');
+        $areaPrograms = AreaProgram::pluck('name', 'id')->all();
 
         //return view('groups.create', ['groups' => $dbGroups]);
-        return view('groups.create', compact('groups'));
+        return view('groups.create', compact('groups', 'areaPrograms'));
     }
 
 
@@ -89,14 +91,23 @@ class GroupsController extends Controller
         $this->validate($request, $this->rules);
 
         $input = Input::all();
-        $newGroup = Group::create($input);
-        $last_inserted = $newGroup->id;
+
+        $request->session()->put('group_id', $request->id);
+        $request->session()->put('group_name', $request->name);
+        $request->session()->put('area_program', $request->area_program);
+        $request->session()->put('zone', $request->zone);
+        $request->session()->put('village_name', $request->village_name);
+
+
+        //$newGroup = Group::create($input);
+        //$last_inserted = $newGroup->id;
         $next = Input::get('submitbutton');
 
         if($next == 'Add Members List') {
 
           return Redirect()->action(
-            'GroupDetailsController@create', [$last_inserted]);
+            //'GroupDetailsController@create', [$last_inserted]);
+            'GroupDetailsController@create', compact($input));
 
         } else {
 
@@ -175,6 +186,8 @@ class GroupsController extends Controller
         return Redirect::route('groups.index')->with('message', 'Group Deleted Successfully');
     }
 
+/* This was used for Select2js, which I never got working. Using bootstrap typeahed instead
+   which is the function below this one.
 
     public function find(Request $request)
     {
@@ -196,17 +209,33 @@ class GroupsController extends Controller
       return \Response::json($formatted_groups);
 
     }
+*/
 
 
-
-    public function autocomplete(Request $request)
+//    public function groupsFind(Request $request)
+/*
+    public function groupsFind($query)
     {
 
-      $data = Group::select('name')->where("name", "LIKE", "%{$request->input('query')}%")->get();
+      //$data = Group::select('id', 'name')->where("name", "LIKE", "%{$request->input('query')}%")->get();
+      $data = Group::select('group_id', 'name')->where("name", "LIKE", "%". $query ."%")->get();
+
       return response()->json($data);
+      //return Group::select('name')->where("name", "LIKE", "%{$request->input('query')}%")->get();
 
     }
+*/
 
+/*
+  Old function no longer used
+
+    public function find (Request $request)
+    {
+
+      return Group::search($request->get('q'))->get();
+
+    }
+*/
 
 
 

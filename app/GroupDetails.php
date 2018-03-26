@@ -8,7 +8,7 @@ class GroupDetails extends Model
 {
 
     protected $fillable = [
-      'group_id',
+      'survey_details_id',
       'reporting_term',
       'report_term_date',
       'year', 'group_type',
