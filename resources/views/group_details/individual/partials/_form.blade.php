@@ -1,4 +1,210 @@
 <div class="container-fluid">
+  <!-- The following code is from the Groups create form, I'm putting it here to test out combining that page with this one -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+
+  <div class="form-group row">
+
+    <div class="form-group row">
+      <div class="form-group <?php echo ($errors->has('group_name')) ? 'has-error' : ''; ?>">
+      {!! Form::label('group_name', 'ID2 - Group Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+        <div class="col-md-2">
+          {!! Form::text('group_name', '', array('class' => 'typeahead-group-name form-control', 'placeholder' => 'Group Name', 'autocomplete' => 'off', 'id' => 'group_name' )) !!}
+          <script>
+            jQuery(document).ready(function($) {
+
+              // Set the Options for "Bloodhound" suggestion engine
+              var engine = new Bloodhound({
+                remote: {
+                  url: 'http://localhost/groupsFind/%QUERY%',
+                  //{{--url: "{{ route('groupsFind', ['QUERY' => '%QUERY%']) }}", --}}
+                  wildcard: '%QUERY%'
+                },
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace
+              });
+
+              $("#group_name").typeahead({
+                //hint: true,
+                //highlight: true,
+                //minLength: 1,
+                limit: 10
+              }, {
+                source: engine.ttAdapter(),
+                // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                name: 'groups',
+                valueKey: 'group_id',
+                displayKey: 'name',
+
+                // the key from the array we want to display (name,id,email,etc...)
+                templates: {
+
+                  empty: [
+                  '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>'
+                  ],
+
+                  header: [
+                  '<div class="list-group search-results-dropdown">'
+                  ],
+                  suggestion: function (data) {
+                    //return '<a href="' + data.name + '" class="list-group-item">' + data.id + ' - @' + data.name + '</a>'
+                    return '<div style="font-weight:bold; margin-top:-10px ! important;" class="list-group-item">' + data.name + '</div></div>'
+                  }
+                }
+              }).on('typeahead:selected typeahead:autocompleted', function(e, datum) {
+                $('#group_id').val(datum.group_id);
+                console.log($('#group_id'));
+              });
+            });
+          </script>
+
+          <span class="help-block">
+            @if ($errors->has('group_name'))
+              {{ $errors->first('group_name') }}
+            @endif
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="form-group <?php echo ($errors->has('area_program')) ? 'has-error' : ''; ?>">
+      {!! Form::label('area_program', 'ID3 - Area Program:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+        <div class="col-md-2">
+          {!! Form::select('area_program', array('default' => 'Area Program...') + $areaPrograms, array('id' => 'id', 'class' => 'form-control')) !!}
+          <span class="help-block">
+            @if ($errors->has('area_program'))
+              {{ $errors->first('area_program') }}
+            @endif
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="form-group <?php echo ($errors->has('zone')) ? 'has-error' : ''; ?>">
+      {!! Form::label('zone', 'ID4 - Zone Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+        <div class="col-md-2">
+          {!! Form::text('zone', '', array('class' => 'typeahead-zone form-control', 'placeholder' => 'Zone Name', 'id' => 'zone', 'autocomplete' => 'off')) !!}
+          <script>
+            jQuery(document).ready(function($) {
+
+              // Set the Options for "Bloodhound" suggestion engine
+              var zones = new Bloodhound({
+                remote: {
+                  url: 'http://localhost/zonesFind/%QUERY%',
+                  //{{--url: "{{ route('groupsFind', ['QUERY' => '%QUERY%']) }}", --}}
+                  wildcard: '%QUERY%'
+                },
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace
+              });
+
+              $("#zone").typeahead({
+                //hint: true,
+                //highlight: true,
+                //minLength: 1,
+                limit: 10
+              }, {
+                source: zones.ttAdapter(),
+                // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                name: 'zones',
+                valueKey: 'zone_id',
+                displayKey: 'name',
+                // the key from the array we want to display (name,id,email,etc...)
+                templates: {
+
+                  empty: [
+                  '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>'
+                  ],
+
+                  header: [
+                  '<div class="list-group search-results-dropdown">'
+                  ],
+                  suggestion: function (data) {
+                    //return '<a href="' + data.name + '" class="list-group-item">' + data.id + ' - @' + data.name + '</a>'
+                    return '<div style="font-weight:bold; margin-top:-10px ! important;" class="list-group-item">' + data.name + '</div></div>'
+                  }
+                }
+              }).on('typeahead:selected typeahead:autocompleted', function(e, datum) {
+                $('#zone_id').val(datum.zone_id);
+                console.log($('#zone_id'));
+              });
+            });
+          </script>
+        <span class="help-block">
+          @if ($errors->has('zone'))
+            {{ $errors->first('zone') }}
+          @endif
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="form-group <?php echo ($errors->has('village_name')) ? 'has-error' : ''; ?>">
+    {!! Form::label('village_name', 'ID5 - Village Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      <div class="col-md-2">
+        {!! Form::text('village_name', '', array('class' => 'typeahead-village-name form-control', 'placeholder' => 'Village Name', 'id' => 'village_name', 'autocomplete' => 'off')) !!}
+        <script>
+          jQuery(document).ready(function($) {
+
+            // Set the Options for "Bloodhound" suggestion engine
+            var villages = new Bloodhound({
+              remote: {
+                url: 'http://localhost/villagesFind/%QUERY%',
+                //{{--url: "{{ route('groupsFind', ['QUERY' => '%QUERY%']) }}", --}}
+                wildcard: '%QUERY%'
+              },
+              datumTokenizer: Bloodhound.tokenizers.whitespace,
+              queryTokenizer: Bloodhound.tokenizers.whitespace
+            });
+
+            $("#village_name").typeahead({
+              //hint: true,
+              //highlight: true,
+              //minLength: 1,
+              limit: 10
+            }, {
+              source: villages.ttAdapter(),
+              // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+              name: 'villages',
+              valueKey: 'village_id',
+              displayKey: 'name',
+              // the key from the array we want to display (name,id,email,etc...)
+              templates: {
+
+                empty: [
+                '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>'
+                ],
+
+                header: [
+                '<div class="list-group search-results-dropdown">'
+                ],
+                suggestion: function (data) {
+                  //return '<a href="' + data.name + '" class="list-group-item">' + data.id + ' - @' + data.name + '</a>'
+                  return '<div style="font-weight:bold; margin-top:-10px ! important;" class="list-group-item">' + data.name + '</div></div>'
+                }
+              }
+            }).on('typeahead:selected typeahead:autocompleted', function(e, datum) {
+              $('#village_id').val(datum.village_id);
+              console.log($('#village_id'));
+            });
+          });
+        </script>
+        <span class="help-block">
+          @if ($errors->has('village_name'))
+            {{ $errors->first('village_name') }}
+          @endif
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- End of code from Groups create form. All code below this line is original to the group details create form -->
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('reporting_term')) ? 'has-error' : ''; ?>">
@@ -143,7 +349,9 @@
   </div>
 
   <div class="card-footer text-center">
-    {!! Form::hidden('group_id', $group->id) !!}
+    {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
+    {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
+    {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
     {!! Form::submit('Add Individual Data', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
     {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
   </div>

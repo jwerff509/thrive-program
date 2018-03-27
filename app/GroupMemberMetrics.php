@@ -17,10 +17,10 @@ class GroupMemberMetrics extends Model
 */
 
 
-    protected $table = 'group_members';
+    protected $table = 'survey_details_members';
 
     protected $fillable = [
-      'group_id', 'group_details_id', 'nrc_number', 'family_name', 'other_name', 'sex', 'phone_number'
+      'group_details_id', 'nrc_number', 'family_name', 'other_name', 'sex', 'phone_number', 'land_length', 'land_width',
     ];
 
 

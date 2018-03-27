@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\GroupMemberMetrics;
 use App\Person;
-Use App\Group;
+use App\Group;
+use App\AreaProgram;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 use DB;
 use Excel;
-Use Carbon\Carbon;
+use Carbon\Carbon;
 
 class ReportsController extends Controller
 {
@@ -60,7 +61,7 @@ class ReportsController extends Controller
 
     // This query gets the number of members that were registered in the last 3 months
     $newUsers = DB::table('group_member_metrics')
-            ->select(DB::raw('COUNT(DISTINCT(member_id)) as new_members'))
+            ->select(DB::raw('COUNT(DISTINCT(nrc_number)) as new_members'))
             ->whereDate('created_at', '>', $quarter)
             ->get()->toArray();
     $newUsers = array_column($newUsers, 'new_members');
@@ -443,7 +444,17 @@ class ReportsController extends Controller
 
   public function progress_reports() {
 
-    $groups = Group::all();
+    $current = Carbon::now();
+    $quarter = Carbon::now();
+    $quarter->subMonth(3);
+    $half = Carbon::now();
+    $half->subMonth(6);
+    $threeQuarter = Carbon::now();
+    $threeQuarter->subMonth(9);
+    $year = Carbon::now();
+    $year->subMonth(12);
+
+    //$groups = Group::all();
 
     // This query returns the financial trends for the past 9 months
     $memEntered = DB::table('members_entered_by_group')
@@ -454,7 +465,6 @@ class ReportsController extends Controller
     $loansTrend = array_column($finTrends, 'num_loans_accessed');
     $cropInsTrend = array_column($finTrends, 'num_crop_insurance');
 
-
   foreach($memEntered as $memEntered) {
     echo $memEntered->group_name ."<br>";
   }
@@ -464,7 +474,13 @@ class ReportsController extends Controller
   echo json_encode($memEntered);
   exit;
 */
-    return view('charts.progress_reports', compact('groups', 'memEntered'));
+
+    $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
+    $groups = Group::select('name', 'group_id')->orderBy('name')->get()->toArray();
+
+    //$chainLabels = array_column($valueChains, 'description');
+
+    return view('charts.progress_reports', compact('groups', 'memEntered', 'areaPrograms'));
 
 
 

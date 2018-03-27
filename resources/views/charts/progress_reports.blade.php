@@ -8,18 +8,41 @@
 
 @section('content')
 
-  <div class="row">
+<div class="container-fluid">
 
+  <div class="row">
+    <div class="col-12">
+      <div class="box box-info">
+        <div class="box-header with-border">
+            <div class="panel-heading">
+              <div class="row">
+                {!! Form::select('group', array('default' => 'Select a Group') + $groups, array('id' => 'group_id', 'class' => 'form-control')) !!}
+              </div>
+              <div class="row">
+                {!! Form::select('area_program', array('default' => 'Area Program') + $areaPrograms, array('id' => 'area_program_id', 'class' => 'form-control')) !!}
+              </div>
+              <div class="row">
+                <select name="ap" id="ap" class="form-control col-xl-1">
+                  <option value="1">A.P. 1</option>
+                  <option value="2">A.P. 2</option>
+                </select>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
         <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people-outline"></i></span>
         <div class="info-box-content">
           <span class="info-box-text">Total Groups Entered</span>
-          <span class="info-box-number"><b>{{ $groups->count() }}</b></span>
+          <span class="info-box-number"><b>{{ count($groups) }}</b></span>
         </div>
       </div>
     </div>
-
   </div>
 
   <div class="row">
@@ -33,20 +56,14 @@
           <table class="table table-condensed">
             <tbody>
               <tr>
-                <th>Group</th>
-                <th>Area Program</th>
-                <th>Zone</th>
-                <th>Village</th>
-                <th>Members Entered</th>
+                <th>Group Name</th>
+                <th>Number of Members</th>
               </tr>
 
             @foreach($memEntered as $member)
               <tr>
-                <td>{{ $member->group_name }}</td>
-                <td>{{ $member->area_program }}</td>
-                <td>{{ $member->zone }}</td>
-                <td>{{ $member->village_name }}</td>
-                <td>{{ $member->members_entered }}</td>
+                <td>{{ $member->name }}</td>
+                <td>{{ $member->num_members }}</td>
               </tr>
             @endforeach
 
@@ -58,6 +75,7 @@
     </div>
   </div>
 
+</div>
 
 <!--
   <div class="row">

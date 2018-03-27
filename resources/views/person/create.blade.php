@@ -23,7 +23,7 @@
 </div>
 
   {!! Form::model(new App\PersonSurvey, ['class' => 'justify-content-center', 'method' => 'POST', 'route' => ['person.store']]) !!}
-    @include('person/partials/_form', ['submit_text' => 'Save'])
+    @include('person/partials/_form2', ['submit_text' => 'Save'])
   {!! Form::close() !!}
 
 @endsection

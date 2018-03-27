@@ -4,11 +4,11 @@
 
 @section('content')
 
-@include('group_details/partials/_header')
+{{-- @include('group_details/partials/_header')  --}}
 
 <div class="container">
   <div class="row col-md-8 col-md-offset-2">
-    <h2><center><strong>Add</strong> Group Details</center></h2><br><br>
+    <h2><center><strong>Add</strong> Survey Details</center></h2><br><br>
   </div>
 </div>
 

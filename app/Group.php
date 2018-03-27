@@ -19,6 +19,7 @@ class Group extends Model
   ];
 
   protected $searchableColumns = ['name'];
+  protected $primaryKey = 'group_id';
 
 /* Old Groups table
   protected $fillable = [

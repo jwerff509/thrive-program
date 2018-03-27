@@ -1,11 +1,8 @@
 <div class="container-fluid">
-
-
   <!-- The following code is from the Groups create form, I'm putting it here to test out combining that page with this one -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
-
 
   <div class="form-group row">
 

@@ -165,7 +165,7 @@
 <br><br>
 
   <div class="card-footer text-center col-md-7 col-md-offset-2">
-    {!! Form::hidden('group_id', $group->id) !!}
+    {!! Form::hidden('survey_details_id', $surveyDetails->id) !!}
     {!! Form::hidden('group_details_id', $groupDetails->id) !!}
     {!! Form::submit('Save and Add Another', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
     {!! Form::submit('Save and Close', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}

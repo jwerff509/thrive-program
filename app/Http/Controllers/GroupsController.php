@@ -54,7 +54,7 @@ class GroupsController extends Controller
         //$groups = Group::all();
 
         $groups = Group::pluck('name', 'group_id');
-        $areaPrograms = AreaProgram::pluck('name', 'id')->all();
+        $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
 
         //return view('groups.create', ['groups' => $dbGroups]);
         return view('groups.create', compact('groups', 'areaPrograms'));

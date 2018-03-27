@@ -27,7 +27,8 @@ Route::get('villagesFind/{QUERY}', array('as' => 'villagesFind', 'uses' => 'Grou
 
 
 Route::get('groups/ind_survey', 'GroupsController@ind_survey');
-Route::get('groups/{id}/group_details/ind_survey_details', 'GroupDetailsController@ind_survey_details');
+Route::get('group_details/ind_survey_details', 'GroupDetailsController@ind_survey_details');
+//Route::get('groups/{id}/group_details/ind_survey_details', 'GroupDetailsController@ind_survey_details');
 
 Route::resource('groups', 'GroupsController');
 Route::resource('groups.group_details', 'GroupDetailsController');

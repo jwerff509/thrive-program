@@ -1,4 +1,4 @@
-<div class="container h-100">
+<div class="container-fluid h-100">
 
   <div class="flash-message">
     @foreach(['danger', 'warning', 'success', 'info'] as $msg)
@@ -78,28 +78,23 @@
 
     @for($i=1; $i<=20; $i++)
 
-      <!--
-      {{-- }}
-
-      <div class="form-group row form-inline col-md-offset-1">
-          {!! Form::text('nrc_number[]', '', array('class' => 'form-control col-2', 'placeholder' => 'NRC #')) !!}
-          {!! Form::text('family_name[]', '', array('class' => 'form-control col-2', 'placeholder' => 'Family Name')) !!}
-          {!! Form::text('other_name[]', '', array('class' => 'form-control col-2', 'placeholder' => 'Other Name')) !!}
-          {!! Form::select('sex[]', array('' => 'Sex...', 'M' => 'Male', 'F' => 'Female'), null, ['class' => 'form-control col-3']) !!}
-          {!! Form::text('phone_number[]', '', array('class' => 'form-control col-3', 'placeholder' => 'Phone Number')) !!}
-          {{-- }
-          {!! Form::text('length[]', '', array('class' => 'form-control col', 'placeholder' => 'Length')) !!}
-          {!! Form::text('width[]', '', array('class' => 'form-control col', 'placeholder' => 'Width')) !!}
-          --}}
+      <div class="row form-inline justify-content-center">
+          {!! Form::text('nrc_number[]', '', array('class' => 'form-control col-md-1 col-lg-1 col-xl-1', 'placeholder' => 'NRC #')) !!}
+          {!! Form::text('family_name[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Family Name')) !!}
+          {!! Form::text('other_name[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Other Name')) !!}
+          {!! Form::select('sex[]', array('' => 'Sex...', 'M' => 'Male', 'F' => 'Female'), null, ['class' => 'form-control col-md-1 col-lg-1 col-xl-1']) !!}
+          {!! Form::text('phone_number[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Phone Number')) !!}
+          {!! Form::text('length[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Length')) !!}
+          {!! Form::text('width[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Width')) !!}
       </div>
 
-
+<!--
     <fieldset class="scheduler-border">
 	<legend class="scheduler-border">Bootstrap two column Form</legend>
 	<form class="form-horizontal">
         -->
 
-
+<!--
 		<div class="row">
 
 			<div class="form-group col-sm-6">
@@ -117,7 +112,7 @@
 			</div>
 
 		</div>
-
+-->
     <!--
 		<button type="submit" class="btn btn-primary">Sign in</button>
 	</form>
@@ -134,7 +129,6 @@
 </div>
 
 <div class="card-footer text-center">
-  {!! Form::hidden('group_id', $group->id) !!}
   {!! Form::hidden('group_details_id', $groupDetails->id) !!}
   {!! Form::submit('Save Members', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
   {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}

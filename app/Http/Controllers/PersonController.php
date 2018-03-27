@@ -8,6 +8,10 @@ use App\GroupMemberMetrics;
 use App\Group;
 use App\GroupDetails;
 use App\ReportingTerms;
+use App\SurveyDetails;
+use App\AreaProgram;
+use App\Zone;
+use App\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -36,18 +40,42 @@ class PersonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($groupID, $groupDetailsID)
+    public function create($surveyDetailsID, $groupDetailsID)
     {
 
-      // Get the group
-      $group = Group::find($groupID);
+      // Get the survey details
+      $surveyDetails = SurveyDetails::find($surveyDetailsID);
 
       // Get the group details record
       $groupDetails = GroupDetails::find($groupDetailsID);
 
       // Get the reporting terms
       $rptTerm = ReportingTerms::find($groupDetails->reporting_term);
-          return view('person.create', compact('group', 'groupDetails', 'rptTerm'));
+
+      // Build the header information
+      $group = Group::select('name')->where('group_id', '=', $surveyDetails->group_id)->first()->toArray();
+      $group_name = $group['name'];
+
+      $ap = AreaProgram::select('name')->where('area_program_id', '=', $surveyDetails->area_program_id)->first()->toArray();
+      $ap_name = $ap['name'];
+
+      $zone = Zone::select('name')->where('zone_id', '=', $surveyDetails->zone_id)->first()->toArray();
+      $zone_name = $zone['name'];
+
+      $village = Village::select('name')->where('village_id', '=', $surveyDetails->village_id)->first()->toArray();
+      $village_name = $village['name'];
+
+      $header = [
+        'group_name' => $group_name,
+        'ap_name' => $ap_name,
+        'zone_name' => $zone_name,
+        'village_name' => $village_name,
+        'reporting_term' => $rptTerm->description,
+        'year' => $groupDetails->year
+      ];
+
+
+      return view('person.create', compact('header', 'groupDetails', 'members', 'surveyDetails'));
 
     }
 

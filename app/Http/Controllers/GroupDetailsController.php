@@ -84,7 +84,7 @@ class GroupDetailsController extends Controller
         //$group = Group::find($id);
         // Testing out combining the "group" form and the group_details form
         $groups = Group::pluck('name', 'group_id');
-        $areaPrograms = AreaProgram::pluck('name', 'id')->all();
+        $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
 
         $valueChains = ValueChains::pluck('description', 'id')->all();
         $reportingTerms = ReportingTerms::pluck('description', 'id')->all();
@@ -107,11 +107,20 @@ class GroupDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function ind_survey_details($id)
+    public function ind_survey_details()
     {
 
+      //$groups = Group::all();
+      //$dbGroups = $groups->pluck('group_id', 'name');
+
+
+
         // Get the group
-        $group = Group::find($id);
+        //$group = Group::find($id);
+
+        // Testing out combining the "group" form and the group_details form
+        $groups = Group::pluck('name', 'group_id');
+        $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
 
         $valueChains = ValueChains::pluck('description', 'id')->all();
         $reportingTerms = ReportingTerms::pluck('description', 'id')->all();
@@ -121,7 +130,7 @@ class GroupDetailsController extends Controller
         // Get the reporting terms
         // This needs to be added later
 
-        return view('group_details.individual.create', compact('group', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations'));
+        return view('group_details.individual.create', compact('groups', 'areaPrograms', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations'));
 
     }
 
@@ -239,7 +248,8 @@ class GroupDetailsController extends Controller
       } else {
 
         return Redirect()->action(
-          'PersonController@create', [$lastSurveyID, $lastGroupDetailsID]
+          //'PersonController@create', [$lastSurveyID, $lastGroupDetailsID]
+          'PersonController@create', compact('surveyDetailsID', 'groupDetailsID')
         );
 
       }

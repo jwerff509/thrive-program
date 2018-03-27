@@ -73,21 +73,32 @@ class GroupMemberMetricsController extends Controller
       $rptTerm = ReportingTerms::find($groupDetails->reporting_term);
 
       // Build the header information
+      $group = Group::select('name')->where('group_id', '=', $surveyDetails->group_id)->first()->toArray();
+      $group_name = $group['name'];
+
+      $ap = AreaProgram::select('name')->where('area_program_id', '=', $surveyDetails->area_program_id)->first()->toArray();
+      $ap_name = $ap['name'];
+
+      $zone = Zone::select('name')->where('zone_id', '=', $surveyDetails->zone_id)->first()->toArray();
+      $zone_name = $zone['name'];
+
+      $village = Village::select('name')->where('village_id', '=', $surveyDetails->village_id)->first()->toArray();
+      $village_name = $village['name'];
+
       $header = [
-        'group_name' => Group::get('name')->where('id', '=', $surveyDetails->group_id),
-        'ap_name' => AreaProgram::get('name')->where('id', '=', $surveyDetails->area_program_id),
-        'zone_name' => Zone::get('name')->where('id', '=', $surveyDetails->zone_id),
-        'village_name' => Village::get('name')->where('id', '=', $surveyDetails->village_id),
+        'group_name' => $group_name,
+        'ap_name' => $ap_name,
+        'zone_name' => $zone_name,
+        'village_name' => $village_name,
         'reporting_term' => $rptTerm->description,
         'year' => $groupDetails->year
       ];
 
 
       //  Need to edit this code to display existing group members on this page!!!!
-
       //$members = Person::pluck('nrc_number', 'last_name', 'first_name', 'sex', 'cellphone_number');
       $members = DB::table('group_members')
-              ->select('nrc_number', 'family_name', 'other_name', 'sex', 'phone_number')
+              ->select('nrc_number')
               ->where('group_id', '=', $surveyDetails->group_id)
               ->get()->toArray();
       //$members = array_column($members, 'num_members');
@@ -100,7 +111,7 @@ class GroupMemberMetricsController extends Controller
 
       //return view('group_member_details.create')->with('group', $group)->with('groupDetails', $groupDetails)->with('members', $members);
 
-      return view('group_member_details.create', compact('header', 'groupDetails', 'members'));
+      return view('group_member_details.create', compact('header', 'groupDetails', 'members', 'surveyDetails'));
 
     }
 
@@ -125,13 +136,14 @@ class GroupMemberMetricsController extends Controller
 */
           $member = array(
 
-            'group_id' => Input::get('group_id'),
             'group_details_id' => Input::get('group_details_id'),
             'nrc_number' => $request->nrc_number[$key],
             'family_name' => $request->family_name[$key],
             'other_name' => $request->other_name[$key],
             'sex' => $request->sex[$key],
             'phone_number' => $request->phone_number[$key],
+            'land_length' => $request->length[$key],
+            'land_width' => $request->width[$key],
 
           );
 
