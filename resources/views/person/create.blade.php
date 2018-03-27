@@ -16,13 +16,13 @@
 
 @include('person/partials/_header')
 
-<div class="container">
+<div class="container-fluid">
   <div class="row col-md-8 col-md-offset-2">
     <h2><center><strong>Add</strong> Individual Data</center></h2><br><br>
   </div>
 </div>
 
-  {!! Form::model(new App\PersonSurvey, ['class' => 'justify-content-center', 'method' => 'POST', 'route' => ['person.store']]) !!}
+  {!! Form::model(new App\PersonSurvey, ['class' => 'justify-content-center form-inline', 'method' => 'POST', 'route' => ['person.store']]) !!}
     @include('person/partials/_form2', ['submit_text' => 'Save'])
   {!! Form::close() !!}
 

@@ -85,6 +85,47 @@ class PersonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+   public function store(Request $request)
+   {
+
+     foreach($request->nrc_number as $key => $value) {
+
+       if($request->nrc_number[$key] <> '') {
+/*
+         $this->validate($request, [
+           'nrc_number.*.nrc_number' => 'required|string',
+           'nrc_number.*.family_name' => 'required|string',
+         ]);
+*/
+         $member = array(
+
+           'group_details_id' => Input::get('group_details_id'),
+           'nrc_number' => $request->nrc_number[$key],
+           'family_name' => $request->family_name[$key],
+           'other_name' => $request->other_name[$key],
+           'improved_seed' => $request->improved_seed[$key],
+           'improved_storage' => $request->improved_storage[$key],
+           'improved_practices' => $request->improved_practices[$key],
+           'hectares_with_irrigation' => $request->hectares_with_irrigation[$key],
+           'accessed_vf_loan' => $request->accessed_vf_loan[$key],
+           'crop_insurance' => $request->crop_insurance[$key],
+           'hectares_harvested' => $request->hectares_harvested[$key],
+           'kgs_harvested' => $request->kgs_harvested[$key],
+
+         );
+
+         //GroupMemberMetrics::insert($member);
+
+       }
+
+     }
+
+
+
+   }
+
+     /* Old Store Function
+     *
     public function store(Request $request)
     {
 
@@ -110,13 +151,13 @@ class PersonController extends Controller
         return Redirect()->action(
           'PersonController@create', [$last_inserted]
         );
-        */
+
       } else {
         return view('home');
       }
 
     }
-
+*/
     /**
      * Display the specified resource.
      *
