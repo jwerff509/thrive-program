@@ -23,7 +23,7 @@ class GroupDetailsController extends Controller
     protected $rules = [
 
         // Rules from Groups Controller
-        'group_id' => ['nullable', 'numeric'],
+        //'group_id' => ['nullable', 'numeric'],
         'group_name' => ['required', 'max:191'],
         'zone' => ['required', 'max:191'],
         'area_program' => ['required', 'max:191'],
@@ -64,40 +64,16 @@ class GroupDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-     // Original function call
-    //public function create($id)
-
-    // New fuction call
     public function create()
     {
 
-        //$test = Input::get();
-        /*
-        $groupID = session('group_id');
-        $group_name = session('group_name');
-        $area_program_id = session('area_program');
-        $zone = session('zone');
-        $village_name = session('village_name');
-        */
-
-        //$group = Group::find($id);
-        // Testing out combining the "group" form and the group_details form
         $groups = Group::pluck('name', 'group_id');
         $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
-
         $valueChains = ValueChains::pluck('description', 'id')->all();
         $reportingTerms = ReportingTerms::pluck('description', 'id')->all();
         $vegetables = Vegetables::pluck('description', 'id')->all();
         $valueChainUnits = ValueChainUnits::pluck('description', 'id')->all();
 
-        // Get the reporting terms
-        // This needs to be added later
-
-        // Original view
-        //return view('group_details.create', compact('valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations'));
-
-        // New view that combines old Groups with Group Details
         return view('group_details.create', compact('groups', 'areaPrograms', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations'));
 
     }
@@ -165,9 +141,7 @@ class GroupDetailsController extends Controller
         $temp = '';
 
         foreach($request->sales_location as $salesLocation) {
-
           $temp = $temp . $salesLocation .", ";
-
         }
 
         $input['sales_locations'] = $temp;
@@ -176,11 +150,23 @@ class GroupDetailsController extends Controller
 
       $next = Input::get('submitbutton');
 
+/*
+      foreach($input as $key => $value) {
+        echo $key ."<br>";
+        echo $key[$value] ."<br>";
+      }
+
+      exit;
+      */
+
       /*
       -- 3/25/18 - New Code. I combined the original group_create and group_details_create forms.
       -- So now I have to validate the group, zone, and village first. Then create the new
       -- survey_details record. Once I have that ID I can save the group_details record.
       */
+
+      // Going to take out this code section and put it in the final "Store" method
+
       if($input['group_id'] == '') {
         // Create a new group and get the Group ID.
         $name = [
@@ -236,18 +222,18 @@ class GroupDetailsController extends Controller
 
       $groupDetailsID = $newGroupDetails->id;
 
+
+
+
       if($next == 'Add Group Members') {
 
         return Redirect()->action(
-          //'GroupMemberMetricsController@create', [$lastSurveyID, $lastGroupDetailsID]
           'GroupMemberMetricsController@create', compact('surveyDetailsID', 'groupDetailsID')
-
         );
 
       } else {
 
         return Redirect()->action(
-          //'PersonController@create', [$lastSurveyID, $lastGroupDetailsID]
           'PersonController@create', compact('surveyDetailsID', 'groupDetailsID')
         );
 

@@ -52,9 +52,7 @@
           {!! Form::text('nrc_number[]', $member->nrc_number, array('class' => 'form-control col-md-1 col-lg-1 col-xl-1', 'placeholder' => 'NRC #')) !!}
           {!! Form::text('family_name[]', $member->family_name, array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Family Name')) !!}
           {!! Form::text('other_name[]', $member->other_name, array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Other Name')) !!}
-
           {!! Form::select('sex[]', array('' => 'Sex...', 'M' => 'Male', 'F' => 'Female'), array('selected' => $member->sex), ['class' => 'form-control col-md-1 col-lg-1 col-xl-1']) !!}
-
           {!! Form::text('phone_number[]', $member->phone_number, array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Phone Number')) !!}
           {!! Form::text('length[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Length')) !!}
           {!! Form::text('width[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Width')) !!}
@@ -102,6 +100,7 @@
 <div class="card-footer text-center">
   {!! Form::hidden('group_id', $surveyDetails->group_id) !!}
   {!! Form::hidden('group_details_id', $groupDetails->id) !!}
+  {!! link_to(URL::previous(), 'Go Back', ['class' => 'btn btn-sm btn-primary']) !!}
   {!! Form::submit('Save Members', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
   {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
 </div>

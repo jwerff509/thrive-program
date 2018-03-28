@@ -1,5 +1,4 @@
 <div class="container-fluid">
-  <!-- The following code is from the Groups create form, I'm putting it here to test out combining that page with this one -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
@@ -10,7 +9,7 @@
       <div class="form-group <?php echo ($errors->has('group_name')) ? 'has-error' : ''; ?>">
       {!! Form::label('group_name', 'ID2 - Group Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
         <div class="col-md-2">
-          {!! Form::text('group_name', '', array('class' => 'typeahead-group-name form-control', 'placeholder' => 'Group Name', 'autocomplete' => 'off', 'id' => 'group_name' )) !!}
+          {!! Form::text('group_name', $request->group_name, array('class' => 'typeahead-group-name form-control', 'placeholder' => 'Group Name', 'autocomplete' => 'off', 'id' => 'group_name' )) !!}
           <script>
             jQuery(document).ready(function($) {
 
@@ -201,21 +200,6 @@
       </div>
     </div>
   </div>
-
-
-
-  <!-- End of code from Groups create form. All code below this line is original to the group details create form -->
-
-
-
-
-
-
-
-
-
-
-
 
   <div class="form-group row">
     <div class="form-group <?php echo ($errors->has('reporting_term')) ? 'has-error' : ''; ?>">

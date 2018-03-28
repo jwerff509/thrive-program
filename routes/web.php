@@ -30,6 +30,8 @@ Route::get('groups/ind_survey', 'GroupsController@ind_survey');
 Route::get('group_details/ind_survey_details', 'GroupDetailsController@ind_survey_details');
 //Route::get('groups/{id}/group_details/ind_survey_details', 'GroupDetailsController@ind_survey_details');
 
+Route::get('/export-to-excel', 'ReportsController@export');
+
 Route::resource('groups', 'GroupsController');
 Route::resource('groups.group_details', 'GroupDetailsController');
 Route::resource('group_sales_locations', 'GroupSalesLocationsController');

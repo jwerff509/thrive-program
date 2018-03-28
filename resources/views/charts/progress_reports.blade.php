@@ -27,6 +27,9 @@
                   <option value="2">A.P. 2</option>
                 </select>
               </div>
+              <div class="row">
+                <a href="/export-to-excel">Export Data to Excel</a>
+              </div>
             </div>
         </div>
       </div>
