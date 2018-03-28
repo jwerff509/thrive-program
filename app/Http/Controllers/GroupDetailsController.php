@@ -187,8 +187,7 @@ class GroupDetailsController extends Controller
           'name' => $input['group_name']
         ];
         $newGroup = Group::create($name);
-        $groupID = $newGroup->id;
-
+        $groupID = $newGroup->group_id;
       } else {
         $groupID = $input['group_id'];
       }
@@ -196,7 +195,7 @@ class GroupDetailsController extends Controller
       if($input['zone_id'] == '') {
         // Create a new zone and get the zone ID.
         $name = [
-          'name' => $input['zone_name']
+          'name' => $input['zone']
         ];
         $newZone = Zone::create($name);
         $zoneID = $newZone->id;

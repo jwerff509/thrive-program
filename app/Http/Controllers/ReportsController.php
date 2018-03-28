@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\GroupMemberMetrics;
 use App\Person;
 use App\Group;
+use App\GroupDetails;
 use App\AreaProgram;
+use App\Zone;
+use App\Village;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 use DB;
@@ -29,16 +32,11 @@ class ReportsController extends Controller
     $year->subMonth(12);
 
     // Get total number of members and break it out by sex
-    /*
-    $totalMembers = Person::count();
-    $totalFemales = Person::where('sex', 'Female')->count();
-    $totalMales = Person::where('sex', 'Male')->count();
-    $totalUnreported = Person::where('sex','Unknown')->count();
-    */
+    // 3/27/18 - the four counts below are all working and have been tested.
     $totalMembers = GroupMemberMetrics::count();
-    $totalFemales = GroupMemberMetrics::where('sex', 'Female')->count();
-    $totalMales = GroupMemberMetrics::where('sex', 'Male')->count();
-    $totalUnreported = GroupMemberMetrics::where('sex','Unknown')->count();
+    $totalFemales = GroupMemberMetrics::where('sex', 'F')->count();
+    $totalMales = GroupMemberMetrics::where('sex', 'M')->count();
+    $totalUnreported = GroupMemberMetrics::whereNull('sex')->count();
 
     // Count the total number of children.
     $totalChildren = DB::table('person')
@@ -58,34 +56,22 @@ class ReportsController extends Controller
             ->get()->toArray();
     $totalMaleChildren = array_column($totalMaleChildren, 'num_male_children');
 
-
     // This query gets the number of members that were registered in the last 3 months
-    $newUsers = DB::table('group_member_metrics')
-            ->select(DB::raw('COUNT(DISTINCT(nrc_number)) as new_members'))
-            ->whereDate('created_at', '>', $quarter)
-            ->get()->toArray();
-    $newUsers = array_column($newUsers, 'new_members');
+    $newUsers = GroupMemberMetrics::whereDate('created_at', '>', $quarter)->distinct('nrc_number')->count();
 
     // This query returns the total balance of all savings group accounts from the last 3 months
     // 2/21/2018 - This query has been edited because the data collection method changed
     // and we are no longer tracking if the group is a savings group, we are only tracking the
-    // number of savings group members, so I commented out the $numSavingsGroups variable at the end.
-    $savings = DB::table('group_details')
-            ->select(DB::raw('COUNT(id) as num_groups, SUM(account_balance) as total_savings'))
-            ->where('savings_group_members', '>', '0')
-            ->whereDate('report_term_date', '>', $quarter)
-            ->get()->toArray();
-    $numSavingsGroups = array_column($savings, 'num_groups');
-    $totalSavings = array_column($savings, 'total_savings');
+    // number of savings group members, so now we check to see if there are any members of
+    // a savings group, and if there are we count it as a group and sum up the balance.
+    // This may need to be edited further, as it probably needs to be grouped by each group id
+    $savingsGroups = GroupDetails::where('savings_group_members', '>', '0')->whereDate('created_at', '>=', $quarter)->count();
+    $savingsBalance = GroupDetails::where('savings_group_members', '>', '0')->whereDate('created_at', '>=', $quarter)->sum('account_balance');
 
 
-    // This query returns the total balance of all producers groups
-    $producers = DB::table('group_details')
-            ->select(DB::raw('COUNT(id) as num_groups'))
-            ->where('producers_group', '=', '1')
-            ->whereDate('report_term_date', '>', $quarter)
-            ->get()->toArray();
-    $totalProducers = array_column($producers, 'num_groups');
+    // This query returns the total count of all producers groups added in the last quarter
+    $producersGroups = GroupDetails::where('group_type', '=', 'Producers Group')->whereDate('created_at', '>=', $quarter)->count();
+
 
     // This query returns the total number of hectares that were harvested in the last 3 months
     // 8/17/2017 - this query is not being used at the moment, so I'm commenting it out.
@@ -238,10 +224,10 @@ class ReportsController extends Controller
       'totalChildren' => $totalChildren[0],
       'totalFemaleChildren' => $totalFemaleChildren[0],
       'totalMaleChildren' => $totalMaleChildren[0],
-      'newUsers' => $newUsers[0],
-      'totalSavingsGroups' => $numSavingsGroups[0],
-      'totalProducers' => $totalProducers[0],
-      'savingsBalance' => $totalSavings[0],
+      'newUsers' => $newUsers,
+      'totalSavingsGroups' => $savingsGroups,
+      'totalProducers' => $producersGroups,
+      'savingsBalance' => $savingsBalance,
       'ppi' => json_encode($ppi),
       'labels' => json_encode($quarters),
       'endToEnd' => json_encode($numEndtoEnd),
@@ -391,14 +377,17 @@ class ReportsController extends Controller
     **  come up with a different indicator.
     */
     $valueChains = DB::table('group_details')
-            ->join('group_members', 'group_details.id', '=', 'group_members.group_details_id')
+            ->join('survey_details', 'group_details.survey_details_id', '=', 'survey_details.survey_details_id')
+            ->join('group_members', 'survey_details.group_id', '=', 'group_members.group_id')
             ->join('value_chain', 'group_details.primary_value_chain', '=', 'value_chain.id')
-            ->select('value_chain.description', DB::raw('count(distinct(group_members.nrc_number)) as members'))
-            ->whereDate('group_details.report_term_date', '>', $quarter)
-            ->whereDate('group_details.report_term_date', '<=', $current)
-            ->groupBy('value_chain.description')
+            ->join('groups', 'survey_details.group_id', '=', 'groups.group_id')
+            ->select('value_chain.description', 'groups.name', DB::raw('count(distinct(group_members.nrc_number)) as members'))
+            ->whereDate('group_details.created_at', '>', $quarter)
+            ->whereDate('group_details.created_at', '<=', $current)
+            ->groupBy('value_chain.description', 'groups.name')
             ->get()->toArray();
     $chainLabels = array_column($valueChains, 'description');
+    $groupNames = array_column($valueChains, 'name');
     $chainMembers = array_column($valueChains, 'members');
 
 /*
@@ -454,7 +443,6 @@ class ReportsController extends Controller
     $year = Carbon::now();
     $year->subMonth(12);
 
-    //$groups = Group::all();
 
     // This query returns the financial trends for the past 9 months
     $memEntered = DB::table('members_entered_by_group')
@@ -475,12 +463,13 @@ class ReportsController extends Controller
   exit;
 */
 
-    $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
     $groups = Group::select('name', 'group_id')->orderBy('name')->get()->toArray();
+    $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
+    $zones = Zone::pluck('name', 'zone_id')->all();
+    $villages = Village::pluck('name', 'village_id')->all();
 
-    //$chainLabels = array_column($valueChains, 'description');
 
-    return view('charts.progress_reports', compact('groups', 'memEntered', 'areaPrograms'));
+    return view('charts.progress_reports', compact('groups', 'areaPrograms', 'zones', 'villages', 'memEntered', 'areaPrograms'));
 
 
 

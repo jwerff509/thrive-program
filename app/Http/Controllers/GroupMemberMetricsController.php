@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\GroupDetails;
+use App\GroupMembers;
 use App\GroupMemberMetrics;
 use App\Person;
 use App\ReportingTerms;
@@ -98,9 +99,11 @@ class GroupMemberMetricsController extends Controller
       //  Need to edit this code to display existing group members on this page!!!!
       //$members = Person::pluck('nrc_number', 'last_name', 'first_name', 'sex', 'cellphone_number');
       $members = DB::table('group_members')
-              ->select('nrc_number')
+              ->join('survey_details_members', 'group_members.nrc_number', 'survey_details_members.nrc_number')
+              ->select('group_members.nrc_number', 'survey_details_members.family_name', 'survey_details_members.other_name', 'survey_details_members.sex', 'survey_details_members.phone_number')
               ->where('group_id', '=', $surveyDetails->group_id)
               ->get()->toArray();
+
       //$members = array_column($members, 'num_members');
       //$members = Person::find(1);
       //$members = Person::all();
@@ -146,6 +149,19 @@ class GroupMemberMetricsController extends Controller
             'land_width' => $request->width[$key],
 
           );
+
+          // Need to add the member to the group if they haven't been added already
+          $exists = GroupMembers::where('group_id', '=', $request->group_id[$key])
+                                ->where('nrc_number', '=', $request->nrc_number[$key])
+                                ->count();
+
+          if($exists == 0) {
+            GroupMembers::insert(
+              [
+                'group_id' => $request->group_id[$key],
+                'nrc_number' => $request->nrc_number[$key]
+            ]);
+          }
 
           GroupMemberMetrics::insert($member);
 

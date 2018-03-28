@@ -122,14 +122,14 @@ return [
         [
             'text'        => 'Enter Survey with Members',
             'icon'        => 'group',
-            'url'         => 'groups/create',
+            'url'         => 'group_details/create',
             'icon_color'  => 'orange',
 
         ],
         [
             'text'        => 'Enter Survey with Individuals',
             'icon'        => 'user-plus',
-            'url'         => 'groups/ind_survey',
+            'url'         => 'group_details/ind_survey_details',
             'icon_color'  => 'orange',
         ],
         'REPORTS',
