@@ -5,11 +5,13 @@
 
   <div class="form-group row">
 
+    <div id="part-1">
+
     <div class="form-group row">
       <div class="form-group <?php echo ($errors->has('group_name')) ? 'has-error' : ''; ?>">
       {!! Form::label('group_name', 'ID2 - Group Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
         <div class="col-md-2">
-          {!! Form::text('group_name', $request->group_name, array('class' => 'typeahead-group-name form-control', 'placeholder' => 'Group Name', 'autocomplete' => 'off', 'id' => 'group_name' )) !!}
+          {!! Form::text('group_name', '', array('class' => 'typeahead-group-name form-control', 'placeholder' => 'Group Name', 'autocomplete' => 'off', 'id' => 'group_name' )) !!}
           <script>
             jQuery(document).ready(function($) {
 
@@ -242,9 +244,9 @@
   </div>
 
   <div class="form-group row">
-    {!! Form::label('savings_group_members', 'ID9 - # Members Actively Saving (Last 90 Days):', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('num_savings_group_members', 'ID9 - # Members Actively Saving (Last 90 Days):', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
-      {!! Form::text('savings_group_members', '', array('class' => 'form-control', 'placeholder' => '# Members Actively Saving')) !!}
+      {!! Form::text('num_savings_group_members', '', array('class' => 'form-control', 'placeholder' => '# Members Actively Saving')) !!}
     </div>
   </div>
 
@@ -256,9 +258,9 @@
   </div>
 
   <div class="form-group row">
-    {!! Form::label('group_meetings', 'ID11 - # of Group Meetings (Last 90 Days):', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('num_group_meetings', 'ID11 - # of Group Meetings (Last 90 Days):', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
-      {!! Form::text('group_meetings', '', array('class' => 'form-control', 'placeholder' => '# Meetings in Last 90 Days')) !!}
+      {!! Form::text('num_group_meetings', '', array('class' => 'form-control', 'placeholder' => '# Meetings in Last 90 Days')) !!}
     </div>
   </div>
 
@@ -269,24 +271,18 @@
     </div>
   </div>
 
-  <!-- This script shows the 'primary_veg' selection box only if "Horticulture" is selected
-       in the 'primary_value_chain' select box above.
-  -->
+  <!-- Show the 'primary_veg' selection box if "Horticulture" is selected as the primary value chain  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>
-
     $('#primary_value_chain').on('change', function() {
-
       $("#horticulture").css('display', (this.value === '2') ? 'block' : 'none');
-
     });
-
   </script>
 
   <div class="form-group row" id="horticulture" style="display:none;">
-    {!! Form::label('primary_veg', 'G2 - What is/was the PRIMARY Vegetable Grown:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('primary_vegetable_grown', 'G2 - What is/was the PRIMARY Vegetable Grown:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
-      {!! Form::select('primary_veg', array('default' => 'Select a vegetable...') + $vegetables, array('id' => 'id', 'class' => 'form-control')) !!}
+      {!! Form::select('primary_vegetable_grown', array('default' => 'Select a vegetable...') + $vegetables, array('id' => 'id', 'class' => 'form-control')) !!}
     </div>
   </div>
 
@@ -354,6 +350,9 @@
 
   <div class="form-group row">
     {!! Form::label('members_using_soil_water_cons', 'G11 - # Members Currently Practicing Soil Conservation Techniques:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    <div class="col-md-2">
+      {!! Form::text('members_using_soil_water_cons', '', array('class' => 'form-control', 'placeholder' => 'General Soil Conservation')) !!}
+    </div>
   </div>
 
   <div class="form-group row">
@@ -392,7 +391,10 @@
   </div>
 
   <div class="form-group row">
-    {!! Form::label('water_catchment', 'How Many Members are CURRENTLY Using the Following Water Catchment Techniques:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('members_using_water_catchment', 'How Many Members are CURRENTLY Using the Following Water Catchment Techniques:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    <div class="col-md-2">
+      {!! Form::text('members_using_water_catchment', '', array('class' => 'form-control', 'placeholder' => 'General Water Catchment')) !!}
+    </div>
   </div>
 
   <div class="form-group row">
@@ -445,13 +447,13 @@
   </div>
 
   <div class="form-group row">
-    {!! Form::label('sales_location', 'G16 - Select All Locations Where Group Has Sold Goods this quarter:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('sales_locations', 'G16 - Select All Locations Where Group Has Sold Goods this quarter:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
-      {!! Form::checkbox('sales_location[]', 'Village Market') !!}<span> Village Market <br></span>
-      {!! Form::checkbox('sales_location[]', 'District Market') !!}<span> District Market <br></span>
-      {!! Form::checkbox('sales_location[]', 'Provincial/Regional Market') !!}<span> Regional Market <br></span>
-      {!! Form::checkbox('sales_location[]', 'National Market') !!}<span> National Market <br></span>
-      {!! Form::checkbox('sales_location[]', 'International Market') !!}<span> International Market <br></span>
+      {!! Form::checkbox('sales_locations[]', 'Village Market') !!}<span> Village Market <br></span>
+      {!! Form::checkbox('sales_locations[]', 'District Market') !!}<span> District Market <br></span>
+      {!! Form::checkbox('sales_locations[]', 'Provincial/Regional Market') !!}<span> Regional Market <br></span>
+      {!! Form::checkbox('sales_locations[]', 'National Market') !!}<span> National Market <br></span>
+      {!! Form::checkbox('sales_locations[]', 'International Market') !!}<span> International Market <br></span>
     </div>
   </div>
 
@@ -462,9 +464,8 @@
     </div>
   </div>
 
-<!-- Need to make this 2 input boxes, one for width and one for length and then calculate the hectares from there. -->
   <div class="form-group row">
-    {!! Form::label('hectares_reclaimed2', 'G18 - Size of Land Regenerated/Reclaimed This Quarter:', array('class' => 'col-md-5 form-control-label text-right')) !!}
+    {!! Form::label('hectares_reclaimed', 'G18 - Size of Land Regenerated/Reclaimed This Quarter:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
       {!! Form::text('hectares_reclaimed_width', '', array('class' => 'form-control', 'placeholder' => 'Width (meters)')) !!}
       {!! Form::text('hectares_reclaimed_length', '', array('class' => 'form-control', 'placeholder' => 'Length (meters)')) !!}
@@ -492,26 +493,156 @@
     </div>
   </div>
 
-  <div class="form-group row">
-    <div class="form-group <?php echo ($errors->has('data_collector')) ? 'has-error' : ''; ?>">
-      {!! Form::label('data_collector', 'Data Collector Name', array('class' => 'col-md-5 form-control-label text-right')) !!}
-      <div class="col-md-2">
-        {!! Form::text('data_collector', '', array('class' => 'form-control', 'placeholder' => 'Name of Data Collector')) !!}
-        <span class="help-block">
-          @if ($errors->has('data_collector'))
-            {{ $errors->first('data_collector') }}
-          @endif
-        </span>
-      </div>
-    </div>
-  </div>
-
   <div class="card-footer text-center">
-    {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
-    {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
-    {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
-    {!! Form::submit('Add Group Members', ['class' => 'btn btn-sm btn-primary', 'name' => 'submitbutton']) !!}
+    {!! Form::button('Add Group Members', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow']) !!}
     {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
   </div>
+
+</div>
+<!-- End Part 1 -->
+
+<!-- Begin Part 2 -->
+
+<div id="part-2" style="display:none">
+
+    <div class="container-fluid justify-content-center text-center">
+
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>NRC Number</th>
+            <th>Family Name</th>
+            <th>Other Name</th>
+            <th>Sex</th>
+            <th>Phone Number</th>
+            <th>Land Length</th>
+            <th>Land Width</th>
+          </tr>
+
+        @for($i=1; $i<=20; $i++)
+          <tr>
+            <td>{!! Form::text('nrc_number[]', '', array('class' => 'form-control col-md-1 col-lg-1 col-xl-1', 'placeholder' => 'NRC #')) !!}</td>
+            <td>{!! Form::text('family_name[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Family Name')) !!}</td>
+            <td>{!! Form::text('other_name[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Other Name')) !!}</td>
+            <td>{!! Form::select('sex[]', array('' => 'Sex...', 'Male' => 'Male', 'Female' => 'Female'), null, ['class' => 'form-control col-md-1 col-lg-1 col-xl-1']) !!}</td>
+            <td>{!! Form::text('phone_number[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Phone Number')) !!}</td>
+            <td>{!! Form::text('land_length[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Length')) !!}</td>
+            <td>{!! Form::text('land_width[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Width')) !!}</td>
+          </tr>
+        @endfor
+
+      </tbody>
+    </table>
+
+
+    {{-- }}
+    <!--
+    @if(count($members) > 0)
+      <!-- If there are members that belong to this group, display their details when building the form -->
+
+      @foreach($members as $member)
+
+        <div class="row form-inline justify-content-center">
+            {!! Form::text('nrc_number[]', $member->nrc_number, array('class' => 'form-control col-md-1 col-lg-1 col-xl-1', 'placeholder' => 'NRC #')) !!}
+            {!! Form::text('family_name[]', $member->family_name, array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Family Name')) !!}
+            {!! Form::text('other_name[]', $member->other_name, array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Other Name')) !!}
+            {!! Form::select('sex[]', array('' => 'Sex...', 'M' => 'Male', 'F' => 'Female'), array('selected' => $member->sex), ['class' => 'form-control col-md-1 col-lg-1 col-xl-1']) !!}
+            {!! Form::text('phone_number[]', $member->phone_number, array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Phone Number')) !!}
+            {!! Form::text('length[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Length')) !!}
+            {!! Form::text('width[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Width')) !!}
+        </div>
+
+      @endforeach
+
+      @for($i=1; $i<=$rowsLeft; $i++)
+
+        <div class="row form-inline justify-content-center">
+            {!! Form::text('nrc_number[]', '', array('class' => 'form-control col-md-1 col-lg-1 col-xl-1', 'placeholder' => 'NRC #')) !!}
+            {!! Form::text('family_name[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Family Name')) !!}
+            {!! Form::text('other_name[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Other Name')) !!}
+            {!! Form::select('sex[]', array('' => 'Sex...', 'M' => 'Male', 'F' => 'Female'), null, ['class' => 'form-control col-md-1 col-lg-1 col-xl-1']) !!}
+            {!! Form::text('phone_number[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Phone Number')) !!}
+            {!! Form::text('length[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Length')) !!}
+            {!! Form::text('width[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Width')) !!}
+        </div>
+
+      @endfor
+
+    @else
+
+-->
+--}}
+
+
+<!--
+{{--}}
+      @for($i=1; $i<=20; $i++)
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="form-inline">
+                <!-- <div class="row form-inline justify-content-center"> -->
+                {!! Form::text('nrc_number[]', '', array('class' => 'form-control col-md-1 col-lg-1 col-xl-1', 'placeholder' => 'NRC #')) !!}
+                {!! Form::text('family_name[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Family Name')) !!}
+                {!! Form::text('other_name[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Other Name')) !!}
+                {!! Form::select('sex[]', array('' => 'Sex...', 'Male' => 'Male', 'Female' => 'Female'), null, ['class' => 'form-control col-md-1 col-lg-1 col-xl-1']) !!}
+                {!! Form::text('phone_number[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Phone Number')) !!}
+                {!! Form::text('land_length[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Length')) !!}
+                {!! Form::text('land_width[]', '', array('class' => 'form-control col-md-1 col-lg-2 col-xl-2', 'placeholder' => 'Width')) !!}
+              <!-- </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      @endfor
+--}}
+-->
+
+  {{--}}  @endif  --}}
+
+      <div class="form-group row">
+        <div class="form-group <?php echo ($errors->has('data_collector')) ? 'has-error' : ''; ?>">
+          {!! Form::label('data_collector', 'Data Collector Name', array('class' => 'col-md-5 form-control-label text-right')) !!}
+          <div class="col-md-2">
+            {!! Form::text('data_collector', '', array('class' => 'form-control', 'placeholder' => 'Name of Data Collector')) !!}
+            <span class="help-block">
+              @if ($errors->has('data_collector'))
+                {{ $errors->first('data_collector') }}
+              @endif
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card-footer text-center">
+      {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
+      {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
+      {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
+      {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow2']) !!}
+      {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
+      {!! Form::submit('Save Survey', ['class' => 'btn btn-sm btn-success', 'name' => 'submitbutton']) !!}
+    </div>
+
+</div>
+
+  <script>
+  jQuery(document).ready(function(){
+
+    jQuery('#hideshow').click(function() {
+         jQuery('#part-1').toggle('show');
+         jQuery('#part-2').toggle();
+    });
+
+    jQuery('#hideshow2').click(function() {
+         jQuery('#part-1').toggle('hide');
+         jQuery('#part-2').toggle();
+    });
+
+  });
+  </script>
 
 </div>

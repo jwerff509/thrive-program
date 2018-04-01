@@ -10,11 +10,137 @@
 
 <div class="container-fluid">
 
+  <div class="flash-message">
+    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+      @if(Session::has('alert-' . $msg))
+      <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+      @endif
+    @endforeach
+  </div> <!-- end .flash-message -->
+
   <div class="row">
-    <div class="col-12">
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-orange"><i class="ion ion-ios-people-outline"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Total Groups Entered</span>
+          <span class="info-box-number"><b>{{ count($groups) }}</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-green"><i class="ion ion-cash"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Total Savings Group Members</span>
+          <span class="info-box-number"><b>{{ $totalSGMembers }}</b></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Recently Entered Groups</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+          <table class="table table-hover table-striped">
+            <tbody>
+              <tr>
+                <th><u>Group Name</u></th>
+                <th><u># of<br>Members</u></th>
+                <th><u># Actively<br>Saving</u></th>
+                <th><u>Total<br>Savings</u></th>
+                <th><u># Group<br>Meetings</u></th>
+                <th><u>Amt Harvested<br>from VC</u></th>
+                <th><u># Using<br>Improved Seed</u></th>
+                <th><u># Using<br>Improved Storage</u></th>
+                <th><u># Using<br>Improved Tools</u></th>
+                <th><u># With<br>Irrigation</u></th>
+                <th><u># Using<br>VF Loan</u></th>
+                <th><u>Units of<br>VC Sold</u></th>
+                <th><u># of Trees<br>Planted</u></th>
+                <th><u>HA of Land<br>Reclaimed</u></th>
+                <th><u># With Emer.<br>Savings</u></th>
+                <th><u># Attended<br>EWV Training</u></th>
+              </tr>
+
+            @foreach($memEntered as $member)
+              <tr>
+                <td>{{ $member->name }}</td>
+
+                <td>
+                  @if($member->num_members == 0)
+                    {{ $member->num_members2 }}
+                  @else
+                    {{ $member->num_members }}
+                  @endif
+                </td>
+                <td>{{ $member->num_actively_saving }}</td>
+                <td>K {{ $member->total_amt_saved }}</td>
+                <td>{{ $member->group_meetings }}</td>
+                <td>{{ $member->units_harvested }}</td>
+                <td>{{ $member->improved_seed }}</td>
+                <td>{{ $member->improved_storage }}</td>
+                <td>{{ $member->improved_tools }}</td>
+                <td>{{ $member->members_with_irrigation }}</td>
+                <td>{{ $member->members_with_vf_loan }}</td>
+                <td>{{ $member->units_sold }}</td>
+                <td>{{ $member->trees_planted }}</td>
+                <td>{{ $member->hectares_reclaimed }}</td>
+                <td>{{ $member->members_with_emergency_savings }}</td>
+                <td>{{ $member->members_attended_ewv_training }}</td>
+              </tr>
+            @endforeach
+
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+
+<!--
+{{--}}
+  @include('charts.progressCharts')
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <canvas id="soilConsChart" style="height: 140px; width: 350px;" width="250" height="140"></canvas>
+        </div>
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <canvas id="waterCatchChart" style="height: 140px; width: 350px;" width="250" height="140"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+--}}
+-->
+
+<!-- This was the section I was going to use for the dropdowns to change the criteria for the reports.
+    So when you get to that point copy/paste this back up top and add the dropdowns -->
+  <div class="row">
+    <div class="col-md-12">
       <div class="box box-info">
         <div class="box-header with-border">
-            <div class="panel-heading">
+            <div class="panel-heading justify-content-center text-center">
+              <!--
+              {{-- }}
               <div class="row">
                 {!! Form::select('group', array('default' => 'Select a Group') + $groups, array('id' => 'group_id', 'class' => 'form-control')) !!}
               </div>
@@ -27,6 +153,8 @@
                   <option value="2">A.P. 2</option>
                 </select>
               </div>
+              --}}
+            -->
               <div class="row">
                 <a href="/export-to-excel">Export Data to Excel</a>
               </div>
@@ -36,128 +164,6 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box">
-        <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people-outline"></i></span>
-        <div class="info-box-content">
-          <span class="info-box-text">Total Groups Entered</span>
-          <span class="info-box-number"><b>{{ count($groups) }}</b></span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title text-middle">Number of Members Entered</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body no-padding">
-          <table class="table table-condensed">
-            <tbody>
-              <tr>
-                <th>Group Name</th>
-                <th>Number of Members</th>
-              </tr>
-
-            @foreach($memEntered as $member)
-              <tr>
-                <td>{{ $member->name }}</td>
-                <td>{{ $member->num_members }}</td>
-              </tr>
-            @endforeach
-
-            </tbody>
-          </table>
-        </div>
-        <!-- /.box-body -->
-      </div>
-    </div>
-  </div>
-
 </div>
-
-<!--
-  <div class="row">
-    <div class="col-md-4">
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">Recently Added Records</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
-        </div>
-
-        <div class="box-body">
-              <ul class="products-list product-list-in-box">
-                <li class="item">
-                  <div class="product-img">
-                    <img src="dist/img/default-50x50.gif" alt="Product Image">
-                  </div>
-                  <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">Samsung TV
-                      <span class="label label-warning pull-right">$1800</span></a>
-                    <span class="product-description">
-                          Samsung 32" 1080p 60Hz LED Smart HDTV.
-                        </span>
-                  </div>
-                </li>
-
-
-                <li class="item">
-                  <div class="product-img">
-                    <img src="dist/img/default-50x50.gif" alt="Product Image">
-                  </div>
-                  <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">Bicycle
-                      <span class="label label-info pull-right">$700</span></a>
-                    <span class="product-description">
-                          26" Mongoose Dolomite Men's 7-speed, Navy Blue.
-                        </span>
-                  </div>
-                </li>
-
-
-                <li class="item">
-                  <div class="product-img">
-                    <img src="dist/img/default-50x50.gif" alt="Product Image">
-                  </div>
-                  <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">Xbox One <span class="label label-danger pull-right">$350</span></a>
-                    <span class="product-description">
-                          Xbox One Console Bundle with Halo Master Chief Collection.
-                        </span>
-                  </div>
-                </li>
-
-
-                <li class="item">
-                  <div class="product-img">
-                    <img src="dist/img/default-50x50.gif" alt="Product Image">
-                  </div>
-                  <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">PlayStation 4
-                      <span class="label label-success pull-right">$399</span></a>
-                    <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                  </div>
-                </li>
-
-
-              </ul>
-            </div>
-
-            <div class="box-footer text-center">
-              <a href="javascript:void(0)" class="uppercase">View All Products</a>
-            </div>
-          </div>
-        </div>
-      </div>
--->
 
 @stop

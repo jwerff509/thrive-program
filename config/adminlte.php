@@ -109,11 +109,13 @@ return [
 
     'menu' => [
         'MAIN NAVIGATION',
+        /*
         [
             'text' => 'Blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        */
         [
             'text'        => 'Home',
             'url'         => 'home',
@@ -122,17 +124,18 @@ return [
         [
             'text'        => 'Enter Survey with Members',
             'icon'        => 'group',
-            'url'         => 'group_details/create',
+            'url'         => 'group_surveys/create',
             'icon_color'  => 'orange',
 
         ],
         [
             'text'        => 'Enter Survey with Individuals',
             'icon'        => 'user-plus',
-            'url'         => 'group_details/ind_survey_details',
+            'url'         => 'group_surveys/create2',
             'icon_color'  => 'orange',
         ],
         'REPORTS',
+        /*
         [
             'text'        => 'Main Dashboard',
             'icon'        => 'dashboard',
@@ -145,8 +148,9 @@ return [
             'url'         => '/pillars',
             'icon_color'  => 'green',
         ],
+        */
         [
-            'text'        => 'Progress Reports (Beta)',
+            'text'        => 'Progress Reports',
             'icon'        => 'bar-chart',
             'url'         => '/progress_reports',
             'icon_color'  => 'green',

@@ -10,14 +10,14 @@ use App\GroupDetails;
 use App\AreaProgram;
 use App\Zone;
 use App\Village;
-use App\ExcelExport;
+use App\GroupSurvey;
+use App\ExcelExportGroup;
+use App\ExcelExportIndividual;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 use DB;
 use Excel;
 use Carbon\Carbon;
-
-
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -73,13 +73,11 @@ class ReportsController extends Controller
     // number of savings group members, so now we check to see if there are any members of
     // a savings group, and if there are we count it as a group and sum up the balance.
     // This may need to be edited further, as it probably needs to be grouped by each group id
-    $savingsGroups = GroupDetails::where('savings_group_members', '>', '0')->whereDate('created_at', '>=', $quarter)->count();
-    $savingsBalance = GroupDetails::where('savings_group_members', '>', '0')->whereDate('created_at', '>=', $quarter)->sum('account_balance');
-
+    $savingsGroups = GroupSurvey::where('num_savings_group_members', '>', '0')->whereDate('created_at', '>=', $quarter)->whereDate('created_at', '<=', $current)->count();
+    $savingsBalance = GroupSurvey::where('num_savings_group_members', '>', '0')->whereDate('created_at', '>=', $quarter)->whereDate('created_at', '<=', $current)->sum('account_balance');
 
     // This query returns the total count of all producers groups added in the last quarter
-    $producersGroups = GroupDetails::where('group_type', '=', 'Producers Group')->whereDate('created_at', '>=', $quarter)->count();
-
+    $producersGroups = GroupSurvey::where('group_type', '=', 'Producers Group')->whereDate('created_at', '>=', $quarter)->whereDate('created_at', '<=', $current)->count();
 
     // This query returns the total number of hectares that were harvested in the last 3 months
     // 8/17/2017 - this query is not being used at the moment, so I'm commenting it out.
@@ -128,17 +126,17 @@ class ReportsController extends Controller
             sum(case when total_ppi_score > 49 and total_ppi_score < 75 then 1 else 0 end) as num_med_risk,
             sum(case when total_ppi_score > 24 and total_ppi_score < 49 then 1 else 0 end) as num_high_risk,
             sum(case when total_ppi_score >= 0 and total_ppi_score < 25 then 1 else 0 end) as num_xtrm_risk'))
-            ->whereDate('report_term_date', '>', $quarter)
+            ->whereDate('reporting_term', '>', $quarter)
             ->get();
 
 
     $pillars = DB::table('pillar_members_quarterly')
-            ->select('report_term_date', 'num_end_to_end', 'num_nrm', 'num_drr', 'num_ewv')
+            ->select('reporting_term', 'num_end_to_end', 'num_nrm', 'num_drr', 'num_ewv')
             //->whereDate('report_term_date', '>', $threeQuarter)
             //->whereDate('report_term_date', '<=', $current)
-            ->orderBy('report_term_date')
+            ->orderBy('reporting_term')
             ->get()->toArray();
-    $labels = array_column($pillars, 'report_term_date');
+    $labels = array_column($pillars, 'reporting_term');
     $numEndtoEnd = array_column($pillars, 'num_end_to_end');
     $numNrm = array_column($pillars, 'num_nrm');
     $numDrr = array_column($pillars, 'num_drr');
@@ -149,43 +147,43 @@ class ReportsController extends Controller
 
     // This query shows the number of households involved in each pillar over the past 9 months
     $pillar_one = DB::table('members_per_pillar_by_quarter')
-            ->select(DB::Raw('report_term_date', 'SUM(pillar_one) as pillar_one'))
-            ->whereDate('report_term_date', '>', $threeQuarter)
-            ->whereDate('report_term_date', '<=', $current)
-            ->groupBy('report_term_date')
+            ->select(DB::Raw('reporting_term', 'SUM(pillar_one) as pillar_one'))
+            ->whereDate('reporting_term', '>', $threeQuarter)
+            ->whereDate('reporting_term', '<=', $current)
+            ->groupBy('reporting_term')
             ->get()->toArray();
     $pillar_one = array_column($pillar_one, 'pillar_one');
 
     $pillar_two = DB::table('members_per_pillar_by_quarter')
-            ->select(DB::Raw('report_term_date', 'SUM(pillar_two) as pillar_two'))
-            ->whereDate('report_term_date', '>', $threeQuarter)
-            ->whereDate('report_term_date', '<=', $current)
-            ->groupBy('report_term_date')
+            ->select(DB::Raw('reporting_term', 'SUM(pillar_two) as pillar_two'))
+            ->whereDate('reporting_term', '>', $threeQuarter)
+            ->whereDate('reporting_term', '<=', $current)
+            ->groupBy('reporting_term')
             ->get()->toArray();
     $pillar_two = array_column($pillar_two, 'pillar_two');
 
     $pillar_three = DB::table('members_per_pillar_by_quarter')
-            ->select(DB::Raw('report_term_date', 'SUM(pillar_three) as pillar_three'))
-            ->whereDate('report_term_date', '>', $threeQuarter)
-            ->whereDate('report_term_date', '<=', $current)
-            ->groupBy('report_term_date')
+            ->select(DB::Raw('reporting_term', 'SUM(pillar_three) as pillar_three'))
+            ->whereDate('reporting_term', '>', $threeQuarter)
+            ->whereDate('reporting_term', '<=', $current)
+            ->groupBy('reporting_term')
             ->get()->toArray();
     $pillar_three = array_column($pillar_three, 'pillar_three');
 
     $pillar_four = DB::table('members_per_pillar_by_quarter')
-            ->select(DB::Raw('report_term_date', 'SUM(pillar_four) as pillar_four'))
-            ->whereDate('report_term_date', '>', $threeQuarter)
-            ->whereDate('report_term_date', '<=', $current)
-            ->groupBy('report_term_date')
+            ->select(DB::Raw('reporting_term', 'SUM(pillar_four) as pillar_four'))
+            ->whereDate('reporting_term', '>', $threeQuarter)
+            ->whereDate('reporting_term', '<=', $current)
+            ->groupBy('reporting_term')
             ->get()->toArray();
     $pillar_four = array_column($pillar_four, 'pillar_four');
 
 
     // This query returns the number of households at each graduation step for the past 3 months
     $gradSteps = DB::table('members_by_grad_step_by_quarter')
-            ->select(DB::raw('num_grad_step, sex, count(distinct(member_id)) as num_members'))
-            ->whereDate('report_term_date', '>', $threeQuarter)
-            ->whereDate('report_term_date', '<=', $current)
+            ->select(DB::raw('num_grad_step, sex, count(distinct(nrc_number)) as num_members'))
+            ->whereDate('reporting_term', '>', $threeQuarter)
+            ->whereDate('reporting_term', '<=', $current)
             ->groupBy('sex', 'num_grad_step')
             ->get()->toArray();
 
@@ -194,9 +192,9 @@ class ReportsController extends Controller
     // This query returns the number of pillars that each household is involved in.
     // Ie - How many households are involved in activities from 2 different pillars, 3 different pillars, etc.
     $pillarsByHousehold = DB::table('pillar_members_count_by_quarter')
-            ->select(DB::raw('num_pillars, count(distinct(member_id)) as num_members'))
-            ->whereDate('report_term_date', '>', $threeQuarter)
-            ->whereDate('report_term_date', '<=', $current)
+            ->select(DB::raw('num_pillars, count(distinct(nrc_number)) as num_members'))
+            ->whereDate('reporting_term', '>', $threeQuarter)
+            ->whereDate('reporting_term', '<=', $current)
             ->groupBy('num_pillars')
             ->get()->toArray();
 
@@ -344,12 +342,12 @@ class ReportsController extends Controller
 
     // This query returns the agricultural trends for the past 9 months
     $agTrends = DB::table('ag_trends')
-            ->select('report_term_date', 'num_imp_seed', 'num_imp_storage', 'num_imp_practices', 'num_imp_irrigation')
-            ->whereDate('report_term_date', '>', $threeQuarter)
-            ->whereDate('report_term_date', '<=', $current)
-            ->orderBy('report_term_date')
+            ->select('description', 'year', 'num_imp_seed', 'num_imp_storage', 'num_imp_practices', 'num_imp_irrigation')
+            // ->whereDate('reporting_term', '>', $threeQuarter)
+            //->whereDate('reporting_term', '<=', $current)
+            //->orderBy('reporting_term')
             ->get()->toArray();
-    $labels = array_column($agTrends, 'report_term_date');
+    $labels = array_column($agTrends, 'description');
     $impSeedTrend = array_column($agTrends, 'num_imp_seed');
     $impStorageTrend = array_column($agTrends, 'num_imp_storage');
     $impPracticesTrend = array_column($agTrends, 'num_imp_practices');
@@ -357,10 +355,10 @@ class ReportsController extends Controller
 
     // This query returns the financial trends for the past 9 months
     $finTrends = DB::table('financial_trends')
-            ->select('report_term_date', 'num_members', 'num_loans_accessed', 'num_crop_insurance')
-            ->whereDate('report_term_date', '>', $threeQuarter)
-            ->whereDate('report_term_date', '<=', $current)
-            ->orderBy('report_term_date')
+            ->select('reporting_term', 'num_members', 'num_loans_accessed', 'num_crop_insurance')
+            ->whereDate('reporting_term', '>', $threeQuarter)
+            ->whereDate('reporting_term', '<=', $current)
+            ->orderBy('reporting_term')
             ->get()->toArray();
     $groupMembersTrend = array_column($finTrends, 'num_members');
     $loansTrend = array_column($finTrends, 'num_loans_accessed');
@@ -370,11 +368,11 @@ class ReportsController extends Controller
     // This part of the financial queries will have to be on it's own chart, as it will screw
     // up the axes for the rest of the financial data above.
     // This query returns the total balance of all savings group accounts from the last 9 months
-    $savings = DB::table('group_details')
-            ->select(DB::raw('COUNT(id) as num_groups, SUM(account_balance) as total_savings'))
-            ->where('savings_group_members', '>', '0')
-            ->whereDate('report_term_date', '>', $threeQuarter)
-            ->whereDate('report_term_date', '<=', $current)
+    $savings = DB::table('group_surveys')
+            ->select(DB::raw('COUNT(group_id) as num_groups, SUM(account_balance) as total_savings'))
+            ->where('num_savings_group_members', '>', '0')
+            ->whereDate('reporting_term', '>', $threeQuarter)
+            ->whereDate('reporting_term', '<=', $current)
             ->get()->toArray();
     $numSavingsGroups = array_column($savings, 'num_groups');
     $totalSavings = array_column($savings, 'total_savings');
@@ -384,14 +382,13 @@ class ReportsController extends Controller
     **  recording the data. We need to revisit this indicator and change the criteria or
     **  come up with a different indicator.
     */
-    $valueChains = DB::table('group_details')
-            ->join('survey_details', 'group_details.survey_details_id', '=', 'survey_details.survey_details_id')
-            ->join('group_members', 'survey_details.group_id', '=', 'group_members.group_id')
-            ->join('value_chain', 'group_details.primary_value_chain', '=', 'value_chain.id')
-            ->join('groups', 'survey_details.group_id', '=', 'groups.group_id')
-            ->select('value_chain.description', 'groups.name', DB::raw('count(distinct(group_members.nrc_number)) as members'))
-            ->whereDate('group_details.created_at', '>', $quarter)
-            ->whereDate('group_details.created_at', '<=', $current)
+    $valueChains = DB::table('group_surveys')
+            ->join('group_survey_members', 'group_surveys.id', '=', 'group_survey_members.group_survey_id')
+            ->join('value_chain', 'group_surveys.primary_value_chain', '=', 'value_chain.id')
+            ->join('groups', 'group_surveys.group_id', '=', 'groups.group_id')
+            ->select('value_chain.description', 'groups.name', DB::raw('count(distinct(group_survey_members.nrc_number)) as members'))
+            ->whereDate('group_surveys.created_at', '>', $quarter)
+            ->whereDate('group_surveys.created_at', '<=', $current)
             ->groupBy('value_chain.description', 'groups.name')
             ->get()->toArray();
     $chainLabels = array_column($valueChains, 'description');
@@ -451,25 +448,25 @@ class ReportsController extends Controller
     $year = Carbon::now();
     $year->subMonth(12);
 
+    // Return the total number of surveys entered in the last 3 months
+    $totalSurveys = GroupSurvey::whereDate('created_at', '>', $quarter)
+        ->whereDate('created_at', '<=', $current)
+        ->count();
 
-    // This query returns the financial trends for the past 9 months
+    // Return the total number of members that are actively saving in a savings group
+    $totalSGMembers = DB::table('group_surveys')
+        //->select('group_id', 'num_savings_group_members')
+        ->select('num_savings_group_members')
+        ->whereDate('created_at', '>', $quarter)
+        ->whereDate('created_at', '<=', $current)
+        //->groupBy('group_id')
+        ->sum('num_savings_group_members');
+
+    // This query returns various details about the groups that have been entered for the last quarter.
     $memEntered = DB::table('members_entered_by_group')
-            ->get();
-            //->get()->toArray();
-            /*
-    $groupMembersTrend = array_column($finTrends, 'num_members');
-    $loansTrend = array_column($finTrends, 'num_loans_accessed');
-    $cropInsTrend = array_column($finTrends, 'num_crop_insurance');
-
-  foreach($memEntered as $memEntered) {
-    echo $memEntered->group_name ."<br>";
-  }
-
-  var_dump($memEntered);
-  echo "<br><br><br>";
-  echo json_encode($memEntered);
-  exit;
-*/
+        ->whereDate('created_at', '>', $quarter)
+        ->whereDate('created_at', '<=', $current)
+        ->get();
 
     $groups = Group::select('name', 'group_id')->orderBy('name')->get()->toArray();
     $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
@@ -477,75 +474,96 @@ class ReportsController extends Controller
     $villages = Village::pluck('name', 'village_id')->all();
 
 
-    return view('charts.progress_reports', compact('groups', 'areaPrograms', 'zones', 'villages', 'memEntered', 'areaPrograms'));
+    // Return the number of members by soil conservation technique
+    /*
+    $soilCons = DB::table('members_by_soil_cons')
+            ->select('General Techniques', 'Ripping', 'Mulching', 'Composting/Liming', 'Crop Rotation', '3 or More Techniques')
+            ->get()->toArray();
+            var_dump($soilCons);
+            echo "<br><br>". json_encode($soilCons);
+            exit;
+    $soilConsLabels = array_keys($soilCons[0]);
+    $groupNames = array_column($valueChains, 'name');
+    $chainMembers = array_column($valueChains, 'members');
+
+    var_dump($soilConsLabels);
+    exit;
+    */
 
 
+    return view('charts.progress_reports', compact('groups', 'areaPrograms', 'zones', 'villages', 'memEntered', 'areaPrograms', 'totalSurveys', 'totalSGMembers'));
 
   }
 
   // Export the data to an Excel file
   public function export() {
-
-
-
     //require_once __DIR__ . '/../../src/Bootstrap.php';
 
-    $helper = new Sample();
-    if ($helper->isCli()) {
-        $helper->log('This example should only be run from a Web Browser' . PHP_EOL);
-
-        return;
-    }
-
-    // Create new Spreadsheet object
     $spreadsheet = new Spreadsheet();
 
     // Set document properties
-
     $spreadsheet->getProperties()->setCreator('THRIVE Program')
         ->setLastModifiedBy('THRIVE Program')
-        ->setTitle('THRIVE Program Database Export')
-        ->setSubject('Office 2007 XLSX Test Document')
-        ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
-        ->setKeywords('office 2007 openxml php')
-        ->setCategory('Test result file');
+        ->setTitle('THRIVE Program Database Export');
 
-    $data = ExcelExport::all()->toArray();
-    $columnTitles = array_keys($data[0]);
+    // Get some data to put in the spreadsheet
+    $groupData = ExcelExportGroup::all()->toArray();
+    $individualData = ExcelExportIndividual::all()->toArray();
 
-    $spreadsheet->getActiveSheet()
-        ->fromArray(
-          $columnTitles,
-          NULL,
-          'A1'
-        );
+    if(count($groupData) == 0 && count($individualData) == 0) {
+      session()->flash('alert-danger', 'No Data to Download');
+      return Redirect::back();
+    }
 
-    $spreadsheet->getActiveSheet()
-        ->fromArray(
-          $data,
-          NULL,
-          'A2'
-        );
-        
+    if(count($groupData) > 0) {
 
+      $columnTitles = array_keys($groupData[0]);
 
-    // Add some data
-    /*
-    $spreadsheet->setActiveSheetIndex(0)
-        ->setCellValue('A1', 'Hello')
-        ->setCellValue('B2', 'world!')
-        ->setCellValue('C1', 'Hello')
-        ->setCellValue('D2', 'world!');
-*/
-    // Miscellaneous glyphs, UTF-8
-    /*
-    $spreadsheet->setActiveSheetIndex(0)
-        ->setCellValue('A4', 'Miscellaneous glyphs')
-        ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
-    */
+      $spreadsheet->setActiveSheetIndex(0)
+          ->fromArray(
+            $columnTitles,
+            NULL,
+            'A1'
+          );
 
-    // Rename worksheet
-    $spreadsheet->getActiveSheet()->setTitle('THRIVE DB');
+      $spreadsheet->setActiveSheetIndex(0)
+          ->fromArray(
+            $groupData,
+            NULL,
+            'A2'
+          );
+
+      // Rename worksheet
+      $spreadsheet->getActiveSheet()->setTitle('Surveys With Member List');
+
+    }
+
+    // Create a second sheet to hold the surveys with individual data.
+    if(count($individualData) > 0) {
+
+      // Create a new sheet to hold the individual survey data
+      $indWorkSheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Surveys With Individual Data');
+
+      // Add the new sheet to the existing Spreadsheet
+      $spreadsheet->addSheet($indWorkSheet, 1);
+
+      $indColumnTitles = array_keys($individualData[0]);
+
+      $spreadsheet->setActiveSheetIndex(1)
+          ->fromArray(
+            $indColumnTitles,
+            NULL,
+            'A1'
+          );
+
+      $spreadsheet->setActiveSheetIndex(1)
+          ->fromArray(
+            $individualData,
+            NULL,
+            'A2'
+          );
+
+    }
 
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet
     $spreadsheet->setActiveSheetIndex(0);
@@ -568,6 +586,5 @@ class ReportsController extends Controller
     exit;
 
   }
-
 
 }

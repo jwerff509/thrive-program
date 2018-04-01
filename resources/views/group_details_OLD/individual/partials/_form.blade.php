@@ -295,6 +295,12 @@
     </div>
   </div>
 
+
+
+
+
+
+
   <div class="form-group row">
     {!! Form::label('sales_price', 'G6b - Current Sales Price per Value Chain Unit:', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
@@ -312,6 +318,8 @@
       {!! Form::checkbox('sales_location[]', 'International Market') !!}<span> International Market <br></span>
     </div>
   </div>
+
+
 
   <div class="form-group row">
     {!! Form::label('trees_planted', 'G8 - # of Trees Planted/Regenerated During This Quarter:', array('class' => 'col-md-5 form-control-label text-right')) !!}

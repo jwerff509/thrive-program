@@ -97,7 +97,6 @@ class GroupDetailsController extends Controller
         // Testing out combining the "group" form and the group_details form
         $groups = Group::pluck('name', 'group_id');
         $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
-
         $valueChains = ValueChains::pluck('description', 'id')->all();
         $reportingTerms = ReportingTerms::pluck('description', 'id')->all();
         $vegetables = Vegetables::pluck('description', 'id')->all();

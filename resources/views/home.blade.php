@@ -20,12 +20,20 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Welcome {{ Auth::user()->name }} </div>
 
+                  <div class="flash-message">
+                    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                      @if(Session::has('alert-' . $msg))
+                      <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                      @endif
+                    @endforeach
+                  </div> <!-- end .flash-message -->
+
                 <div class="panel-body">
                     Please choose one of the following:
                     <br><br>
-                    <a href="{{ url('group_details/create') }}">Enter Survey with Members List</a>
+                    <a href="{{ url('group_surveys/create') }}">Enter Survey with Members List</a>
                     <br><br>
-                    <a href="{{ url('group_details/ind_survey_details') }}">Enter Survey with Individual Data</a>
+                    <a href="{{ url('group_surveys/create2') }}">Enter Survey with Individual Data</a>
                 </div>
 
             </div>
