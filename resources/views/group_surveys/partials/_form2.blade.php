@@ -18,7 +18,8 @@
               // Set the Options for "Bloodhound" suggestion engine
               var engine = new Bloodhound({
                 remote: {
-                  url: 'http://localhost/groupsFind/%QUERY%',
+                  // url: 'http://localhost/groupsFind/%QUERY%',
+                  url: 'https://thriveprograms.org/groupsFind/%QUERY%',
                   //{{--url: "{{ route('groupsFind', ['QUERY' => '%QUERY%']) }}", --}}
                   wildcard: '%QUERY%'
                 },
@@ -96,7 +97,8 @@
               // Set the Options for "Bloodhound" suggestion engine
               var zones = new Bloodhound({
                 remote: {
-                  url: 'http://localhost/zonesFind/%QUERY%',
+                  //url: 'http://localhost/zonesFind/%QUERY%',
+                  url:  'https://thriveprograms.org/zonesFind/%QUERY%',
                   //{{--url: "{{ route('groupsFind', ['QUERY' => '%QUERY%']) }}", --}}
                   wildcard: '%QUERY%'
                 },
@@ -156,7 +158,8 @@
             // Set the Options for "Bloodhound" suggestion engine
             var villages = new Bloodhound({
               remote: {
-                url: 'http://localhost/villagesFind/%QUERY%',
+                //url: 'http://localhost/villagesFind/%QUERY%',
+                url: 'https://thriveprograms.org/villagesFind/%QUERY%',
                 //{{--url: "{{ route('groupsFind', ['QUERY' => '%QUERY%']) }}", --}}
                 wildcard: '%QUERY%'
               },

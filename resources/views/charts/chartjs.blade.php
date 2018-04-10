@@ -6,7 +6,6 @@
     var quarter = <?php echo $labels ?>;
 
     var endToEnd = <?php echo $endToEnd; ?>;
-
     var nrm = <?php echo $nrm; ?>;
     var drr = <?php echo $drr; ?>;
     var ewv = <?php echo $ewv; ?>;
@@ -46,7 +45,6 @@
 
       if(gradSteps[i].sex == "Female") {
         gradStepsFemales.push(gradSteps[i].num_members);
-        //totalMembers =
       } else if(gradSteps[i].sex == "Male") {
         gradStepsMales.push(gradSteps[i].num_members);
       } else if(gradSteps[i].sex == "Unknown") {
@@ -72,12 +70,14 @@
       var onePillarMembers = pillarsByHousehold[1].num_members;
       var twoPillarMembers = pillarsByHousehold[2].num_members;
       var threePillarMembers = pillarsByHousehold[3].num_members;
-      var fourPillarMembers = pillarsByHousehold[4].num_members;
+      //var fourPillarMembers = pillarsByHousehold[4].num_members;
 
     }
 
     var lineChartData = {
       labels: quarter,
+
+      /*
       datasets: [{
         label: 'End to End',
         borderColor: "#3e95cd",
@@ -95,6 +95,32 @@
         borderColor: "#dee102",
         data: ewv
       }]
+      */
+
+      datasets: [{
+        label: 'End to End',
+        backgroundColor: "#3e95cd",
+        borderWidth: 1,
+        data: endToEnd
+      }, {
+        label: 'NRM',
+        backgroundColor: "#8e5ea2",
+        borderWidth: 1,
+        data: nrm
+      }, {
+        label: 'DRR',
+        backgroundColor: "#c45850",
+        borderWidth: 1,
+        data: drr
+      }, {
+        label: 'EWV',
+        backgroundColor: "#dee102",
+        borderWidth: 1,
+        data: ewv
+      }]
+
+
+
     };
 
     var pieChartData = {
@@ -109,27 +135,13 @@
 
       var ctx = document.getElementById("lineChart").getContext("2d");
 
-/*
-      if(endToEnd.length === 0) {
+      if(quarter.length === 1) {
 
         window.myLine = new Chart(ctx, {
-          type: 'line',
-          options: {
-            responsive: true,
-            title: {
-              display: true,
-              text: 'Number of Households Engaged in These Pillars',
-            },
-          },
-        });
-
-      } else {
-*/
-        window.myLine = new Chart(ctx, {
-          type: 'line',
+          type: 'bar',
           data: lineChartData,
           options: {
-            responstive: true,
+            responsive: true,
             title: {
               display: true,
               text: 'Number of Households Engaged in These Pillars'
@@ -137,7 +149,49 @@
           }
         });
 
-      //}
+/*
+        window.multiBar = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['End to End', 'NRM', 'DRR', 'EWV'],
+            datasets: [{
+              data: [endToEnd, nrm, drr, ewv],
+              backgroundColor: ['#ff0000', '#f1590f', '#f1c40f', '#3366cc'],
+              borderWidth: 1
+            }]
+
+          },
+          options: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Number of Households Engaged in These Pillars',
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+*/
+      } else {
+
+        window.myLine = new Chart(ctx, {
+          type: 'line',
+          data: lineChartData,
+          options: {
+            responsive: true,
+            title: {
+              display: true,
+              text: 'Number of Households Engaged in These Pillars'
+            }
+          }
+        });
+
+      }
 
 
       var ctx1 = document.getElementById("pieChart").getContext("2d");
@@ -211,10 +265,10 @@
       window.multiBar = new Chart(housePillar, {
         type: 'bar',
         data: {
-          labels: ["0 Pillars", "1 Pillar", "2 Pillars", "3 Pillars", "4 Pillars"],
+          labels: ["0 Pillars", "1 Pillar", "2 Pillars", "3 Pillars"],
           datasets: [{
-            data: [zeroPillarMembers, onePillarMembers, twoPillarMembers, threePillarMembers, fourPillarMembers],
-            backgroundColor: ['#ff0000', '#f1590f', '#f1c40f', '#3366cc', '#2ecc71'],
+            data: [zeroPillarMembers, onePillarMembers, twoPillarMembers, threePillarMembers],
+            backgroundColor: ['#ff0000', '#f1590f', '#f1c40f', '#3366cc'],
             borderWidth: 1
           }]
 

@@ -41,10 +41,10 @@ class ReportsController extends Controller
 
     // Get total number of members and break it out by sex
     // 3/27/18 - the four counts below are all working and have been tested.
-    $totalMembers = GroupMemberMetrics::count();
-    $totalFemales = GroupMemberMetrics::where('sex', 'F')->count();
-    $totalMales = GroupMemberMetrics::where('sex', 'M')->count();
-    $totalUnreported = GroupMemberMetrics::whereNull('sex')->count();
+    $totalMembers = Person::count();
+    $totalFemales = Person::where('sex', 'Female')->count();
+    $totalMales = Person::where('sex', 'Male')->count();
+    $totalUnreported = Person::whereNull('sex')->orWhere('sex','=','')->orWhere('sex','=','Unknown')->count();
 
     // Count the total number of children.
     $totalChildren = DB::table('person')
@@ -126,17 +126,17 @@ class ReportsController extends Controller
             sum(case when total_ppi_score > 49 and total_ppi_score < 75 then 1 else 0 end) as num_med_risk,
             sum(case when total_ppi_score > 24 and total_ppi_score < 49 then 1 else 0 end) as num_high_risk,
             sum(case when total_ppi_score >= 0 and total_ppi_score < 25 then 1 else 0 end) as num_xtrm_risk'))
-            ->whereDate('reporting_term', '>', $quarter)
+            //->whereDate('reporting_term', '>', $quarter)
             ->get();
 
 
     $pillars = DB::table('pillar_members_quarterly')
-            ->select('reporting_term', 'num_end_to_end', 'num_nrm', 'num_drr', 'num_ewv')
+            ->select('description', 'num_end_to_end', 'num_nrm', 'num_drr', 'num_ewv')
             //->whereDate('report_term_date', '>', $threeQuarter)
             //->whereDate('report_term_date', '<=', $current)
-            ->orderBy('reporting_term')
+            ->orderBy('description')
             ->get()->toArray();
-    $labels = array_column($pillars, 'reporting_term');
+    $labels = array_column($pillars, 'description');
     $numEndtoEnd = array_column($pillars, 'num_end_to_end');
     $numNrm = array_column($pillars, 'num_nrm');
     $numDrr = array_column($pillars, 'num_drr');
@@ -145,35 +145,47 @@ class ReportsController extends Controller
     $newThreeQtr =  $threeQuarter->toDateString();
     $newCurr = $current->toDateString();
 
+
     // This query shows the number of households involved in each pillar over the past 9 months
     $pillar_one = DB::table('members_per_pillar_by_quarter')
             ->select(DB::Raw('reporting_term', 'SUM(pillar_one) as pillar_one'))
-            ->whereDate('reporting_term', '>', $threeQuarter)
-            ->whereDate('reporting_term', '<=', $current)
+            ->whereDate('start_date', '>', $newThreeQtr)
+            ->whereDate('end_date', '<=', $newCurr)
             ->groupBy('reporting_term')
             ->get()->toArray();
     $pillar_one = array_column($pillar_one, 'pillar_one');
 
+    //var_dump($pillar_one);
+    //exit;
+
+    /* Original below
     $pillar_two = DB::table('members_per_pillar_by_quarter')
             ->select(DB::Raw('reporting_term', 'SUM(pillar_two) as pillar_two'))
             ->whereDate('reporting_term', '>', $threeQuarter)
             ->whereDate('reporting_term', '<=', $current)
             ->groupBy('reporting_term')
             ->get()->toArray();
+    */
+    $pillar_two = DB::table('members_per_pillar_by_quarter')
+            ->select(DB::Raw('reporting_term', 'SUM(pillar_two) as pillar_two'))
+            ->whereDate('start_date', '>', $threeQuarter)
+            ->whereDate('end_date', '<=', $current)
+            ->groupBy('reporting_term')
+            ->get()->toArray();
     $pillar_two = array_column($pillar_two, 'pillar_two');
 
     $pillar_three = DB::table('members_per_pillar_by_quarter')
             ->select(DB::Raw('reporting_term', 'SUM(pillar_three) as pillar_three'))
-            ->whereDate('reporting_term', '>', $threeQuarter)
-            ->whereDate('reporting_term', '<=', $current)
+            ->whereDate('start_date', '>', $threeQuarter)
+            ->whereDate('end_date', '<=', $current)
             ->groupBy('reporting_term')
             ->get()->toArray();
     $pillar_three = array_column($pillar_three, 'pillar_three');
 
     $pillar_four = DB::table('members_per_pillar_by_quarter')
             ->select(DB::Raw('reporting_term', 'SUM(pillar_four) as pillar_four'))
-            ->whereDate('reporting_term', '>', $threeQuarter)
-            ->whereDate('reporting_term', '<=', $current)
+            ->whereDate('start_date', '>', $threeQuarter)
+            ->whereDate('end_date', '<=', $current)
             ->groupBy('reporting_term')
             ->get()->toArray();
     $pillar_four = array_column($pillar_four, 'pillar_four');
@@ -182,8 +194,8 @@ class ReportsController extends Controller
     // This query returns the number of households at each graduation step for the past 3 months
     $gradSteps = DB::table('members_by_grad_step_by_quarter')
             ->select(DB::raw('num_grad_step, sex, count(distinct(nrc_number)) as num_members'))
-            ->whereDate('reporting_term', '>', $threeQuarter)
-            ->whereDate('reporting_term', '<=', $current)
+            ->whereDate('start_date', '>', $threeQuarter)
+            ->whereDate('end_date', '<=', $current)
             ->groupBy('sex', 'num_grad_step')
             ->get()->toArray();
 
@@ -193,12 +205,12 @@ class ReportsController extends Controller
     // Ie - How many households are involved in activities from 2 different pillars, 3 different pillars, etc.
     $pillarsByHousehold = DB::table('pillar_members_count_by_quarter')
             ->select(DB::raw('num_pillars, count(distinct(nrc_number)) as num_members'))
-            ->whereDate('reporting_term', '>', $threeQuarter)
-            ->whereDate('reporting_term', '<=', $current)
+            ->whereDate('start_date', '>', $threeQuarter)
+            ->whereDate('end_date', '<=', $current)
             ->groupBy('num_pillars')
             ->get()->toArray();
 
-
+/*
     $quarters = array();
     foreach($labels as $label) {
       if(substr($label, 5, 5) == '12-31') {
@@ -211,7 +223,7 @@ class ReportsController extends Controller
         $quarters[] .= 'Jul - Sep '. substr($label, 0, 4);
       }
     }
-
+*/
 
     //echo json_encode($quarters) ."<br><br>";
     //die;
@@ -235,7 +247,10 @@ class ReportsController extends Controller
       'totalProducers' => $producersGroups,
       'savingsBalance' => $savingsBalance,
       'ppi' => json_encode($ppi),
-      'labels' => json_encode($quarters),
+
+      //'labels' => json_encode($quarters),
+      'labels' => json_encode($labels),
+
       'endToEnd' => json_encode($numEndtoEnd),
       'nrm' => json_encode($numNrm),
       'drr' => json_encode($numDrr),
@@ -466,7 +481,7 @@ class ReportsController extends Controller
     $memEntered = DB::table('members_entered_by_group')
         ->whereDate('created_at', '>', $quarter)
         ->whereDate('created_at', '<=', $current)
-        ->get();
+        ->paginate(5);
 
     $groups = Group::select('name', 'group_id')->orderBy('name')->get()->toArray();
     $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();

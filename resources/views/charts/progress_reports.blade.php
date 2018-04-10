@@ -50,6 +50,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body no-padding">
+
           <table class="table table-hover table-striped">
             <tbody>
               <tr>
@@ -74,7 +75,6 @@
             @foreach($memEntered as $member)
               <tr>
                 <td>{{ $member->name }}</td>
-
                 <td>
                   @if($member->num_members == 0)
                     {{ $member->num_members2 }}
@@ -101,6 +101,12 @@
 
             </tbody>
           </table>
+
+          <div class="row">
+            <div class="col-sm-5"></div>
+            <div class="col-sm-6">{{ $memEntered->links() }}</div>
+          </div>
+
         </div>
         <!-- /.box-body -->
       </div>

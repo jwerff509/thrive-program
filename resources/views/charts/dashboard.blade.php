@@ -41,7 +41,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Savings Groups: <b>{{ number_format($totalSavingsGroups) }}</b></span>
-            <span class="info-box-text">Total Balance: <b>${{ number_format($savingsBalance) }}</b></span>
+            <span class="info-box-text">Total Balance: <b>K {{ number_format($savingsBalance) }}</b></span>
           </div>
         </div>
       </div>
@@ -54,8 +54,7 @@
           <span class="info-box-icon bg-yellow"><i class="fa fa-leaf"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Producers Groups:</span>
-            <span class="info-box-number">{{ number_format($totalProducers) }}</span>
+            <span class="info-box-text">Producers Groups: <b>{{ number_format($totalProducers) }}</b></span>
           </div>
         </div>
       </div>

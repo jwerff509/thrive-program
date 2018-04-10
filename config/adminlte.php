@@ -135,7 +135,7 @@ return [
             'icon_color'  => 'orange',
         ],
         'REPORTS',
-        /*
+
         [
             'text'        => 'Main Dashboard',
             'icon'        => 'dashboard',
@@ -148,7 +148,6 @@ return [
             'url'         => '/pillars',
             'icon_color'  => 'green',
         ],
-        */
         [
             'text'        => 'Progress Reports',
             'icon'        => 'bar-chart',
