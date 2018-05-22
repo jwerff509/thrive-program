@@ -126,15 +126,31 @@ class GroupSurveysController extends Controller
       // Check to see if the group, zone, and village exist already
       // If not, then we need to insert the new records before continuing
       if($input['group_id'] == '') {
-        // Create a new group and get the Group ID.
+
         $name = [
           'name' => $input['group_name']
         ];
-        $newGroup = Group::create($name);
-        $groupID = $newGroup->group_id;
+
+        // Check to see if the group name exists - doing this to prevent duplicates.
+        // The typeahead functionality sometimes does not pick up the group name.
+        $exists = Group::where('name', '=', $name['name'])->first();
+
+        if(is_null($exists)) {
+          // Create a new group and get the Group ID.
+          /*
+          $newGroup = Group::create($name);
+          $groupID = $newGroup->group_id;
+          */
+          echo "Adding group, getting new group id<br>";
+        } else {
+          $groupID = $exists->group_id;
+          echo "Group exists - group id: ". $groupID ."<br>";
+        }
 
       } else {
         $groupID = $input['group_id'];
+
+        echo "Group chosen from typeahed. Group id: ". $groupID ."<br>";
       }
 
       if($input['zone_id'] == '') {
@@ -142,11 +158,26 @@ class GroupSurveysController extends Controller
         $name = [
           'name' => $input['zone']
         ];
-        $newZone = Zone::create($name);
-        $zoneID = $newZone->id;
+
+        // Check to see if the zone name exists - doing this to prevent duplicates.
+        // The typeahead functionality sometimes does not pick up the zone name.
+        $exists = Zone::where('name', '=', $name['name'])->first();
+
+        if(is_null($exists)) {
+          // Create a new group and get the Group ID.
+          /*
+          $newZone = Zone::create($name);
+          $zoneID = $newZone->zone_id;
+          */
+          echo "Adding zone, getting new zone id<br>";
+        } else {
+          $zoneID = $exists->zone_id;
+          echo "Zone exists - zone id: ". $zoneID ."<br>";
+        }
 
       } else {
         $zoneID = $input['zone_id'];
+        echo "Zone chosen from typeahed. Zone id: ". $zoneID ."<br>";
       }
 
       if($input['village_id'] == '') {
@@ -154,11 +185,26 @@ class GroupSurveysController extends Controller
         $name = [
           'name' => $input['village_name']
         ];
-        $newVillage = Village::create($name);
-        $villageID = $newVillage->id;
+
+        // Check to see if the village name exists - doing this to prevent duplicates.
+        // The typeahead functionality sometimes does not pick up the village name.
+        $exists = Village::where('name', '=', $name['name'])->first();
+
+        if(is_null($exists)) {
+          // Create a new group and get the Group ID.
+          /*
+          $newVillage = Village::create($name);
+          $villageID = $newVillage->village_id;
+          */
+          echo "Adding village, getting new village id<br>";
+        } else {
+          $villageID = $exists->village_id;
+          echo "Village exists - village id: ". $villageID ."<br>";
+        }
 
       } else {
         $villageID = $input['village_id'];
+        echo "Village chosen from typeahed. Village id: ". $villageID ."<br>";
       }
 
       // update the relevant id's on the input
@@ -209,11 +255,9 @@ class GroupSurveysController extends Controller
           // Once we know the member is in the person table we can insert them
           // into the group_survey_members table after formatting the array.
           $member = array(
-
             'nrc_number' => $request->nrc_number[$key],
             'land_length' => $request->land_length[$key],
             'land_width' => $request->land_width[$key],
-
           );
 
           $groupSurvey->GroupSurveyMembers()->create($member);
