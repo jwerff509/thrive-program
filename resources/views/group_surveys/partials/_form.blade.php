@@ -18,8 +18,8 @@
               // Set the Options for "Bloodhound" suggestion engine
               var engine = new Bloodhound({
                 remote: {
-                  //url: 'http://localhost/groupsFind/%QUERY%',
-                  url: 'https://thriveprograms.org/groupsFind/%QUERY%',
+                  url: 'http://localhost/groupsFind/%QUERY%',
+                  //url: 'https://thriveprograms.org/groupsFind/%QUERY%',
                   //{{--url: "{{ route('groupsFind', ['QUERY' => '%QUERY%']) }}", --}}
                   wildcard: '%QUERY%'
                 },
@@ -84,6 +84,17 @@
       </div>
     </div>
 
+    <!-- Show the zones for the area program that they selected  -->
+    <!-- Need to send the id from the area programs select box to the APZonesFind query in the groupsurveys controller -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+      $('#area_program').on('change', function() {
+        console.log($('#area_program').val());
+      });
+    </script>
+
+
+
     <div class="form-group row">
       <div class="form-group <?php echo ($errors->has('zone')) ? 'has-error' : ''; ?>">
       {!! Form::label('zone', 'ID4 - Zone Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
@@ -95,8 +106,8 @@
               // Set the Options for "Bloodhound" suggestion engine
               var zones = new Bloodhound({
                 remote: {
-                  //url: 'http://localhost/zonesFind/%QUERY%',
-                  url: 'https://thriveprograms.org/zonesFind/%QUERY%',
+                  url: 'http://localhost/zonesFind/%QUERY%',
+                  //url: 'https://thriveprograms.org/zonesFind/%QUERY%',
                   //{{--url: "{{ route('groupsFind', ['QUERY' => '%QUERY%']) }}", --}}
                   wildcard: '%QUERY%'
                 },
@@ -156,8 +167,8 @@
             // Set the Options for "Bloodhound" suggestion engine
             var villages = new Bloodhound({
               remote: {
-                //url: 'http://localhost/villagesFind/%QUERY%',
-                url: 'https://thriveprograms.org/villagesFind/%QUERY%',
+                url: 'http://localhost/villagesFind/%QUERY%',
+                //url: 'https://thriveprograms.org/villagesFind/%QUERY%',
                 //{{--url: "{{ route('groupsFind', ['QUERY' => '%QUERY%']) }}", --}}
                 wildcard: '%QUERY%'
               },
@@ -496,15 +507,46 @@
     </div>
   </div>
 
+<!--
+{{--
   <div class="card-footer text-center">
     {!! Form::button('Add Group Members', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow']) !!}
     {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
+  </div>
+--}}
+-->
+  <div class="form-group row">
+    <div class="form-group <?php echo ($errors->has('data_collector')) ? 'has-error' : ''; ?>">
+      {!! Form::label('data_collector', 'Data Collector Name', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      <div class="col-md-2">
+        {!! Form::text('data_collector', '', array('class' => 'form-control', 'placeholder' => 'Name of Data Collector')) !!}
+        <span class="help-block">
+          @if ($errors->has('data_collector'))
+            {{ $errors->first('data_collector') }}
+          @endif
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-center">
+    {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
+    {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
+    {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
+    {{-- }}
+    {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow2']) !!}
+    --}}
+    {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
+    {!! Form::submit('Save Survey', ['class' => 'btn btn-sm btn-success', 'name' => 'submitbutton']) !!}
   </div>
 
 </div>
 <!-- End Part 1 -->
 
 <!-- Begin Part 2 -->
+
+<!--
+{{--
 
 <div id="part-2" style="display:none">
 
@@ -536,7 +578,8 @@
 
       </tbody>
     </table>
-
+--}}
+-->
 
     {{-- }}
     <!--
@@ -605,6 +648,8 @@
 
   {{--}}  @endif  --}}
 
+<!--
+{{--
       <div class="form-group row">
         <div class="form-group <?php echo ($errors->has('data_collector')) ? 'has-error' : ''; ?>">
           {!! Form::label('data_collector', 'Data Collector Name', array('class' => 'col-md-5 form-control-label text-right')) !!}
@@ -631,7 +676,12 @@
     </div>
 
 </div>
+--}}
+-->
+<!-- End Part 2 -->
 
+
+<!--
   <script>
   jQuery(document).ready(function(){
 
@@ -647,5 +697,5 @@
 
   });
   </script>
-
+-->
 </div>

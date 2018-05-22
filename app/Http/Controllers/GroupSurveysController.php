@@ -13,6 +13,7 @@ use App\Village;
 use App\SurveyDetails;
 use App\Person;
 use App\GroupSurvey;
+use App\APZones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -61,7 +62,8 @@ class GroupSurveysController extends Controller
         $vegetables = Vegetables::pluck('description', 'id')->all();
         $valueChainUnits = ValueChainUnits::pluck('description', 'id')->all();
 
-        return view('group_surveys.create', compact('groups', 'areaPrograms', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations'));
+
+        return view('group_surveys.create', compact('groups', 'areaPrograms', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations', 'apZones'));
 
     }
 
@@ -98,19 +100,20 @@ class GroupSurveysController extends Controller
 
       $this->validate($request, $this->rules);
 
-      if(is_null($request->sales_location)) {
+      if(is_null($request->sales_locations)) {
 
-        //$input = Input::all();
-        $input = $request->except(['nrc_number', 'family_name', 'other_name', 'sex', 'phone_number', 'land_width', 'land_length']);
+        $input = Input::all();
+        //$input = $request->except(['nrc_number', 'family_name', 'other_name', 'sex', 'phone_number', 'land_width', 'land_length']);
 
       } else {
 
-        $input = $request->except(['sales_location', 'nrc_number', 'family_name', 'other_name', 'sex', 'phone_number', 'land_width', 'land_length']);
-        $salesLocations = Input::get('sales_location[]');
+        //$input = $request->except(['sales_location', 'nrc_number', 'family_name', 'other_name', 'sex', 'phone_number', 'land_width', 'land_length']);
+        $input = $request->except(['sales_locations[]']);
+        $salesLocations = Input::get('sales_locations[]');
 
         $temp = '';
 
-        foreach($request->sales_location as $salesLocation) {
+        foreach($request->sales_locations as $salesLocation) {
           $temp = $temp . $salesLocation .", ";
         }
 
@@ -166,6 +169,7 @@ class GroupSurveysController extends Controller
 
       // We need to convert the land length and width to hectares before inserting it.
       // One hectare is equal to 10,000 square meters.
+
       $length = Input::get('hectares_reclaimed_length');
       $width = Input::get('hectares_reclaimed_width');
       $hectares = ($length * $width / 10000);
@@ -179,6 +183,7 @@ class GroupSurveysController extends Controller
       // If they do then we only need to insert their nrc_number and land dimensions
       // If they don't exist, we need to add them to the person table before
       // inserting them into the group_survey_members table.
+      /*
       foreach($request->nrc_number as $key => $value) {
 
         if($request->nrc_number[$key] <> '') {
@@ -216,6 +221,7 @@ class GroupSurveysController extends Controller
         }
 
       } // End foreach
+      */
 
       $request->session()->flash('alert-success', 'Survey was successfully added!');
 
@@ -455,6 +461,16 @@ class GroupSurveysController extends Controller
     {
       $data = Village::select('village_id', 'name')->where("name", "LIKE", "%". $query ."%")->orderBy('name')->get();
       return response()->json($data);
+    }
+
+    // This needs work - have to join to zones table to get zone name
+    public function apZonesFind($apId) {
+      $apZones = DB::table('zones')
+                    ->join('area_program_zones', 'zones.zone_id', '=', 'area_program_zones.zone_id')
+                    ->select('area_programs_zones.area_program_id', 'zones.zone_id', 'zones.name')
+                    ->get();
+      //'apZones' = json_encode($apZones);
+      return response()->json($apZones);
     }
 
 }

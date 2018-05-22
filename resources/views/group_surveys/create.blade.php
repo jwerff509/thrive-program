@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="row col-md-8 col-md-offset-2">
-    <h2><center><strong>Add</strong> Group Survey</center></h2><br><br>
+    <h2><center><strong>Enter</strong> Quarterly Data</center></h2><br><br>
   </div>
 </div>
 

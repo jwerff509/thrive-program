@@ -345,163 +345,108 @@
 <!-- End Part 1 -->
 
 <!-- Begin Part 2 -->
-<div>
+
+<div id="part-2" style="display:none">
+
+  <div class="container-fluid justify-content-center">
+
+    <table class="table">
+      <tbody>
+        <tr>
+          <th style="width:10px">#</th>
+          <th>NRC Number</th>
+          <th>Family Name</th>
+          <th>Other Name</th>
+          <th>Improved<br>Seed</th>
+          <th>Improved<br>Storage</th>
+          <th>Improved<br>Practices</th>
+          <th>HA With<br>Irrigation</th>
+          <th>Accessed<br>VF Loan</th>
+          <th>Crop<br>Insurance</th>
+          <th>Hectares Harvested</th>
+          <th># Units Harvested</th>
+        </tr>
+
+      @for($i=1; $i<21; $i++)
+        <tr>
+          <td><b>{{ $i }}</b></td>
+          <td>{!! Form::text('nrc_number[]', '', array('class' => 'form-control', 'size' => '10', 'placeholder' => 'NRC Number', 'id' => 'nrc_number'.$i)) !!}</td>
+          <td>{!! Form::text('family_name[]', '', array('class' => 'form-control', 'size' => '10')) !!}</td>
+          <td>{!! Form::text('other_name[]', '', array('class' => 'form-control', 'size' => '10')) !!}</td>
+          <td>{!! Form::select('improved_seed[]', array('0' => 'No', '1' => 'Yes'), array('class' => 'form-control')) !!}</td>
+          <td>{!! Form::select('improved_storage[]', array('0' => 'No', '1' => 'Yes', ), array('class' => 'form-control')) !!}</td>
+          <td>{!! Form::select('improved_practices[]', array('0' => 'No', '1' => 'Yes'), array('class' => 'form-control')) !!}</td>
+          <td>{!! Form::text('hectares_with_irrigation[]', '', array('class' => 'form-control', 'size' => '10')) !!}</td>
+          <td>{!! Form::select('accessed_vf_loan[]', array('0' => 'No', '1' => 'Yes')) !!}</td>
+          <td>{!! Form::select('crop_insurance[]', array('0' => 'No', '1' => 'Yes')) !!}</td>
+          <td>{!! Form::text('hectares_harvested[]', '', array('class' => 'form-control', 'size' => '10')) !!}</td>
+          <td>{!! Form::text('kgs_harvested[]', '', array('class' => 'form-control', 'size' => '10')) !!}</td>
+        </tr>
+      @endfor
+
+      </tbody>
+    </table>
 
 
-  <div class="form-group row">
-    <div class="form-group <?php echo ($errors->has('nrc_number')) ? 'has-error' : ''; ?>">
-      {!! Form::label('nrc_number', 'NRC#: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
-        <div class="col-md-2">
-          {!! Form::text('nrc_number', '', array('class' => 'form-control', 'placeholder' => 'NRC #')) !!}
-          <span class="help-block">
-            @if ($errors->has('nrc_number'))
-              {{ $errors->first('nrc_number') }}
-            @endif
-          </span>
+
+<!--
+{{--}}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="form-inline">
+            {!! Form::label('nrc_number', 'NRC#', array('class' => 'form-control-label')) !!}
+            {!! Form::label('family_name', 'Family Name', array('class' => 'form-control-label', 'size' => '20')) !!}
+            {!! Form::label('other_name', 'Other Names', array('class' => 'form-control-label', 'size' => '20')) !!}
+
+            {!! Form::label('improved_seed', 'Improved Seed', array('class' => 'form-control-label')) !!}
+            {!! Form::label('improved_storage', 'Improved Storage', array('class' => 'form-control-label')) !!}
+            {!! Form::label('improved_practices', 'Improved Practices', array('class' => 'form-control-label')) !!}
+            {!! Form::label('hectares_with_irrigation', '# HA with Irrigation', array('class' => 'form-control-label', 'size' => '10')) !!}
+            {!! Form::label('accessed_vf_loan', 'Accessed VF Loan', array('class' => 'form-control-label')) !!}
+            {!! Form::label('crop_insurance', 'Crop Insurance', array('class' => 'form-control-label')) !!}
+            {!! Form::label('hectares_harvested', '# HA Harvested', array('class' => 'form-control-label', 'size' => '10')) !!}
+            {!! Form::label('kgs_harvested', '# Units Harvested', array('class' => 'form-control-label', 'size' => '10')) !!}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    --}}
+  -->
 
-  <div class="form-group row">
-    <div class="form-group <?php echo ($errors->has('last_name')) ? 'has-error' : ''; ?>">
-      {!! Form::label('family_name', 'HHID2: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
-        <div class="col-md-2">
-          {!! Form::text('family_name', '', array('class' => 'form-control', 'placeholder' => 'Family Name')) !!}
-          <span class="help-block">
-            @if ($errors->has('family_name'))
-              {{ $errors->first('family_name') }}
-            @endif
-          </span>
+<!--
+{{--}}
+    @for($i=1; $i<21; $i++)
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="form-inline">
+              {!! Form::text('nrc_number[]', '', array('class' => 'form-control', 'size' => '10', 'placeholder' => 'NRC Number', 'id' => 'nrc_number'.$i)) !!}
+              {!! Form::text('family_name[]', '', array('class' => 'form-control', 'size' => '10')) !!}
+              {!! Form::text('other_name[]', '', array('class' => 'form-control', 'size' => '10')) !!}
+
+              {!! Form::select('improved_seed[]', array('0' => 'No', '1' => 'Yes'), array('class' => 'form-control')) !!}
+              {!! Form::select('improved_storage[]', array('0' => 'No', '1' => 'Yes', ), array('class' => 'form-control')) !!}
+              {!! Form::select('improved_practices[]', array('0' => 'No', '1' => 'Yes'), array('class' => 'form-control')) !!}
+              {!! Form::text('hectares_with_irrigation[]', '', array('class' => 'form-control', 'size' => '10')) !!}
+              {!! Form::select('accessed_vf_loan[]', array('0' => 'No', '1' => 'Yes')) !!}
+              {!! Form::select('crop_insurance[]', array('0' => 'No', '1' => 'Yes')) !!}
+              {!! Form::text('hectares_harvested[]', '', array('class' => 'form-control', 'size' => '10')) !!}
+              {!! Form::text('kgs_harvested[]', '', array('class' => 'form-control', 'size' => '10')) !!}
+            </div>
+          </div>
         </div>
-    </div>
-  </div>
+      </div>
+    @endfor
+--}}
+-->
+</div>
 
-  <div class="form-group row">
-    <div class="form-group <?php echo ($errors->has('first_name')) ? 'has-error' : ''; ?>">
-      {!! Form::label('other_name', 'HHID3: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
-        <div class="col-md-2">
-          {!! Form::text('other_name', '', array('class' => 'form-control', 'placeholder' => 'Other Name')) !!}
-          <span class="help-block">
-            @if ($errors->has('other_name'))
-              {{ $errors->first('other_name') }}
-            @endif
-          </span>
-        </div>
-    </div>
+  <div class="card-footer text-center">
+    {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow2']) !!}
+    {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
+    {!! Form::button('Next Page', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow3']) !!}
   </div>
-
-  <div class="form-group row">
-    {!! Form::label('improved_seed', 'H1: Improved seed', array('class' => 'col-md-5 form-control-label  text-right')) !!}
-    <div class="col-md-2 justify-content-center">
-      {!! Form::select('improved_seed', array('0' => 'No', '1' => 'Yes')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('improved_storage', 'H2: Improved storage', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::select('improved_storage', array('0' => 'No', '1' => 'Yes')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('improved_practices', 'H3: Improved practices', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::select('improved_practices', array('0' => 'No', '1' => 'Yes')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('hectares_with_irrigation', 'H4: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::text('hectares_with_irrigation', '', array('class' => 'form-control', 'placeholder' => '# hectares with irrigation')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('accessed_vf_loan', 'H5: Accessed VF loan', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::select('accessed_vf_loan', array('0' => 'No', '1' => 'Yes')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('crop_insurance', 'H6: Crop Insurance', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::select('crop_insurance', array('0' => 'No', '1' => 'Yes')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('hectares_harvested', 'H7: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::text('hectares_harvested', '', array('class' => 'form-control', 'placeholder' => '# hectares harvested of VC')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('kgs_harvested', 'H8: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::text('kgs_harvested', '', array('class' => 'form-control', 'placeholder' => '# Kgs harvested of VC')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('vc_units_sold', 'HH9: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::text('vc_units_sold', '', array('class' => 'form-control', 'placeholder' => '# units of VC sold')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('hectares_reclaimed', 'HH10: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::text('hectares_reclaimed', '', array('class' => 'form-control', 'placeholder' => '# hectares reclaimed')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('hectares_under_conservation', 'HH11: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::text('hectares_under_conservation', '', array('class' => 'form-control', 'placeholder' => '# hectares soil/water conserv')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('water_catchment_used', 'HH12: Water catchment used', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::select('water_catchment_used', array('0' => 'No', '1' => 'Yes')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('emergency_savings', 'HH13: Has emergency savings', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::select('emergency_savings', array('0' => 'No', '1' => 'Yes')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('use_ews', 'HH14: Use EWS', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::select('use_ews', array('0' => 'No', '1' => 'Yes')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('ewv_training', 'HH15: EWV Training', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::select('ewv_training', array('0' => 'No', '1' => 'Yes')) !!}
-    </div>
-  </div>
-
-  <div class="form-group row">
-    {!! Form::label('mindset_change', 'HH16: Mindset change', array('class' => 'col-md-5 form-control-label text-right')) !!}
-    <div class="col-md-2">
-      {!! Form::select('mindset_change', array('0' => 'No', '1' => 'Yes')) !!}
-    </div>
-  </div>
-
 
 </div> <!------------------- End of Part 2 ------------------->
 
@@ -509,7 +454,84 @@
 
   <div class="container-fluid justify-content-center text-center">
 
+    <table class="table">
+      <tbody>
+        <tr align="center">
+          <th style="width:10px">#</th>
+          <th>VC Units Sold</th>
+          <th># Hectares<br>Reclaimed</th>
+          <th># Hectares Soil<br>Conservation</th>
+          <th>Water Catchment<br>used</th>
+          <th>Has Emergency<br>Savings</th>
+          <th>Use EWS</th>
+          <th>EWV Training</th>
+          <th>Mindset Change</th>
+        </tr>
 
+        @for($i=1; $i<21; $i++)
+          <tr>
+            <td><b>{{ $i }}</b></td>
+            <td>{!! Form::text('vc_units_sold[]', '', array('class' => 'form-control', 'size' => '10')) !!}</td>
+            <td>{!! Form::text('hectares_reclaimed[]', '', array('class' => 'form-control', 'size' => '10')) !!}</td>
+            <td>{!! Form::text('hectares_under_conservation[]', '', array('class' => 'form-control', 'size' => '10')) !!}</td>
+            <td>{!! Form::select('water_catchment_used[]', array('0' => 'No', '1' => 'Yes')) !!}</td>
+            <td>{!! Form::select('emergency_savings[]', array('0' => 'No', '1' => 'Yes')) !!}</td>
+            <td>{!! Form::select('use_ews[]', array('0' => 'No', '1' => 'Yes')) !!}</td>
+            <td>{!! Form::select('ewv_training[]', array('0' => 'No', '1' => 'Yes')) !!}</td>
+            <td>{!! Form::select('mindset_change[]', array('0' => 'No', '1' => 'Yes')) !!}</td>
+          </tr>
+        @endfor
+
+      </tbody>
+    </table>
+
+
+<!--
+{{--}}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="form-inline">
+
+            {!! Form::label('nrc_number', 'NRC#', array('class' => 'form-control-label')) !!}
+            {!! Form::label('family_name', 'Family Name', array('class' => 'form-control-label', 'size' => '20')) !!}
+            {!! Form::label('other_name', 'Other Names', array('class' => 'form-control-label', 'size' => '20')) !!}
+            {!! Form::label('vc_units_sold', 'HH9', array('class' => 'form-control-label')) !!}
+            {!! Form::label('hectares_reclaimed', 'HH10', array('class' => 'form-control-label')) !!}
+            {!! Form::label('hectares_under_conservation', 'HH11', array('class' => 'form-control-label')) !!}
+            {!! Form::label('water_catchment_used', 'HH12', array('class' => 'form-control-label')) !!}
+            {!! Form::label('emergency_savings', 'HH13', array('class' => 'form-control-label')) !!}
+            {!! Form::label('use_ews', 'HH14', array('class' => 'form-control-label')) !!}
+            {!! Form::label('ewv_training', 'HH15', array('class' => 'form-control-label')) !!}
+            {!! Form::label('mindset_change', 'HH16', array('class' => 'form-control-label')) !!}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @for($i=1; $i<21; $i++)
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="form-inline">
+              {!! Form::text('nrc_number[]', '', array('class' => 'form-control', 'size' => '10', 'placeholder' => 'NRC Number')) !!}
+              {!! Form::text('family_name[]', '', array('class' => 'form-control', 'size' => '20')) !!}
+              {!! Form::text('other_name[]', '', array('class' => 'form-control', 'size' => '20')) !!}
+              {!! Form::text('vc_units_sold', '', array('class' => 'form-control', 'size' => '10')) !!}
+              {!! Form::text('hectares_reclaimed', '', array('class' => 'form-control', 'size' => '10')) !!}
+              {!! Form::text('hectares_under_conservation', '', array('class' => 'form-control', 'size' => '10')) !!}
+              {!! Form::select('water_catchment_used', array('0' => 'No', '1' => 'Yes')) !!}
+              {!! Form::select('emergency_savings', array('0' => 'No', '1' => 'Yes')) !!}
+              {!! Form::select('use_ews', array('0' => 'No', '1' => 'Yes')) !!}
+              {!! Form::select('ewv_training', array('0' => 'No', '1' => 'Yes')) !!}
+              {!! Form::select('mindset_change', array('0' => 'No', '1' => 'Yes')) !!}
+            </div>
+          </div>
+        </div>
+      </div>
+    @endfor
+--}}
+-->
 
   </div>
 
@@ -538,6 +560,34 @@
 
 </div> <!------------------- End of Part 3 ------------------->
 
+  <script>
+  jQuery(document).ready(function(){
 
+    jQuery('#hideshow').click(function() {
+        jQuery('#part-1').toggle();
+        jQuery('#part-2').toggle();
+    });
+
+    jQuery('#hideshow2').click(function() {
+        jQuery('#part-2').toggle();
+        jQuery('#part-1').toggle();
+    });
+
+    jQuery('#hideshow3').click(function() {
+        jQuery('#part-3').toggle();
+        jQuery('#part-2').toggle();
+        //jQuery('#part-3-labels').show();
+        //jQuery('#')
+        //jQuery('#part-2-labels').css("display","none");
+
+    });
+
+    jQuery('#hideshow4').click(function() {
+        jQuery('#part-2').toggle();
+        jQuery('#part-3').toggle();
+    });
+
+  });
+  </script>
 
 </div>

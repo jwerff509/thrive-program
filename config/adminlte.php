@@ -122,14 +122,14 @@ return [
             'icon_color'  => 'orange',
         ],
         [
-            'text'        => 'Enter Survey with Members',
+            'text'        => 'Enter Quarterly Data',
             'icon'        => 'group',
             'url'         => 'group_surveys/create',
             'icon_color'  => 'orange',
 
         ],
         [
-            'text'        => 'Enter Survey with Individuals',
+            'text'        => 'Enter Annual Data',
             'icon'        => 'user-plus',
             'url'         => 'group_surveys/create2',
             'icon_color'  => 'orange',

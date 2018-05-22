@@ -31,9 +31,9 @@
                 <div class="panel-body">
                     Please choose one of the following:
                     <br><br>
-                    <a href="{{ url('group_surveys/create') }}">Enter Survey with Members List</a>
+                    <a href="{{ url('group_surveys/create') }}">Enter Quarterly Data</a>
                     <br><br>
-                    <a href="{{ url('group_surveys/create2') }}">Enter Survey with Individual Data</a>
+                    <a href="{{ url('group_surveys/create2') }}">Enter Annual Data</a>
                 </div>
 
             </div>
