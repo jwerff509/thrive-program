@@ -502,6 +502,8 @@
       </div>
     </div>
 
+    <br><br>
+
 
 
 <!--  PPI Questions Below  -->
@@ -512,6 +514,7 @@
   {!! Form::label('question_1', 'PPI1: Total Household Members', array('class' => 'col-md-5 form-control-label text-right')) !!}
   <div class="col-md-2">
     {!! Form::select('question_1', array(
+      '' => 'Select...',
       '0' => 'Eight or more',
       '7' => 'Seven',
       '9' => 'Six',
@@ -526,6 +529,7 @@
   {!! Form::label('question_2', 'PPI2: Are All members aged 7 to 16 currently attending school', array('class' => 'col-md-5 form-control-label text-right')) !!}
   <div class="col-md-2">
     {!! Form::select('question_2', array(
+      '' => 'Select...',
       '0' => 'No',
       '3' => 'Yes',
       '6' => 'No one 7 to 16',
@@ -536,6 +540,7 @@
   {!! Form::label('question_3', 'PPI3: Highest grade that the female head/spouse has attained', array('class' => 'col-md-5 form-control-label text-right')) !!}
   <div class="col-md-2">
     {!! Form::select('question_3', array(
+      '' => 'Select...',
       '0' => 'None, or first to fifth grade',
       '2' => 'Sixth grade',
       '4' => 'Seventh to ninth grade',
@@ -548,6 +553,7 @@
   {!! Form::label('question_4', 'PPI4: Floor material', array('class' => 'col-md-5 form-control-label text-right')) !!}
   <div class="col-md-2">
     {!! Form::select('question_4', array(
+      '' => 'Select...',
       '0' => 'Mud, wood only, or other',
       '2' => 'Concrete, or covered concrete',
     )) !!}
@@ -557,6 +563,7 @@
   {!! Form::label('question_5', 'PPI5: Roof Material', array('class' => 'col-md-5 form-control-label text-right')) !!}
   <div class="col-md-2">
     {!! Form::select('question_5', array(
+      '' => 'Select...',
       '0' => 'Grass/straw/thatch, or other',
       '3' => 'Iron sheets, or other non-asbestos tiles',
       '5' => 'Concrete, asbestos sheets, or asbestos tiles',
@@ -567,6 +574,7 @@
   {!! Form::label('question_6', 'PPI6: Main Energy Type Used for Cooking', array('class' => 'col-md-5 form-control-label text-right')) !!}
   <div class="col-md-2">
     {!! Form::select('question_6', array(
+      '' => 'Select...',
       '0' => 'Firewood, coal, crop/livestock residues, or other',
       '4' => 'Charcoal',
       '15' => 'Gas, electricity, solar, or kerosene/paraffin',
@@ -577,6 +585,7 @@
   {!! Form::label('question_7', 'PPI7: TVs, DVDs/VCRs or home theatres, or satellite dish/decoders', array('class' => 'col-md-5 form-control-label text-right')) !!}
   <div class="col-md-2">
     {!! Form::select('question_7', array(
+      '' => 'Select...',
       '0' => 'No TVs (regardless of others)',
       '6' => 'TV, but nothing else',
       '10' => 'TV, and something else (DVD, dish, etc.)',
@@ -587,6 +596,7 @@
   {!! Form::label('question_8', 'PPI8: Non-electric or electric irons', array('class' => 'col-md-5 form-control-label text-right')) !!}
   <div class="col-md-2">
     {!! Form::select('question_8', array(
+      '' => 'Select...',
       '0' => 'None',
       '4' => 'Only non-electric',
       '11' => 'Electric, or both electric and non-electric',
@@ -597,6 +607,7 @@
   {!! Form::label('question_9', 'PPI9: Cellular phones', array('class' => 'col-md-5 form-control-label text-right')) !!}
   <div class="col-md-2">
     {!! Form::select('question_9', array(
+      '' => 'Select...',
       '0' => 'No',
       '6' => 'Yes',
     )) !!}
@@ -606,6 +617,7 @@
   {!! Form::label('question_10', 'PPI10: How many beds and mattresses does your household own', array('class' => 'col-md-5 form-control-label text-right')) !!}
   <div class="col-md-2">
     {!! Form::select('question_10', array(
+      '' => 'Select...',
       '0' => 'None',
       '2' => 'One or more beds, but no mattresses',
       '4' => 'One mattress (regardless of beds)',
