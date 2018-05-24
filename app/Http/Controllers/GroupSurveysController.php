@@ -137,20 +137,14 @@ class GroupSurveysController extends Controller
 
         if(is_null($exists)) {
           // Create a new group and get the Group ID.
-          /*
           $newGroup = Group::create($name);
           $groupID = $newGroup->group_id;
-          */
-          echo "Adding group, getting new group id<br>";
         } else {
           $groupID = $exists->group_id;
-          echo "Group exists - group id: ". $groupID ."<br>";
         }
 
       } else {
         $groupID = $input['group_id'];
-
-        echo "Group chosen from typeahed. Group id: ". $groupID ."<br>";
       }
 
       if($input['zone_id'] == '') {
@@ -165,19 +159,14 @@ class GroupSurveysController extends Controller
 
         if(is_null($exists)) {
           // Create a new group and get the Group ID.
-          /*
           $newZone = Zone::create($name);
-          $zoneID = $newZone->zone_id;
-          */
-          echo "Adding zone, getting new zone id<br>";
+          $zoneID = $newZone->id;
         } else {
           $zoneID = $exists->zone_id;
-          echo "Zone exists - zone id: ". $zoneID ."<br>";
         }
 
       } else {
         $zoneID = $input['zone_id'];
-        echo "Zone chosen from typeahed. Zone id: ". $zoneID ."<br>";
       }
 
       if($input['village_id'] == '') {
@@ -192,19 +181,14 @@ class GroupSurveysController extends Controller
 
         if(is_null($exists)) {
           // Create a new group and get the Group ID.
-          /*
           $newVillage = Village::create($name);
-          $villageID = $newVillage->village_id;
-          */
-          echo "Adding village, getting new village id<br>";
+          $villageID = $newVillage->id;
         } else {
           $villageID = $exists->village_id;
-          echo "Village exists - village id: ". $villageID ."<br>";
         }
 
       } else {
         $villageID = $input['village_id'];
-        echo "Village chosen from typeahed. Village id: ". $villageID ."<br>";
       }
 
       // update the relevant id's on the input

@@ -533,9 +533,6 @@
     {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
     {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
     {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
-    {{-- }}
-    {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow2']) !!}
-    --}}
     {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
     {!! Form::submit('Save Survey', ['class' => 'btn btn-sm btn-success', 'name' => 'submitbutton']) !!}
   </div>
