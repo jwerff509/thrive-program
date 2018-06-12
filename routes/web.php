@@ -55,8 +55,8 @@ Route::model('dashboard', 'Ppi');
 // Old route below
 //Route::get('groups/{id}/group_details/create', 'GroupDetailsController@create');
 
-Route::get('/group_surveys/create', 'GroupSurveysController@create');
-Route::get('/group_surveys/create2', 'GroupSurveysController@create2');
+Route::get('/group_surveys/create', ['middleware' => 'auth', 'uses' => 'GroupSurveysController@create']);
+Route::get('/group_surveys/create2', ['middleware' => 'auth', 'uses' => 'GroupSurveysController@create2']);
 
 //Route::get('groups/{surveyDetailsID}/group_details/{groupDetailsID}/create', 'GroupMemberMetricsController@create');
 
@@ -67,10 +67,10 @@ Route::get('person/{id}/ppi/create', 'PpiController@create');
 //Route::get('groups/{id}/group_details/{groupDetailsID}/person/create', 'PersonController@create');
 
 // Route for chartjs
-Route::get('chartjs', 'ReportsController@chartjs');
-Route::get('dashboard', 'ReportsController@chartjs');
-Route::get('pillars', 'ReportsController@pillars');
-Route::get('progress_reports', 'ReportsController@progress_reports');
+Route::get('chartjs', ['middleware' => 'auth', 'uses' => 'ReportsController@chartjs']);
+Route::get('dashboard', ['middleware' => 'auth', 'uses' => 'ReportsController@chartjs']);
+Route::get('pillars', ['middleware' => 'auth', 'uses' => 'ReportsController@pillars']);
+Route::get('progress_reports', ['middleware' => 'auth', 'uses' => 'ReportsController@progress_reports']);
 
 
 /*
