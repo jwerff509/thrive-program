@@ -93,7 +93,7 @@ return [
 
     'login_url' => 'login',
 
-    'register_url' => '',
+    'register_url' => 'register',
 
     /*
     |--------------------------------------------------------------------------
@@ -153,6 +153,7 @@ return [
             'icon'        => 'bar-chart',
             'url'         => '/progress_reports',
             'icon_color'  => 'green',
+            'can'         => 'view-progress-reports'
         ],
         /*
         [
