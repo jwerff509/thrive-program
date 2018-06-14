@@ -155,6 +155,28 @@ return [
             'icon_color'  => 'green',
             'can'         => 'view-progress-reports'
         ],
+
+        // Admin menu settings
+        [
+          'header'      => 'ADMIN SETTINGS',
+          'can'         => 'change-admin-settings',
+        ],
+        [
+            'text'        => 'Add/Edit Users',
+            'icon'        => 'user',
+            'url'         => '/manage-users',
+            'icon_color'  => 'blue',
+            'can'         => 'change-admin-settings'
+        ],
+        [
+            'text'        => 'Change Password',
+            'icon'        => 'lock',
+            'url'         => '/changePassword',
+            'icon_color'  => 'blue',
+            'can'         => 'change-admin-settings'
+        ],
+
+
         /*
         [
             'text'        => 'Search test',

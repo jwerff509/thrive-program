@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Group;
 use App\ValueChains;
 use App\ReportingTerms;
@@ -17,6 +18,7 @@ use App\APZones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
+use Validator;
 
 
 class GroupSurveysController extends Controller
@@ -29,7 +31,7 @@ class GroupSurveysController extends Controller
         'village_name' => ['required', 'max:191'],
         'reporting_term' => ['required'],
         'year' => ['required'],
-        'data_collector' => ['required'],
+  //      'data_collector' => ['required'],
     ];
 
     public function group_survey_members()
@@ -62,10 +64,61 @@ class GroupSurveysController extends Controller
         $vegetables = Vegetables::pluck('description', 'id')->all();
         $valueChainUnits = ValueChainUnits::pluck('description', 'id')->all();
 
-
         return view('group_surveys.create', compact('groups', 'areaPrograms', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations', 'apZones'));
 
     }
+
+    /**
+     * Show the form for creating step 1 of a new group_survey with a members list.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createStep1(Request $request)
+    {
+
+        $groups = Group::pluck('name', 'group_id');
+        $areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
+        $valueChains = ValueChains::pluck('description', 'id')->all();
+        $reportingTerms = ReportingTerms::pluck('description', 'id')->all();
+        $vegetables = Vegetables::pluck('description', 'id')->all();
+        $valueChainUnits = ValueChainUnits::pluck('description', 'id')->all();
+        $survey = $request->session()->get('survey');
+
+        return view('group_surveys.create-step1', compact('groups', 'areaPrograms', 'valueChains', 'reportingTerms', 'vegetables', 'valueChainUnits', 'salesLocations', 'apZones', 'survey', $survey));
+    }
+
+    /**
+     * Post Request to store step1 info in session
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function postCreateStep1(Request $request)
+    {
+
+        //$groups = Group::pluck('name', 'group_id');
+        //$areaPrograms = AreaProgram::pluck('name', 'area_program_id')->all();
+        //$valueChains = ValueChains::pluck('description', 'id')->all();
+        //$reportingTerms = ReportingTerms::pluck('description', 'id')->all();
+        //$vegetables = Vegetables::pluck('description', 'id')->all();
+        //$valueChainUnits = ValueChainUnits::pluck('description', 'id')->all();
+
+        $validatedData = $this->validate($request, $this->rules);
+
+        if(empty($request->session()->get('survey'))) {
+          $survey = new GroupSurvey();
+          $survey->fill($validatedData);
+          $request->session()->put('survey', $survey);
+        } else {
+          $survey = $request->session()->get('survey');
+          $survey->fill($validatedData);
+          $request->session()->put('survey', $survey);
+        }
+
+        return redirect('/group_surveys/create-step2');
+    }
+
+
+
 
     /**
      * Show the form for creating a new group_survey with individual data.
@@ -479,10 +532,20 @@ class GroupSurveysController extends Controller
       return response()->json($data);
     }
 
-    public function zonesFind($query)
+    //public function zonesFind($query)
+    public function zonesFind(Request $request)
     {
-      $data = Zone::select('zone_id', 'name')->where("name", "LIKE", "%". $query ."%")->orderBy('name')->get();
-      return response()->json($data);
+      //$data = Zone::select('zone_id', 'name')->where("name", "LIKE", "%". $query ."%")->orderBy('name')->get();
+      //return response()->json($data);
+
+      $apZones = DB::table('zones')
+                    ->join('area_program_zones', 'zones.zone_id', '=', 'area_program_zones.zone_id')
+                    ->select('zones.zone_id', 'zones.name')
+                    ->where('area_program_zones.area_program_id', '=', $request->area_program)
+                    ->get();
+      $data = view('group_surveys.partials._zone-select', compact($apZones))->render();
+      //'apZones' = json_encode($apZones);
+      return response()->json(['options' => $data]);
     }
 
     public function villagesFind($query)
@@ -492,13 +555,15 @@ class GroupSurveysController extends Controller
     }
 
     // This needs work - have to join to zones table to get zone name
-    public function apZonesFind($apId) {
+    public function apZonesFind($area_program) {
       $apZones = DB::table('zones')
                     ->join('area_program_zones', 'zones.zone_id', '=', 'area_program_zones.zone_id')
-                    ->select('area_programs_zones.area_program_id', 'zones.zone_id', 'zones.name')
+                    ->select('zones.zone_id', 'zones.name')
+                    ->where('area_program_zones.area_program_id', '=', $area_program)
                     ->get();
+      $data = view('group_surveys/partials/_zone-select', compact($apZones))->render();
       //'apZones' = json_encode($apZones);
-      return response()->json($apZones);
+      return response()->json(['options' => $data]);
     }
 
 }
