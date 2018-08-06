@@ -54,9 +54,12 @@
                     return '<div style="font-weight:bold; margin-top:-10px ! important;" class="list-group-item">' + data.name + '</div></div>'
                   }
                 }
-              }).on('typeahead:selected typeahead:autocompleted', function(e, datum) {
+              //}).on('typeahead:selected typeahead:autocompleted typeahead:change', function(e, datum) {
+              }).on('typeahead:change typeahead:selected', function(e, datum) {
+                console.log(datum);
                 $('#group_id').val(datum.group_id);
-                console.log($('#group_id'));
+                $('#group_name').val(datum);
+                //console.log($('#group_name'));
               });
             });
           </script>
@@ -69,8 +72,6 @@
         </div>
       </div>
     </div>
-
-
 
     <div class="form-group row">
       <div class="form-group <?php echo ($errors->has('area_program')) ? 'has-error' : ''; ?>">
@@ -241,6 +242,30 @@
     </div>
   </div>
 
+  <div class="card-footer text-center">
+    {!! Form::hidden('group_name', '', array('id' => 'group_name')) !!}
+    {!! Form::hidden('zone_name', '', array('id' => 'zone_name')) !!}
+    {!! Form::hidden('village_name', '', array('id' => 'village_name')) !!}
+    {!! Form::button('Add Individual Data', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow']) !!}
+    {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
+  </div>
+
+<!--
+{{--}}
+  <div class="card-footer text-center">
+    @echo {{ $group_name }}
+  </div>
+  --}}
+-->
+
+</div>
+
+<!--- End Part 1 ------------------------------------------------------->
+
+
+<!--
+{{-- }}
+
   <div class="form-group row">
     {!! Form::label('group_type', 'G1 - Producers Group, Farmer Field School, or Farmer Unit Group', array('class' => 'col-md-5 form-control-label text-right')) !!}
     <div class="col-md-2">
@@ -344,6 +369,9 @@
 </div>
 <!-- End Part 1 -->
 
+--}}
+-->
+
 
 
 
@@ -352,11 +380,13 @@
 <div id="part-2" style="display:none">
   <div class="container-fluid justify-content-center">
 
+  {{-- }}@include('group_surveys/partials/_header') --}}
+
     <div class="form-group row">
       <div class="form-group <?php echo ($errors->has('nrc_number')) ? 'has-error' : ''; ?>">
         {!! Form::label('nrc_number', 'NRC#: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
           <div class="col-md-2">
-            {!! Form::text('nrc_number[{{ $i }}]', '', array('class' => 'form-control', 'placeholder' => 'NRC #')) !!}
+            {!! Form::text('nrc_number', '', array('class' => 'form-control', 'placeholder' => 'NRC #')) !!}
             <span class="help-block">
               @if ($errors->has('nrc_number'))
                 {{ $errors->first('nrc_number') }}
@@ -395,163 +425,162 @@
     </div>
 
     <div class="form-group row">
-      {!! Form::label('improved_seed', 'H1: Improved seed', array('class' => 'col-md-5 form-control-label  text-right')) !!}
+      {!! Form::label('savings_group_member', 'Q1: Savings Group Member', array('class' => 'col-md-5 form-control-label  text-right')) !!}
+      <div class="col-md-2 justify-content-center">
+        {!! Form::select('savings_group_member', array('0' => 'No', '1' => 'Yes')) !!}
+      </div>
+    </div>
+
+    <div class="form-group row">
+      {!! Form::label('producers_group_member', 'Q2: Producers Group Member', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      <div class="col-md-2">
+        {!! Form::select('producers_group_member', array('0' => 'No', '1' => 'Yes')) !!}
+      </div>
+    </div>
+
+    <div class="form-group row">
+      {!! Form::label('improved_seed', 'Q3: Improved seed', array('class' => 'col-md-5 form-control-label  text-right')) !!}
       <div class="col-md-2 justify-content-center">
         {!! Form::select('improved_seed', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('improved_storage', 'H2: Improved storage', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('improved_storage', 'Q4: Improved storage', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('improved_storage', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('improved_practices', 'H3: Improved practices', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('improved_practices', 'Q5: Improved practices', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('improved_practices', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('hectares_with_irrigation', 'H4: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('hectares_with_irrigation', 'Q6: Hectares With Irrigation', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::text('hectares_with_irrigation', '', array('class' => 'form-control', 'placeholder' => '# hectares with irrigation')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('accessed_vf_loan', 'H5: Accessed VF loan', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('accessed_vf_loan', 'Q7: Accessed VF loan', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('accessed_vf_loan', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('crop_insurance', 'H6: Crop Insurance', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('crop_insurance', 'Q8: Crop Insurance', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('crop_insurance', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('hectares_harvested', 'H7: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('hectares_harvested', 'Q9: Hectares Harvested (all crops) ', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::text('hectares_harvested', '', array('class' => 'form-control', 'placeholder' => '# hectares harvested of VC')) !!}
       </div>
     </div>
 
+    <div class="card-footer text-center">
+      {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
+      {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
+      {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
+      {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-warning', 'id' => 'hideshow2']) !!}
+      {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
+      {!! Form::button('Next Page', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow3']) !!}
+    </div>
+
+    </div>
+
+  </div> <!------------------- End of Part 2 ------------------->
+
+
+
+  <!-- Begin Part 3 -->
+
+  <div id="part-3" style="display:none">
+    <div class="container-fluid justify-content-center">
+
     <div class="form-group row">
-      {!! Form::label('kgs_harvested', 'H8: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('sell_vc_at_market', 'Q10: Sell VC Product at Market', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
-        {!! Form::text('kgs_harvested', '', array('class' => 'form-control', 'placeholder' => '# Kgs harvested of VC')) !!}
+        {!! Form::select('sell_vc_at_market', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('vc_units_sold', 'HH9: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
-      <div class="col-md-2">
-        {!! Form::text('vc_units_sold', '', array('class' => 'form-control', 'placeholder' => '# units of VC sold')) !!}
-      </div>
-    </div>
-
-    <div class="form-group row">
-      {!! Form::label('hectares_reclaimed', 'HH10: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('hectares_reclaimed', 'Q11: Hectares Reclaimed', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::text('hectares_reclaimed', '', array('class' => 'form-control', 'placeholder' => '# hectares reclaimed')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('hectares_under_conservation', 'HH11: ', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('hectares_under_conservation', 'Q12: Hectares Soil/Water Conservation', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::text('hectares_under_conservation', '', array('class' => 'form-control', 'placeholder' => '# hectares soil/water conserv')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('water_catchment_used', 'HH12: Water catchment used', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('water_catchment_used', 'Q13: Water catchment used', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('water_catchment_used', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('emergency_savings', 'HH13: Has emergency savings', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('emergency_savings', 'Q14: Has emergency savings', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('emergency_savings', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('use_ews', 'HH14: Use EWS', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('use_ews', 'Q15: Use EWS', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('use_ews', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('ewv_training', 'HH15: EWV Training', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('ewv_training', 'Q16: EWV Training', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('ewv_training', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
     <div class="form-group row">
-      {!! Form::label('mindset_change', 'HH16: Mindset change', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      {!! Form::label('mindset_change', 'Q17: Mindset change', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('mindset_change', array('0' => 'No', '1' => 'Yes')) !!}
       </div>
     </div>
 
-    <br><br>
+    <div class="card-footer text-center">
+      {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
+      {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
+      {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
+      {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-warning', 'id' => 'hideshow4']) !!}
+      {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
+      {!! Form::button('Next Page', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow5']) !!}
+    </div>
 
+  </div>
+
+  </div> <!------------------- End of Part 3 ------------------->
 
 
 <!--  PPI Questions Below  -->
+<div id="part-4" style="display:none">
+  <div class="container-fluid justify-content-center">
 
-
-<div class="modal fade" id="linkEditorModal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="linkEditorModalLabel">Link Editor</h4>
-            </div>
-            <div class="modal-body">
-                <form id="modalFormData" name="modalFormData" class="form-horizontal" novalidate="">
-
-                    <div class="form-group">
-                        <label for="inputLink" class="col-sm-2 control-label">Link</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="link" name="link"
-                                   placeholder="Enter URL" value="">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Description</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="description" name="description"
-                                   placeholder="Enter Link Description" value="">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btn-save" value="add">Save changes
-                </button>
-                <input type="hidden" id="link_id" name="link_id" value="0">
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!--
-{{-- }}
     <div class="form-group row">
       {!! Form::label('question_1', 'PPI1: Total Household Members', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
@@ -672,12 +701,7 @@
 
   </div>
 
---}}
--->
-
-
 <!-- End form loop -->
-
 
     <div class="form-group row">
       <div class="form-group <?php echo ($errors->has('data_collector')) ? 'has-error' : ''; ?>">
@@ -697,15 +721,16 @@
       {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
       {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
       {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
-      {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-warning', 'id' => 'hideshow2']) !!}
-      {!! Form::button('Add PPI Data', ['class' => 'btn btn-sm btn-primary', 'id' => 'btn-add']) !!}
+      {!! Form::hidden('group_name', '', array('id' => 'group_name')) !!}
+      {!! Form::hidden('zone_name', '', array('id' => 'zone_name')) !!}
+      {!! Form::hidden('village_name', '', array('id' => 'village_name')) !!}
+      {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-warning', 'id' => 'hideshow6']) !!}
       {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
-      {!! Form::submit('Save Survey', ['class' => 'btn btn-sm btn-success', 'name' => 'submitbutton']) !!}
+      {!! Form::submit('Save & Add Another', ['class' => 'btn btn-sm btn-info', 'name' => 'submitbutton']) !!}
+      {!! Form::submit('Save & Close Survey', ['class' => 'btn btn-sm btn-success', 'name' => 'submitbutton']) !!}
     </div>
 
 </div> <!------------------- End of Part 2 ------------------->
-
-
 
   <script>
   jQuery(document).ready(function(){
@@ -720,26 +745,27 @@
         jQuery('#part-1').toggle();
     });
 
-  /*
     jQuery('#hideshow3').click(function() {
         jQuery('#part-3').toggle();
         jQuery('#part-2').toggle();
-        //jQuery('#part-3-labels').show();
-        //jQuery('#')
-        //jQuery('#part-2-labels').css("display","none");
     });
 
     jQuery('#hideshow4').click(function() {
         jQuery('#part-2').toggle();
         jQuery('#part-3').toggle();
     });
-  */
+
+    jQuery('#hideshow5').click(function() {
+        jQuery('#part-3').toggle();
+        jQuery('#part-4').toggle();
+    });
+
+    jQuery('#hideshow6').click(function() {
+        jQuery('#part-4').toggle();
+        jQuery('#part-3').toggle();
+    });
 
   });
   </script>
-
-
-
-
 
 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Person;
+use App\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
 use Redirect;
@@ -24,6 +25,7 @@ class UserController extends Controller
   * Show the change password form for admin users
   */
   public function changePasswordForm() {
+
     if(Gate::allows('change-password')) {
       return view('auth.passwords.change');
     }
@@ -61,5 +63,59 @@ class UserController extends Controller
     return redirect()->back()->with("success","Password changed successfully !");
 
   }
+
+
+  /**
+   * Display the specified resource.
+   *
+   * @param  \App\User  $user
+   * @return \Illuminate\Http\Response
+   */
+  public function show()
+  {
+      // List all the users in the system
+      $users = User::pluck('id', 'name', 'email', 'isAdmin');
+
+      print_r($users);
+      exit;
+      return view('users.manage', compact('users'));
+
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  \App\User  $person
+   * @return \Illuminate\Http\Response
+   */
+  public function edit(User $user)
+  {
+      //
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \App\User  $person
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Request $request, User $user)
+  {
+      //
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  \App\User  $person
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(User $user)
+  {
+      //
+  }
+
+
 
 }

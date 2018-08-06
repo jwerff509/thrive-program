@@ -31,6 +31,9 @@ class GroupSurveysController extends Controller
         'village_name' => ['required', 'max:191'],
         'reporting_term' => ['required'],
         'year' => ['required'],
+        'nrc_number' => ['required'],
+        'family_name' => ['required'],
+        'other_name' => ['required']
   //      'data_collector' => ['required'],
     ];
 
@@ -320,33 +323,11 @@ class GroupSurveysController extends Controller
     public function store2(Request $request)
     {
 
-      //$this->validate($request, $this->rules);
+      $this->validate($request, $this->rules);
 
-      if(is_null($request->sales_location)) {
+      $input = Input::all();
 
-        $input = $request->except(['nrc_number', 'family_name', 'other_name', 'improved_seed', 'improved_storage', 'improved_practices',
-          'hectares_with_irrigation', 'accessed_vf_loan', 'crop_insurance', 'hectares_harvested', 'kgs_harvested', 'vc_units_sold',
-          'hectares_reclaimed', 'hectares_under_conservation', 'water_catchment_used', 'emergency_savings', 'use_ews', 'ewv_training', 'mindset_change']);
-
-      } else {
-
-        $input = $request->except(['sales_location', 'nrc_number', 'family_name', 'other_name', 'improved_seed', 'improved_storage', 'improved_practices',
-          'hectares_with_irrigation', 'accessed_vf_loan', 'crop_insurance', 'hectares_harvested', 'kgs_harvested', 'vc_units_sold',
-          'hectares_reclaimed', 'hectares_under_conservation', 'water_catchment_used', 'emergency_savings', 'use_ews', 'ewv_training', 'mindset_change']);
-
-        $salesLocations = Input::get('sales_location[]');
-
-        $temp = '';
-
-        foreach($request->sales_location as $salesLocation) {
-          $temp = $temp . $salesLocation .", ";
-        }
-
-        $input['sales_locations'] = $temp;
-
-      }
-
-      //$next = Input::get('submitbutton');
+      $next = $input['submitbutton'];
 
       // Check to see if the group, zone, and village exist already
       // If not, then we need to insert the new records before continuing
@@ -386,99 +367,93 @@ class GroupSurveysController extends Controller
         $villageID = $input['village_id'];
       }
 
+      $gsInfo[] = "";
+
       // update the relevant id's on the input
-      $input['group_id'] = $groupID;
-      $input['area_program_id'] = Input::get('area_program');
-      $input['zone_id'] = $zoneID;
-      $input['village_id'] = $villageID;
+      $gsInfo['group_id'] = $groupID;
+      $gsInfo['area_program_id'] = Input::get('area_program');
+      $gsInfo['zone_id'] = $zoneID;
+      $gsInfo['village_id'] = $villageID;
+      $gsInfo['reporting_term'] = $input['reporting_term'];
+      $gsInfo['year'] = $input['year'];
+      $gsInfo['data_collector'] = $input['data_collector'];
 
       // We need to convert the land length and width to hectares before inserting it.
       // One hectare is equal to 10,000 square meters.
+      /* Deprecated on 8/1/2018 - JV.
       $length = Input::get('hectares_reclaimed_length');
       $width = Input::get('hectares_reclaimed_width');
       $hectares = ($length * $width / 10000);
-
       $input['hectares_reclaimed'] = $hectares;
+      */
 
-      // Put your insert into the group_surveys table here
-      $groupSurvey = GroupSurvey::create($input);
+      // Create a new GroupSurvey object and get its ID
+      $groupSurvey = GroupSurvey::create($gsInfo);
 
-      // Need to check to see if any/all of the members exist already
-      // If they do then we only need to insert their nrc_number and land dimensions
+      // Need to check to see if the member exists in the person table already
       // If they don't exist, we need to add them to the person table before
-      // inserting them into the group_survey_members table.
-      foreach($request->nrc_number as $key => $value) {
+      // inserting them into the group_survey_individuals table.
 
-        if($request->nrc_number[$key] <> '') {
+      $exists = Person::where('nrc_number', '=', $request->nrc_number)
+                      ->count();
 
-          // Need to add the member to the group if they haven't been added already
-          $exists = Person::where('nrc_number', '=', $request->nrc_number[$key])
-                          ->count();
+      // If the person record doesn't exist, we need to create it
+      if($exists == 0) {
 
-          // If the person record doesn't exist, we need to create it
-          if($exists == 0) {
+        Person::insert(
+          [
+            'nrc_number' => $request->nrc_number,
+            'family_name' => $request->family_name,
+            'other_name' => $request->other_name
+        ]);
 
-            Person::insert(
-              [
-                'nrc_number' => $request->nrc_number[$key],
-                'family_name' => $request->family_name[$key],
-                'other_name' => $request->other_name[$key]
-            ]);
+      }
 
-          }
+      // Once we know the member is in the person table we can insert them
+      // into the group_survey_individuals table after formatting the array.
+      $member = array(
 
-          // Once we know the member is in the person table we can insert them
-          // into the group_survey_members table after formatting the array.
-          $member = array(
+        'nrc_number' => $request->nrc_number,
+        'savings_group_member' => $request->savings_group_member,
+        'producers_group_member' => $request->producers_group_member,
+        'improved_seed' => $request->improved_seed,
+        'improved_storage' => $request->improved_storage,
+        'improved_practices' => $request->improved_practices,
+        'hectares_with_irrigation' => $request->hectares_with_irrigation,
+        'accessed_vf_loan' => $request->accessed_vf_loan,
+        'crop_insurance' => $request->crop_insurance,
+        'hectares_harvested' => $request->hectares_harvested,
+        'sell_vc_at_market' => $request->sell_vc_at_market,
+        'hectares_reclaimed' => $request->hectares_reclaimed,
+        'hectares_under_conservation' => $request->hectares_under_conservation,
+        'water_catchment_used' => $request->water_catchment_used,
+        'emergency_savings' => $request->emergency_savings,
+        'use_ews' => $request->use_ews,
+        'ewv_training' => $request->ewv_training,
+        'mindset_change' => $request->mindset_change
 
-            'nrc_number' => $request->nrc_number[$key],
-            'improved_seed' => $request->improved_seed[$key],
-            'improved_storage' => $request->improved_storage[$key],
-            'improved_practices' => $request->improved_practices[$key],
-            'hectares_with_irrigation' => $request->hectares_with_irrigation[$key],
-            'accessed_vf_loan' => $request->accessed_vf_loan[$key],
-            'crop_insurance' => $request->crop_insurance[$key],
-            'hectares_harvested' => $request->hectares_harvested[$key],
-            'kgs_harvested' => $request->kgs_harvested[$key],
-            'vc_units_sold' => $request->vc_units_sold[$key],
-            'hectares_reclaimed' => $request->hectares_reclaimed[$key],
-            'hectares_under_conservation' => $request->hectares_under_conservation[$key],
-            'water_catchment_used' => $request->water_catchment_used[$key],
-            'emergency_savings' => $request->emergency_savings[$key],
-            'use_ews' => $request->use_ews[$key],
-            'ewv_training' => $request->ewv_training[$key],
-            'mindset_change' => $request->mindset_change[$key]
+      );
 
-          );
+      $groupSurvey->GroupSurveyIndividual()->create($member);
 
-          $groupSurvey->GroupSurveyIndividual()->create($member);
+      // Show a modal here with the success message and ask what they want to do
+      // either enter more members data, or save and close out of the survey.
 
-        }
-
-      } // End foreach
+      //return redirect()->route('home');
 
 
-      $request->session()->flash('alert-success', 'Survey was successfully added!');
+      if($next == 'Save & Close Survey') {
 
-      return redirect()->route('home');
-
-
-
-/*
-      if($next == 'Add Group Members') {
-
-        return Redirect()->action(
-          'GroupMemberMetricsController@create', compact('surveyDetailsID', 'groupDetailsID')
-        );
+        $request->session()->flash('alert-success', 'Survey was successfully added!');
+        return redirect()->route('home');
 
       } else {
 
-        return Redirect()->action(
-          'PersonController@create', compact('surveyDetailsID', 'groupDetailsID')
-        );
+        $request->session()->flash('alert-success', 'Group member was successfully added!');
+        return redirect()->route('home');
 
       }
-*/
+
     }
 
     /**
