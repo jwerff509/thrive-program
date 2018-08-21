@@ -31,28 +31,21 @@ class HighLevelDashboardController extends Controller
 
     $country = '1';
 
-    $lopTargets = ProgramTargets::where('country_id', '=', $country)->get()->toArray();
+    $lopTargets = ProgramTargets::where('country_id', '=', $country)->get();
     $lopActuals = ProgramMeasures::where('country_id', '=', $country)->get()->toArray();
 
-    //$impSeedTarget = array_column($lopTargets, 'improved_seed_target');
-    $test = $lopTargets->improved_seed_target;
-
-    print_r($impSeedTarget);
-    echo "<br>";
-    print_r($test);
-    exit;
-    $impStorageTarget = array_column($lopTargets, 'improved_storage_target');
-    $impToolsTarget = array_column($lopTargets, 'improved_tools_target');
-    $numWithIrrigationTarget = array_column($lopTargets, 'farmers_with_irrigation_target');
-    $increasedYieldTarget = array_column($lopTargets, 'increase_in_yield_per_hectare_target');
-    $haWithIrrigationTarget = array_column($lopTargets, 'ha_with_irrigation_target');
-
-    // Probably want to keep these at the end in order to keep all of the categories grouped together.
-    $dirBensTarget = array_column($lopTargets, 'direct_beneficiaries_target');
-    $numChildrenTarget = array_column($lopTargets, 'num_children_target');
-    $numWomenTarget = array_column($lopTargets, 'num_women_target');
-    $numHHMemTarget = array_column($lopTargets, 'num_hh_members_target');
-
+    foreach($lopTargets as $lopTarget) {
+      $impSeedTarget = $lopTarget->improved_seed_target;
+      $impStorageTarget = $lopTarget->improved_storage_target;
+      $impToolsTarget = $lopTarget->improved_tools_target;
+      $numWithIrrigationTarget = $lopTarget->farmers_with_irrigation_target;
+      $increasedYieldTarget = $lopTarget->increase_in_yield_per_hectare_target;
+      $haWithIrrigationTarget = $lopTarget->ha_with_irrigation_target;
+      $dirBensTarget = $lopTarget->direct_beneficiaries_target;
+      $numChildrenTarget = $lopTarget->num_children_target;
+      $numWomenTarget = $lopTarget->num_women_target;
+      $numHHMemTarget = $lopTarget->num_hh_members_target;
+    }
 
 
     // Create an array of the actual values, by quarter
@@ -144,8 +137,6 @@ class HighLevelDashboardController extends Controller
       'numHHMemTotal' => $numHHMemTotal,
     );
 
-    print_r($data);
-    exit;
 
     return view('charts.high_level')->with($data);
 

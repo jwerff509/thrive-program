@@ -117,7 +117,7 @@
 
                   <div class="chart">
                     <!-- Sales Chart Canvas -->
-                    <canvas id="agChart" style="height: 180px; width: 1072px;" width="1072" height="180"></canvas>
+                    <canvas id="agChart" style="height: 480px; width: 1072px;" width="1072" height="480"></canvas>
                   </div>
                   <!-- /.chart-responsive -->
                 </div>
@@ -241,8 +241,8 @@
 
                   <div class="progress-group">
                     <span class="progress-text">Ave. % Increase in Yield per Hectare</span>
-                    <span class="progress-number"><b>{{ $increaseYieldTotal }}</b>/{{ $increaseYieldTarget }}</span>
-                    <?php $yieldWidth = $increaseYieldTotal / $increaseYieldTarget * 100 ?>
+                    <span class="progress-number"><b>{{ $increasedYieldTotal }}</b>/{{ $increasedYieldTarget }}</span>
+                    <?php $yieldWidth = $increasedYieldTotal / $increasedYieldTarget * 100 ?>
                     <div class="progress sm">
                       <?php
                         switch($yieldWidth) {

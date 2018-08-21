@@ -8,7 +8,7 @@
     var impSeedActual = <?php echo $impSeedActual; ?>;
     var impStorageActual = <?php echo $impStorageActual; ?>;
     var impToolsActual = <?php echo $impToolsActual; ?>;
-    var numWithIrrigationActual = <?php echo $numWithIrrigationActual; ?>;
+    var haWithIrrigationActual = <?php echo $haWithIrrigationActual; ?>;
 
 
 /*
@@ -70,7 +70,6 @@
 */
     var lineChartData = {
       labels: quarter,
-
       datasets: [{
         label: 'Improved Seed',
         backgroundColor: "#3e95cd",
@@ -90,7 +89,7 @@
         label: '# Using Irrigation',
         backgroundColor: "#dee102",
         borderWidth: 1,
-        data: $numWithIrrigationActual
+        data: haWithIrrigationActual
       }]
 
     };
@@ -104,55 +103,11 @@
         data: [ppi1, ppi2, ppi3, ppi4]
       }]
     };
-
+*/
     window.onload = function() {
-*/
+
       var ctx = document.getElementById("agChart").getContext("2d");
-/*
-      if(quarter.length === 1) {
 
-        window.myLine = new Chart(ctx, {
-          type: 'bar',
-          data: lineChartData,
-          options: {
-            responsive: true,
-            title: {
-              display: true,
-              text: 'Number of Households Engaged in These Pillars'
-            }
-          }
-        });
-*/
-/*
-        window.multiBar = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: ['End to End', 'NRM', 'DRR', 'EWV'],
-            datasets: [{
-              data: [endToEnd, nrm, drr, ewv],
-              backgroundColor: ['#ff0000', '#f1590f', '#f1c40f', '#3366cc'],
-              borderWidth: 1
-            }]
-
-          },
-          options: {
-            legend: { display: false },
-            title: {
-              display: true,
-              text: 'Number of Households Engaged in These Pillars',
-            },
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
-          }
-        });
-
-      } else {
-*/
         window.myLineChart = new Chart(ctx, {
           type: 'line',
           data: lineChartData,
@@ -165,7 +120,6 @@
           }
         });
 
-      }
 
 /*
       var ctx1 = document.getElementById("pieChart").getContext("2d");
