@@ -121,6 +121,7 @@ return [
             'url'         => 'home',
             'icon_color'  => 'orange',
         ],
+        /*
         [
             'text'        => 'Enter Quarterly Data',
             'icon'        => 'group',
@@ -128,35 +129,38 @@ return [
             'icon_color'  => 'orange',
 
         ],
+        */
         [
-            'text'        => 'Enter Annual Data',
+            'text'        => 'Data Entry',
             'icon'        => 'user-plus',
             'url'         => 'group_surveys/create2',
             'icon_color'  => 'orange',
         ],
         'REPORTS',
-
         [
-            'text'        => 'Main Dashboard',
+            'text'        => 'Dashboard',
             'icon'        => 'dashboard',
             'url'         => '/dashboard',
             'icon_color'  => 'green',
         ],
+        /*
         [
             'text'        => 'Business Metrics',
             'icon'        => 'line-chart',
             'url'         => '/pillars',
             'icon_color'  => 'green',
         ],
+        */
         [
             'text'        => 'Progress Reports',
             'icon'        => 'bar-chart',
             'url'         => '/progress_reports',
             'icon_color'  => 'green',
-            'can'         => 'view-progress-reports'
+          //  'can'         => 'view-progress-reports'     //  8/7/18 - the full implementation of Gates isn't finished, so I have to comment this line out for now. JV.
         ],
 
         // Admin menu settings
+        /* 8/7/18 - JV - This isn't fully tested and ready to go yet  //
         [
           'header'      => 'ADMIN SETTINGS',
           'can'         => 'change-admin-settings',
@@ -175,7 +179,7 @@ return [
             'icon_color'  => 'blue',
             'can'         => 'change-admin-settings'
         ],
-
+        */
 
         /*
         [

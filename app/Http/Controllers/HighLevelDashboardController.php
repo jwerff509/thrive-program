@@ -13,6 +13,8 @@ use App\Village;
 use App\GroupSurvey;
 use App\ExcelExportGroup;
 use App\ExcelExportIndividual;
+use App\ProgramTargets;
+use App\ProgramMeasures;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 use DB;
@@ -22,10 +24,143 @@ use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-
-
-class ReportsController extends Controller
+class HighLevelDashboardController extends Controller
 {
+
+  public function countryDashboard() {
+
+    $country = '1';
+
+    $lopTargets = ProgramTargets::where('country_id', '=', $country)->get()->toArray();
+    $lopActuals = ProgramMeasures::where('country_id', '=', $country)->get()->toArray();
+
+    //$impSeedTarget = array_column($lopTargets, 'improved_seed_target');
+    $test = $lopTargets->improved_seed_target;
+
+    print_r($impSeedTarget);
+    echo "<br>";
+    print_r($test);
+    exit;
+    $impStorageTarget = array_column($lopTargets, 'improved_storage_target');
+    $impToolsTarget = array_column($lopTargets, 'improved_tools_target');
+    $numWithIrrigationTarget = array_column($lopTargets, 'farmers_with_irrigation_target');
+    $increasedYieldTarget = array_column($lopTargets, 'increase_in_yield_per_hectare_target');
+    $haWithIrrigationTarget = array_column($lopTargets, 'ha_with_irrigation_target');
+
+    // Probably want to keep these at the end in order to keep all of the categories grouped together.
+    $dirBensTarget = array_column($lopTargets, 'direct_beneficiaries_target');
+    $numChildrenTarget = array_column($lopTargets, 'num_children_target');
+    $numWomenTarget = array_column($lopTargets, 'num_women_target');
+    $numHHMemTarget = array_column($lopTargets, 'num_hh_members_target');
+
+
+
+    // Create an array of the actual values, by quarter
+    $labels = array_column($lopActuals, 'quarter');
+    $impSeedActual = array_column($lopActuals, 'improved_seed_actual');
+    $impStorageActual = array_column($lopActuals, 'improved_storage_actual');
+    $impToolsActual = array_column($lopActuals, 'improved_tools_actual');
+    $numWithIrrigationActual = array_column($lopActuals, 'farmers_with_irrigation_actual');
+    $increasedYieldActual = array_column($lopActuals, 'increase_in_yield_per_hectare_actual');
+    $haWithIrrigationActual = array_column($lopActuals, 'ha_with_irrigation_actual');
+
+    // Probably want to keep these at the end in order to keep all of the categories grouped together.
+    $dirBensActual = array_column($lopActuals, 'direct_beneficiaries_actual');
+    $numChildrenActual = array_column($lopActuals, 'num_children_actual');
+    $numWomenActual = array_column($lopActuals, 'num_women_actual');
+    $numHHMemActual = array_column($lopActuals, 'num_hh_members_actual');
+
+
+
+    // Get some totals for the progress bars
+    $impSeedTotal = array_sum($impSeedActual);
+    $impStorageTotal = array_sum($impStorageActual);
+    $impToolsTotal = array_sum($impToolsActual);
+    $numWithIrrigationTotal = array_sum($numWithIrrigationActual);
+    $increasedYieldTotal = array_sum($increasedYieldActual);
+    $haWithIrrigationTotal = array_sum($haWithIrrigationActual);
+
+    $dirBensTotal = max($dirBensActual);
+    $numChildrenTotal = max($numChildrenActual);
+    $numWomenTotal = max($numWomenActual);
+    $numHHMemTotal = max($numHHMemActual);
+
+
+/*
+    $impSeedLopTarget = '9800';
+    $impStorageLopTarget = '9800';
+    $impToolsLopTarget = '9800';
+    $numUsingIrrigationLopTarget = '9800';
+    $increaseYieldLopTarget = '100';
+    $haWithIrrigationLopTarget = '400';
+    $dirBensLopTarget = '15700';
+    $numChildrenLopTarget = '46600';
+    $numWomenLopTarget = '8164';
+    $numHHMemLopTarget = '78500';
+
+    $impSeedTotal = '1684';
+    $impStorageTotal = '0';
+    $impToolsTotal = '1684';
+    $numUsingIrrigationTotal = '1684';
+    $increaseYieldTotal = '0';
+    $haWithIrrigationTotal = '90';
+    $dirBensTotal = '14031';
+    $numChildrenTotal = '34285';
+    $numWomenTotal = '5805';
+    $numHHMemTotal = '71739';
+*/
+    $data = array(
+      'labels' => json_encode($labels),
+      'impSeedTarget' => $impSeedTarget,
+      'impStorageTarget' => $impStorageTarget,
+      'impToolsTarget' => $impToolsTarget,
+      'numWithIrrigationTarget' => $numWithIrrigationTarget,
+      'increasedYieldTarget' => $increasedYieldTarget,
+      'haWithIrrigationTarget' => $haWithIrrigationTarget,
+      'dirBensTarget' => $dirBensTarget,
+      'numChildrenTarget' => $numChildrenTarget,
+      'numWomenTarget' => $numWomenTarget,
+      'numHHMemTarget' => $numHHMemTarget,
+      'impSeedActual' => json_encode($impSeedActual),
+      'impStorageActual' => json_encode($impStorageActual),
+      'impToolsActual' => json_encode($impToolsActual),
+      'numWithIrrigationActual' => json_encode($numWithIrrigationActual),
+      'increasedYieldActual' => json_encode($increasedYieldActual),
+      'haWithIrrigationActual' => json_encode($haWithIrrigationActual),
+      'dirBensActual' => json_encode($dirBensActual),
+      'numChildrenActual' => json_encode($numChildrenActual),
+      'numWomenActual' => json_encode($numWomenActual),
+      'numHHMemActual' => json_encode($numHHMemActual),
+
+      'impSeedTotal' => $impSeedTotal,
+      'impStorageTotal' => $impStorageTotal,
+      'impToolsTotal' => $impToolsTotal,
+      'numWithIrrigationTotal' => $numWithIrrigationTotal,
+      'increasedYieldTotal' => $increasedYieldTotal,
+      'haWithIrrigationTotal' => $haWithIrrigationTotal,
+      'dirBensTotal' => $dirBensTotal,
+      'numChildrenTotal' => $numChildrenTotal,
+      'numWomenTotal' => $numWomenTotal,
+      'numHHMemTotal' => $numHHMemTotal,
+    );
+
+    print_r($data);
+    exit;
+
+    return view('charts.high_level')->with($data);
+
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   public function chartjs() {
 
@@ -479,8 +614,8 @@ class ReportsController extends Controller
 
     // This query returns various details about the groups that have been entered for the last quarter.
     $memEntered = DB::table('members_entered_by_group')
-        //->whereDate('created_at', '>', $quarter)
-        //->whereDate('created_at', '<=', $current)
+        ->whereDate('created_at', '>', $quarter)
+        ->whereDate('created_at', '<=', $current)
         ->paginate(5);
 
     $groups = Group::select('name', 'group_id')->orderBy('name')->get()->toArray();
@@ -585,7 +720,7 @@ class ReportsController extends Controller
 
     // Redirect output to a client’s web browser (Xls)
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="01simple.xlsx"');
+    header('Content-Disposition: attachment;filename="01simple.xls"');
     header('Cache-Control: max-age=0');
     // If you're serving to IE 9, then the following may be needed
     header('Cache-Control: max-age=1');
@@ -596,8 +731,7 @@ class ReportsController extends Controller
     header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
     header('Pragma: public'); // HTTP/1.0
 
-    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-    $writer->save("Test2.xlsx");
+    $writer = IOFactory::createWriter($spreadsheet, 'Xls');
     $writer->save('php://output');
     exit;
 

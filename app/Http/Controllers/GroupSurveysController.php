@@ -331,13 +331,24 @@ class GroupSurveysController extends Controller
 
       // Check to see if the group, zone, and village exist already
       // If not, then we need to insert the new records before continuing
+
       if($input['group_id'] == '') {
         // Create a new group and get the Group ID.
         $name = [
           'name' => $input['group_name']
         ];
-        $newGroup = Group::create($name);
-        $groupID = $newGroup->group_id;
+
+        // Check to see if the group name exists - doing this to prevent duplicates.
+        // The typeahead functionality sometimes does not pick up the group name.
+        $exists = Group::where('name', '=', $name['name'])->first();
+
+        if(is_null($exists)) {
+          // Create a new group and get the Group ID.
+          $newGroup = Group::create($name);
+          $groupID = $newGroup->group_id;
+        } else {
+          $groupID = $exists->group_id;
+        }
 
       } else {
         $groupID = $input['group_id'];
@@ -348,8 +359,18 @@ class GroupSurveysController extends Controller
         $name = [
           'name' => $input['zone']
         ];
-        $newZone = Zone::create($name);
-        $zoneID = $newZone->id;
+
+        // Check to see if the zone name exists - doing this to prevent duplicates.
+        // The typeahead functionality sometimes does not pick up the zone name.
+        $exists = Zone::where('name', '=', $name['name'])->first();
+
+        if(is_null($exists)) {
+          // Create a new group and get the Group ID.
+          $newZone = Zone::create($name);
+          $zoneID = $newZone->id;
+        } else {
+          $zoneID = $exists->zone_id;
+        }
 
       } else {
         $zoneID = $input['zone_id'];
@@ -360,8 +381,18 @@ class GroupSurveysController extends Controller
         $name = [
           'name' => $input['village_name']
         ];
-        $newVillage = Village::create($name);
-        $villageID = $newVillage->id;
+
+        // Check to see if the village name exists - doing this to prevent duplicates.
+        // The typeahead functionality sometimes does not pick up the village name.
+        $exists = Village::where('name', '=', $name['name'])->first();
+
+        if(is_null($exists)) {
+          // Create a new group and get the Group ID.
+          $newVillage = Village::create($name);
+          $villageID = $newVillage->id;
+        } else {
+          $villageID = $exists->village_id;
+        }
 
       } else {
         $villageID = $input['village_id'];
@@ -449,8 +480,23 @@ class GroupSurveysController extends Controller
 
       } else {
 
+        $parameters = [
+          'group_id' => $gsInfo['group_id'],
+          'group_name' => $request['group_name'],
+          'area_program_id' => $gsInfo['area_program_id'],
+          'area_program' => $request['area_program'],
+          'zone_id' => $gsInfo['zone_id'],
+          'zone' => $request['zone'],
+          'village_id' => $gsInfo['village_id'],
+          'village_name' => $request['village_name'],
+          'reporting_term' => $gsInfo['reporting_term'],
+          'year' => $gsInfo['year'],
+          'data_collector' => $gsInfo['data_collector']
+        ];
+
         $request->session()->flash('alert-success', 'Group member was successfully added!');
-        return redirect()->route('home');
+        return redirect()->back()->with($parameters);
+        //return redirect()->back()->withInput($request->only('group_id', 'group_name', 'area_program', 'zone', 'village_name', 'reporting_term', 'year', 'data_collector'));
 
       }
 

@@ -29,11 +29,15 @@
                   </div> <!-- end .flash-message -->
 
                 <div class="panel-body">
+                  <!--
+                  {{--
                     Please choose one of the following:
                     <br><br>
                     <a href="{{ url('group_surveys/create') }}">Enter Quarterly Data</a>
                     <br><br>
-                    <a href="{{ url('group_surveys/create2') }}">Enter Annual Data</a>
+                    --}}
+                  -->
+                    <a href="{{ url('group_surveys/create2') }}">Data Entry</a>
                 </div>
 
             </div>

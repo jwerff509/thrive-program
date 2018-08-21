@@ -4,14 +4,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
 
   <div class="form-group row">
+    <div class="flash-message col-md-6 col-md-offset-3">
+      @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+        @if(Session::has('alert-' . $msg))
+        <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+        @endif
+      @endforeach
+    </div>
 
+<!-- Testing the storage link
+{{--
+    <div class="form-group row">
+      <a href="{{ asset('storage/Test2.xlsx') }}">Test 2 download </a>
+    </div>
+    --}}
+-->
     <div id="part-1">
-
     <div class="form-group row">
       <div class="form-group <?php echo ($errors->has('group_name')) ? 'has-error' : ''; ?>">
       {!! Form::label('group_name', 'ID2 - Group Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
         <div class="col-md-2">
-          {!! Form::text('group_name', '', array('class' => 'typeahead-group-name form-control', 'placeholder' => 'Group Name', 'autocomplete' => 'off', 'id' => 'group_name' )) !!}
+          {!! Form::text('group_name', Session('group_name'), array('class' => 'typeahead-group-name form-control', 'placeholder' => 'Group Name', 'autocomplete' => 'off', 'id' => 'group_name' )) !!}
+
           <script>
             jQuery(document).ready(function($) {
 
@@ -62,6 +76,7 @@
                 //console.log($('#group_name'));
               });
             });
+
           </script>
 
           <span class="help-block">
@@ -77,7 +92,7 @@
       <div class="form-group <?php echo ($errors->has('area_program')) ? 'has-error' : ''; ?>">
       {!! Form::label('area_program', 'ID3 - Area Program:', array('class' => 'col-md-5 form-control-label text-right')) !!}
         <div class="col-md-2">
-          {!! Form::select('area_program', array('default' => 'Area Program...') + $areaPrograms, array('id' => 'id', 'class' => 'form-control')) !!}
+          {!! Form::select('area_program', array('default' => 'Area Program...') + $areaPrograms, Session('area_program'), array('class' => 'form-control', 'id' => 'id')) !!}
           <span class="help-block">
             @if ($errors->has('area_program'))
               {{ $errors->first('area_program') }}
@@ -91,7 +106,7 @@
       <div class="form-group <?php echo ($errors->has('zone')) ? 'has-error' : ''; ?>">
       {!! Form::label('zone', 'ID4 - Zone Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
         <div class="col-md-2">
-          {!! Form::text('zone', '', array('class' => 'typeahead-zone form-control', 'placeholder' => 'Zone Name', 'id' => 'zone', 'autocomplete' => 'off')) !!}
+          {!! Form::text('zone', Session('zone'), array('class' => 'typeahead-zone form-control', 'placeholder' => 'Zone Name', 'id' => 'zone', 'autocomplete' => 'off')) !!}
           <script>
             jQuery(document).ready(function($) {
 
@@ -152,7 +167,7 @@
     <div class="form-group <?php echo ($errors->has('village_name')) ? 'has-error' : ''; ?>">
     {!! Form::label('village_name', 'ID5 - Village Name:', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
-        {!! Form::text('village_name', '', array('class' => 'typeahead-village-name form-control', 'placeholder' => 'Village Name', 'id' => 'village_name', 'autocomplete' => 'off')) !!}
+        {!! Form::text('village_name', Session('village_name'), array('class' => 'typeahead-village-name form-control', 'placeholder' => 'Village Name', 'id' => 'village_name', 'autocomplete' => 'off')) !!}
         <script>
           jQuery(document).ready(function($) {
 
@@ -213,7 +228,7 @@
     <div class="form-group <?php echo ($errors->has('reporting_term')) ? 'has-error' : ''; ?>">
       {!! Form::label('reporting_term', 'ID6 - Time Frame (Quarter):', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
-        {!! Form::select('reporting_term', array('' => 'Select Quarter...') + $reportingTerms, array('id' => 'id', 'class' => 'form-control')) !!}
+        {!! Form::select('reporting_term', array('' => 'Select Quarter...') + $reportingTerms, Session('reporting_term'), array('id' => 'id', 'class' => 'form-control')) !!}
         <span class="help-block">
           @if ($errors->has('reporting_term'))
             {{ $errors->first('reporting_term') }}
@@ -224,7 +239,7 @@
   </div>
 
   <div class="form-group row">
-    <div class="form-group <?php echo ($errors->has('reporting_term')) ? 'has-error' : ''; ?>">
+    <div class="form-group <?php echo ($errors->has('year')) ? 'has-error' : ''; ?>">
       {!! Form::label('year', 'ID7 - Year:', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::select('year', array(
@@ -232,7 +247,7 @@
           '2017' => '2017',
           '2018' => '2018',
           '2019' => '2019',
-        )) !!}
+        ), Session('year')) !!}
         <span class="help-block">
           @if ($errors->has('year'))
             {{ $errors->first('year') }}
@@ -243,9 +258,6 @@
   </div>
 
   <div class="card-footer text-center">
-    {!! Form::hidden('group_name', '', array('id' => 'group_name')) !!}
-    {!! Form::hidden('zone_name', '', array('id' => 'zone_name')) !!}
-    {!! Form::hidden('village_name', '', array('id' => 'village_name')) !!}
     {!! Form::button('Add Individual Data', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow']) !!}
     {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
   </div>
@@ -488,9 +500,6 @@
     </div>
 
     <div class="card-footer text-center">
-      {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
-      {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
-      {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
       {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-warning', 'id' => 'hideshow2']) !!}
       {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
       {!! Form::button('Next Page', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow3']) !!}
@@ -564,9 +573,6 @@
     </div>
 
     <div class="card-footer text-center">
-      {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
-      {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
-      {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
       {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-warning', 'id' => 'hideshow4']) !!}
       {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
       {!! Form::button('Next Page', ['class' => 'btn btn-sm btn-primary', 'id' => 'hideshow5']) !!}
@@ -703,11 +709,13 @@
 
 <!-- End form loop -->
 
+
+
     <div class="form-group row">
       <div class="form-group <?php echo ($errors->has('data_collector')) ? 'has-error' : ''; ?>">
         {!! Form::label('data_collector', 'Data Collector Name', array('class' => 'col-md-5 form-control-label text-right')) !!}
         <div class="col-md-2">
-          {!! Form::text('data_collector', '', array('class' => 'form-control', 'placeholder' => 'Name of Data Collector')) !!}
+          {!! Form::text('data_collector', Session('data_collector'), array('class' => 'form-control', 'placeholder' => 'Name of Data Collector')) !!}
           <span class="help-block">
             @if ($errors->has('data_collector'))
               {{ $errors->first('data_collector') }}
@@ -718,12 +726,9 @@
     </div>
 
     <div class="card-footer text-center">
-      {!! Form::hidden('group_id', '', array('id' => 'group_id')) !!}
-      {!! Form::hidden('zone_id', '', array('id' => 'zone_id')) !!}
-      {!! Form::hidden('village_id', '', array('id' => 'village_id')) !!}
-      {!! Form::hidden('group_name', '', array('id' => 'group_name')) !!}
-      {!! Form::hidden('zone_name', '', array('id' => 'zone_name')) !!}
-      {!! Form::hidden('village_name', '', array('id' => 'village_name')) !!}
+      {!! Form::hidden('group_id', Session('group_id')) !!}
+      {!! Form::hidden('zone_id', Session('zone_id')) !!}
+      {!! Form::hidden('village_id', Session('village_id')) !!}
       {!! Form::button('Go Back', ['class' => 'btn btn-sm btn-warning', 'id' => 'hideshow6']) !!}
       {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
       {!! Form::submit('Save & Add Another', ['class' => 'btn btn-sm btn-info', 'name' => 'submitbutton']) !!}

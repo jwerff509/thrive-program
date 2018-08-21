@@ -75,14 +75,8 @@
             @foreach($memEntered as $member)
               <tr>
                 <td>{{ $member->name }}</td>
-                <td>
-                  @if($member->num_members == 0)
-                    {{ $member->num_members2 }}
-                  @else
-                    {{ $member->num_members }}
-                  @endif
-                </td>
-                <td>{{ $member->num_actively_saving }}</td>
+                <td>{{ $member->num_members_counted }}</td>
+                <td>{{ $member->num_savings_group_members_counted }}</td>
                 <td>K {{ $member->total_amt_saved }}</td>
                 <td>{{ $member->group_meetings }}</td>
                 <td>{{ $member->units_harvested }}</td>

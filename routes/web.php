@@ -83,6 +83,13 @@ Route::post('ppi/store', [
   ]);
 
 
+  // Testing new dashboards
+  Route::get('country-dashboard', ['middleware' => 'auth', 'uses' => 'HighLevelDashboardController@countryDashboard']);
+
+  Route::get('program-targets/create', ['middleware' => 'auth', 'uses' => 'ProgramTargetsController@create']);
+  Route::post('program-targets/store', ['as' => 'program_targets.store', 'uses' => 'ProgramTargetsController@store']);
+
+
 
   /*
   *
