@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Country;
+use App\ProgramTargets;
 use Illuminate\Http\Request;
 
 class ProgramTargetsController extends Controller
 {
 
   protected $rules = [
-      'country' => ['required'],
+      'country_id' => ['required'],
       'improved_seed_target' => ['required', 'numeric'],
       'improved_storage_target' => ['required', 'numeric'],
       'improved_tools_target' => ['required', 'numeric'],
@@ -66,14 +67,29 @@ class ProgramTargetsController extends Controller
 
   public function store(Request $request) {
 
-
-
     $this->validate($request, $this->rules);
 
     ProgramTargets::create($request->all());
-    return redirect()->route('program_targets.index')->with('success','Program targets added successfully!');
+
+    $request->session()->flash('alert-success', 'LOP targets added successfully!');
+    return redirect()->route('home');
 
   }
+
+  /**
+  * Lists the countries that have program targets that can be edited
+  *
+  *
+  * @return \Illuminate\Http\Response
+  */
+
+ public function list() {
+
+   $countries = Country::pluck('name', 'country_id')->all();
+   return view('program_targets.edit',compact('countries'));
+
+ }
+
 
    /**
    * Show the form for editing the specified resource.

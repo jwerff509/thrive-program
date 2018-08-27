@@ -72,23 +72,27 @@
       labels: quarter,
       datasets: [{
         label: 'Improved Seed',
-        backgroundColor: "#3e95cd",
-        borderWidth: 1,
+        borderColor: "#3e95cd",
+        backgroundColor: 'rgba(0,0,0,0)',
+        borderWidth: 2,
         data: impSeedActual
       }, {
         label: 'Improved Storage',
-        backgroundColor: "#8e5ea2",
-        borderWidth: 1,
+        borderColor: "#8e5ea2",
+        backgroundColor: 'rgba(0,0,0,0)',
+        borderWidth: 2,
         data: impStorageActual
       }, {
         label: 'Improved Practices',
-        backgroundColor: "#c45850",
-        borderWidth: 1,
+        borderColor: "#c45850",
+        backgroundColor: 'rgba(0,0,0,0)',
+        borderWidth: 2,
         data: impToolsActual
       }, {
         label: '# Using Irrigation',
-        backgroundColor: "#dee102",
-        borderWidth: 1,
+        borderColor: "#ea9714",
+        backgroundColor: 'rgba(0,0,0,0)',
+        borderWidth: 2,
         data: haWithIrrigationActual
       }]
 

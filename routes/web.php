@@ -84,10 +84,15 @@ Route::post('ppi/store', [
 
 
   // Testing new dashboards
-  Route::get('country-dashboard', ['middleware' => 'auth', 'uses' => 'HighLevelDashboardController@countryDashboard']);
+  Route::get('country-dashboard', ['middleware' => 'auth', 'uses' => 'DashboardController@countryDashboard']);
 
   Route::get('program-targets/create', ['middleware' => 'auth', 'uses' => 'ProgramTargetsController@create']);
-  Route::post('program-targets/store', ['as' => 'program_targets.store', 'uses' => 'ProgramTargetsController@store']);
+  Route::get('program-targets/edit', ['middleware' => 'auth', 'uses' => 'ProgramTargetsController@edit']);
+  Route::post('program-targets/store', ['as' => 'program_targets.store', 'middleware' => 'auth', 'uses' => 'ProgramTargetsController@store']);
+
+  Route::get('program-measures/enter', ['middleware' => 'auth', 'uses' => 'ProgramMeasuresController@create']);
+  Route::get('program-measures/edit', ['middleware' => 'auth', 'uses' => 'ProgramMeasuresController@edit']);
+  Route::post('program-measures/store', ['as' => 'program_measures.store', 'middleware' => 'auth', 'uses' => 'ProgramMeasuresController@store']);
 
 
 

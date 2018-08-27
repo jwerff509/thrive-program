@@ -29,15 +29,14 @@
                   </div> <!-- end .flash-message -->
 
                 <div class="panel-body">
-                  <!--
-                  {{--
                     Please choose one of the following:
                     <br><br>
-                    <a href="{{ url('group_surveys/create') }}">Enter Quarterly Data</a>
+                    <a href="{{ url('program-measures/enter') }}">Enter Quarterly Data</a>
                     <br><br>
-                    --}}
-                  -->
-                    <a href="{{ url('group_surveys/create2') }}">Data Entry</a>
+                    <a href="{{ url('program-measures/edit') }}">Edit Quarterly Data</a>
+                    <br><br>
+                    <br><br>
+                    <a href="{{ url('program-targets/edit') }}">Edit LOP Targets</a>
                 </div>
 
             </div>

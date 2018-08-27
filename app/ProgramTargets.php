@@ -17,6 +17,7 @@ class ProgramTargets extends Model
     'ha_with_irrigation_target',
     'num_savings_groups_target',
     'num_savings_group_members_target',
+    'savings_groups_total_balance_target',
     'members_with_vf_loan_target',
     'farmers_with_vc_ins_target',
     'num_producers_groups_target',

@@ -24,7 +24,7 @@ use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class HighLevelDashboardController extends Controller
+class DashboardController extends Controller
 {
 
   public function countryDashboard() {
@@ -32,7 +32,9 @@ class HighLevelDashboardController extends Controller
     $country = '1';
 
     $lopTargets = ProgramTargets::where('country_id', '=', $country)->get();
-    $lopActuals = ProgramMeasures::where('country_id', '=', $country)->get()->toArray();
+    $lopActualsTemp = ProgramMeasures::where('country_id', '=', $country)->orderBy('quarter', 'desc')->take(4)->get()->toArray();
+
+    $lopActuals = array_reverse($lopActualsTemp);
 
     foreach($lopTargets as $lopTarget) {
       $impSeedTarget = $lopTarget->improved_seed_target;
@@ -46,7 +48,6 @@ class HighLevelDashboardController extends Controller
       $numWomenTarget = $lopTarget->num_women_target;
       $numHHMemTarget = $lopTarget->num_hh_members_target;
     }
-
 
     // Create an array of the actual values, by quarter
     $labels = array_column($lopActuals, 'quarter');
@@ -63,21 +64,18 @@ class HighLevelDashboardController extends Controller
     $numWomenActual = array_column($lopActuals, 'num_women_actual');
     $numHHMemActual = array_column($lopActuals, 'num_hh_members_actual');
 
-
-
     // Get some totals for the progress bars
-    $impSeedTotal = array_sum($impSeedActual);
-    $impStorageTotal = array_sum($impStorageActual);
-    $impToolsTotal = array_sum($impToolsActual);
-    $numWithIrrigationTotal = array_sum($numWithIrrigationActual);
-    $increasedYieldTotal = array_sum($increasedYieldActual);
-    $haWithIrrigationTotal = array_sum($haWithIrrigationActual);
+    $impSeedTotal = end($impSeedActual);
+    $impStorageTotal = end($impStorageActual);
+    $impToolsTotal = end($impToolsActual);
+    $numWithIrrigationTotal = end($numWithIrrigationActual);
+    $increasedYieldTotal = end($increasedYieldActual);
+    $haWithIrrigationTotal = end($haWithIrrigationActual);
 
-    $dirBensTotal = max($dirBensActual);
-    $numChildrenTotal = max($numChildrenActual);
-    $numWomenTotal = max($numWomenActual);
-    $numHHMemTotal = max($numHHMemActual);
-
+    $dirBensTotal = end($dirBensActual);
+    $numChildrenTotal = end($numChildrenActual);
+    $numWomenTotal = end($numWomenActual);
+    $numHHMemTotal = end($numHHMemActual);
 
 /*
     $impSeedLopTarget = '9800';
@@ -137,18 +135,9 @@ class HighLevelDashboardController extends Controller
       'numHHMemTotal' => $numHHMemTotal,
     );
 
-
-    return view('charts.high_level')->with($data);
+    return view('charts.countryDb')->with($data);
 
   }
-
-
-
-
-
-
-
-
 
 
 
