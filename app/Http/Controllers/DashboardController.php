@@ -15,6 +15,7 @@ use App\ExcelExportGroup;
 use App\ExcelExportIndividual;
 use App\ProgramTargets;
 use App\ProgramMeasures;
+use App\Country;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 use DB;
@@ -29,10 +30,14 @@ class DashboardController extends Controller
 
   public function countryDashboard() {
 
-    $country = '1';
+    $id = '1';
 
-    $lopTargets = ProgramTargets::where('country_id', '=', $country)->get();
-    $lopActualsTemp = ProgramMeasures::where('country_id', '=', $country)->orderBy('quarter', 'desc')->take(4)->get()->toArray();
+    $temp = Country::select('name')->where('country_id', '=', $id)->first();
+
+    $country = $temp->name;
+
+    $lopTargets = ProgramTargets::where('country_id', '=', $id)->get();
+    $lopActualsTemp = ProgramMeasures::where('country_id', '=', $id)->orderBy('quarter', 'desc')->take(4)->get()->toArray();
 
     $lopActuals = array_reverse($lopActualsTemp);
 
@@ -71,11 +76,13 @@ class DashboardController extends Controller
     $numWithIrrigationTotal = end($numWithIrrigationActual);
     $increasedYieldTotal = end($increasedYieldActual);
     $haWithIrrigationTotal = end($haWithIrrigationActual);
-
     $dirBensTotal = end($dirBensActual);
     $numChildrenTotal = end($numChildrenActual);
     $numWomenTotal = end($numWomenActual);
     $numHHMemTotal = end($numHHMemActual);
+
+    // Get the colors for the progress Bars
+    $seedBarColor = $this->barColor($impSeedTotal, $impSeedTarget);
 
 /*
     $impSeedLopTarget = '9800';
@@ -101,6 +108,7 @@ class DashboardController extends Controller
     $numHHMemTotal = '71739';
 */
     $data = array(
+      'country' => $country,
       'labels' => json_encode($labels),
       'impSeedTarget' => $impSeedTarget,
       'impStorageTarget' => $impStorageTarget,
@@ -122,8 +130,8 @@ class DashboardController extends Controller
       'numChildrenActual' => json_encode($numChildrenActual),
       'numWomenActual' => json_encode($numWomenActual),
       'numHHMemActual' => json_encode($numHHMemActual),
-
       'impSeedTotal' => $impSeedTotal,
+      'seedBarColor' => $seedBarColor,
       'impStorageTotal' => $impStorageTotal,
       'impToolsTotal' => $impToolsTotal,
       'numWithIrrigationTotal' => $numWithIrrigationTotal,
@@ -136,6 +144,33 @@ class DashboardController extends Controller
     );
 
     return view('charts.countryDb')->with($data);
+
+  }
+
+
+  public function barColor($actual, $goal) {
+
+    $progress = $actual/$goal*100;
+
+    switch($progress) {
+      case $progress < 26:
+        $barColor = 'progress-bar-red';
+        break;
+      case $progress < 51:
+        $barColor = 'progress-bar-yellow';
+        break;
+      case $progress < 76:
+        $barColor = 'progress-bar-aqua';
+        break;
+      case $progress < 101:
+        $barColor = 'progress-bar-green';
+        break;
+      default:
+        $barColor = 'progress-bar-red';
+        break;
+    }
+
+    return $barColor;
 
   }
 

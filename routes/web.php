@@ -72,15 +72,6 @@ Route::post('group_surveys/store2', [
   'uses' => 'GroupSurveysController@store2'
   ]);
 
-Route::post('income/store', [
-  'as' => 'income.store',
-  'uses' => 'IncomeController@store'
-  ]);
-
-Route::post('ppi/store', [
-  'as' => 'ppi.store',
-  'uses' => 'PpiController@store'
-  ]);
 
 
   // Testing new dashboards
@@ -93,55 +84,3 @@ Route::post('ppi/store', [
   Route::get('program-measures/enter', ['middleware' => 'auth', 'uses' => 'ProgramMeasuresController@create']);
   Route::get('program-measures/edit', ['middleware' => 'auth', 'uses' => 'ProgramMeasuresController@edit']);
   Route::post('program-measures/store', ['as' => 'program_measures.store', 'middleware' => 'auth', 'uses' => 'ProgramMeasuresController@store']);
-
-
-
-  /*
-  *
-  *
-  * All routes below this comment are old routes and probably
-  * not needed anymore. They are preserved for reference only
-  * and will need to be removed in the future.
-  *
-  *
-  */
-
-
-
-  //Route::get('groups/{surveyDetailsID}/group_details/{groupDetailsID}/create', 'GroupMemberMetricsController@create');
-  //Route::get('person/{id}/income/create', 'IncomeController@create');
-  //Route::get('person/{id}/ppi/create', 'PpiController@create');
-  //Route::get('groups/{id}/group_details/{groupDetailsID}/person/create2', 'PersonController@create2');
-  //Route::get('groups/{id}/group_details/{groupDetailsID}/person/create', 'PersonController@create');
-
-  /*
-  Route::resource('groups', 'GroupsController');
-  Route::resource('groups.group_details', 'GroupDetailsController');
-  Route::resource('group_sales_locations', 'GroupSalesLocationsController');
-  Route::resource('group_member_details', 'GroupMemberMetricsController');
-  Route::resource('person', 'PersonController');
-  Route::resource('income', 'IncomeController');
-  Route::resource('ppi', 'PpiController');
-  Route::resource('Dashboard', 'PpiController');
-
-  Route::model('groups', 'Group');
-  Route::model('group_sales_locations', 'GroupSalesLocations');
-  Route::model('person', 'PersonSurvey');
-  Route::model('income', 'Income');
-  Route::model('ppi', 'Ppi');
-  Route::model('dashboard', 'Ppi');
-  */
-
-  /*
-  Route::post('group_member_metrics/store', [
-    'as' => 'group_member_metrics.store',
-    'uses' => 'GroupMemberMetricsController@store'
-    ]);
-  */
-
-  /*
-  Route::post('group_details/store', [
-    'as' => 'group_details.store',
-    'uses' => 'GroupDetailsController@store'
-    ]);
-  */

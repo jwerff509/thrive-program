@@ -5,7 +5,7 @@
   @section('title', 'At A Glance')
 
   @section('content_header')
-      <h1>Rwanda At A Glance</h1>
+      <h1>{{ $country }} At A Glance</h1>
   @stop
 
   @section('content')
@@ -103,18 +103,12 @@
         <!-- /.box-header -->
         <div class="box-body">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-8">
               <div class="chart">
                 <!-- Sales Chart Canvas -->
-                <canvas id="agChart" style="height: 325px; width: 525px;" width="550" height="325"></canvas>
+                <canvas id="agChart" style="height: 375px; width: 1072px;" width="1072" height="375"></canvas>
               </div>
               <!-- /.chart-responsive -->
-            </div>
-
-            <div class="col-md-4">
-              <div class="chart">
-                <canvas id="testChart"style="height: 325px; width: 525px;" width="550" height="325"></canvas>
-              </div>
             </div>
             <!-- /.col -->
             <div class="col-md-4">
@@ -126,26 +120,7 @@
                 <span class="progress-number"><b>{{ $impSeedTotal }}</b>/{{ $impSeedTarget }}</span>
                 <?php $seedWidth = $impSeedTotal / $impSeedTarget * 100 ?>
                 <div class="progress sm">
-                  <?php
-                    switch($seedWidth) {
-                      case $seedWidth < 26:
-                        $seedBar = 'progress-bar-red';
-                        break;
-                      case $seedWidth < 51:
-                        $seedBar = 'progress-bar-yellow';
-                        break;
-                      case $seedWidth < 76:
-                        $seedBar = 'progress-bar-aqua';
-                        break;
-                      case $seedWidth < 101:
-                        $seedBar = 'progress-bar-green';
-                        break;
-                      default:
-                        $seedBar = 'progress-bar-red';
-                        break;
-                    }
-                  ?>
-                  <div class="progress-bar {{ $seedBar }} progress-bar-striped" style="width: {{ $seedWidth }}%"></div>
+                  <div class="progress-bar {{ $seedBarColor }} progress-bar-striped" style="width: {{ $seedWidth }}%"></div>
                 </div>
               </div>
 
