@@ -157,6 +157,33 @@ class DashboardController extends Controller
     $storageBarColor = $this->barColor($impStorageTotal, $impStorageTarget);
     $toolBarWidth = $impToolsTotal/$impToolsTarget*100;
     $toolBarColor = $this->barColor($impToolsTotal, $impToolsTarget);
+    $numWithIrrBarWidth = $numWithIrrigationTotal/$numWithIrrigationTarget*100;
+    $numWithIrrBarColor = $this->barColor($numWithIrrigationTotal, $numWithIrrigationTarget);
+
+    $incYieldBarWidth = $increasedYieldTotal/$increasedYieldTarget*100;
+    $incYieldBarColor = $this->barColor($increasedYieldTotal, $increasedYieldTarget);
+    $haIrrBarWidth = $haWithIrrigationTotal/$haWithIrrigationTarget*100;
+    $haIrrBarColor = $this->barColor($haWithIrrigationTotal, $haWithIrrigationTarget);
+    $sgBarWidth = $numSGTotal/$num_savings_groups_target*100;
+    $sgBarColor = $this->barColor($numSGTotal, $num_savings_groups_target);
+    $sgMemBarWidth = $numSGMemTotal/$num_savings_group_members_target*100;
+    $sgMemBarColor = $this->barColor($numSGMemTotal, $num_savings_group_members_target);
+
+
+    $toolBarWidth = $impToolsTotal/$impToolsTarget*100;
+    $toolBarColor = $this->barColor($impToolsTotal, $impToolsTarget);
+    $seedBarWidth = $impSeedTotal/$impSeedTarget*100;
+    $seedBarColor = $this->barColor($impSeedTotal, $impSeedTarget);
+    $storageBarWidth = $impStorageTotal/$impStorageTarget*100;
+    $storageBarColor = $this->barColor($impStorageTotal, $impStorageTarget);
+    $toolBarWidth = $impToolsTotal/$impToolsTarget*100;
+    $toolBarColor = $this->barColor($impToolsTotal, $impToolsTarget);
+    $seedBarWidth = $impSeedTotal/$impSeedTarget*100;
+    $seedBarColor = $this->barColor($impSeedTotal, $impSeedTarget);
+    $storageBarWidth = $impStorageTotal/$impStorageTarget*100;
+    $storageBarColor = $this->barColor($impStorageTotal, $impStorageTarget);
+    $toolBarWidth = $impToolsTotal/$impToolsTarget*100;
+    $toolBarColor = $this->barColor($impToolsTotal, $impToolsTarget);
 
 
     $data = array(
@@ -264,6 +291,23 @@ class DashboardController extends Controller
       'numChildrenTotal' => $numChildrenTotal,
       'numWomenTotal' => $numWomenTotal,
       'numHHMemTotal' => $numHHMemTotal,
+      // Progress bar widths and colors
+      'seedBarWidth' => $seedBarWidth,
+      'seedBarColor' => $seedBarColor,
+      'storageBarWidth' => $storageBarWidth,
+      'storageBarColor' => $storageBarColor,
+      'toolBarWidth' => $toolBarWidth,
+      'toolBarColor' => $toolBarColor,
+      'numWithIrrBarWidth' => $numWithIrrBarWidth,
+      'numWithIrrBarColor' => $numWithIrrBarColor,
+      'incYieldBarWidth' => $incYieldBarWidth,
+      'incYieldBarColor' => $incYieldBarColor,
+      'haIrrBarWidth' => $haIrrBarWidth,
+      'haIrrBarColor' => $haIrrBarColor,
+      'sgBarWidth' => $sgBarWidth,
+      'sgBarColor' => $sgBarColor,
+      'sgMemBarWidth' => $sgMemBarWidth,
+      'sgMemBarColor' => $sgMemBarColor,
     );
 
     return view('charts.countryDb')->with($data);
