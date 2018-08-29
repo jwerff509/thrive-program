@@ -264,6 +264,8 @@ class DashboardController extends Controller
       'numChildrenTotal' => $numChildrenTotal,
       'numWomenTotal' => $numWomenTotal,
       'numHHMemTotal' => $numHHMemTotal,
+      // Progress bar widths & colors
+
     );
 
     return view('charts.countryDb')->with($data);
