@@ -32,7 +32,6 @@ Route::post('group_surveys/create-step2', [
   'uses' => 'GroupSurveysController@postCreateStep2'
 ]);
 
-
 // Routes for change password form
 Route::get('/changePassword', ['as' => 'changePasswordForm', 'uses' => 'UserController@changePasswordForm']);
 Route::post('/changePassword', ['as' => 'changePassword', 'uses' => 'UserController@changePassword']);
@@ -40,14 +39,12 @@ Route::post('/changePassword', ['as' => 'changePassword', 'uses' => 'UserControl
 // Routes for managing users (available to admins only)
 Route::get('/manage-users', ['middleware' => 'auth', 'uses' => 'UserController@show']);
 
-
 // Bootstrap typeahed js functionality for the Group creation page
 Route::get('groupsFind/{QUERY}', array('as' => 'groupsFind', 'uses' => 'GroupSurveysController@groupsFind'));
 //Route::get('zonesFind/{QUERY}', array('as' => 'zonesFind', 'uses' => 'GroupSurveysController@zonesFind'));
 //Route::get('zonesFind', array('as' => 'zonesFind', 'uses' => 'GroupSurveysController@zonesFind'));
 Route::post('zonesFind', array('as' => 'zonesFind', 'uses' => 'GroupSurveysController@zonesFind'));
 Route::get('villagesFind/{QUERY}', array('as' => 'villagesFind', 'uses' => 'GroupSurveysController@villagesFind'));
-
 
 // Test Route for finding AP zones
 Route::post('apZonesFind', ['as' => 'select-zone', 'uses' => 'GroupSurveysController@apZonesFind']);
@@ -72,14 +69,17 @@ Route::post('group_surveys/store2', [
   'uses' => 'GroupSurveysController@store2'
   ]);
 
-
-
   // Testing new dashboards
   Route::get('country-dashboard', ['middleware' => 'auth', 'uses' => 'DashboardController@countryDashboard']);
 
+  Route::resource('program-targets', 'ProgramTargetsController');
+  /*
+  Route::get('program-targets/index', ['middleware' => 'auth', 'uses' => 'ProgramTargetsController@index']);
   Route::get('program-targets/create', ['middleware' => 'auth', 'uses' => 'ProgramTargetsController@create']);
-  Route::get('program-targets/edit', ['middleware' => 'auth', 'uses' => 'ProgramTargetsController@edit']);
+  Route::patch('program-targets/edit/{id}', ['middleware' => 'auth', 'uses' => 'ProgramTargetsController@edit']);
+  Route::get('program-targets/show/{id}', ['as' => 'program.targets.show', 'middleware' => 'auth', 'uses' => 'ProgramTargetsController@show']);
   Route::post('program-targets/store', ['as' => 'program_targets.store', 'middleware' => 'auth', 'uses' => 'ProgramTargetsController@store']);
+*/
 
   Route::get('program-measures/enter', ['middleware' => 'auth', 'uses' => 'ProgramMeasuresController@create']);
   Route::get('program-measures/edit', ['middleware' => 'auth', 'uses' => 'ProgramMeasuresController@edit']);

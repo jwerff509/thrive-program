@@ -83,10 +83,10 @@ class ProgramTargetsController extends Controller
   * @return \Illuminate\Http\Response
   */
 
- public function list() {
+ public function index() {
 
-   $countries = Country::pluck('name', 'country_id')->all();
-   return view('program_targets.edit',compact('countries'));
+   $countries = Country::all();
+   return view('program_targets.index',compact('countries', $countries));
 
  }
 
@@ -98,9 +98,9 @@ class ProgramTargetsController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-  public function edit($id) {
+  public function edit(Request $request) {
 
-    $target = ProgramTargets::find($id);
+    $target = ProgramTargets::find($request->country_id);
     return view('program_targets.edit',compact('target'));
 
   }
@@ -119,6 +119,13 @@ class ProgramTargetsController extends Controller
 
     ProgramTargets::find($id)->update($request->all());
     return redirect()->route('program_targets.index')->with('success','Program targets updated successfully!');
+
+  }
+
+  public function show($id) {
+
+    $countries = Country::all();
+    return view('program_targets.index',compact('countries', $countries));
 
   }
 
