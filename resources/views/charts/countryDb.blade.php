@@ -118,149 +118,48 @@
               <div class="progress-group">
                 <span class="progress-text"># Farmers Using Improved Seed</span>
                 <span class="progress-number"><b>{{ $impSeedTotal }}</b>/{{ $impSeedTarget }}</span>
-                <?php $seedWidth = $impSeedTotal / $impSeedTarget * 100 ?>
                 <div class="progress sm">
-                  <div class="progress-bar {{ $seedBarColor }} progress-bar-striped" style="width: {{ $seedWidth }}%"></div>
+                  <div class="progress-bar {{ $seedBarColor }} progress-bar-striped" style="width: {{ $seedBarWidth }}%"></div>
                 </div>
               </div>
 
               <div class="progress-group">
                 <span class="progress-text"># Farmers Using Improved Crop Storage</span>
                 <span class="progress-number"><b>{{ $impStorageTotal }}</b>/{{ $impStorageTarget }}</span>
-                <?php $storageWidth = $impStorageTotal / $impStorageTarget * 100 ?>
                 <div class="progress sm">
-                  <?php
-                    switch($storageWidth) {
-                      case $storageWidth < 26:
-                        $storageBar = 'progress-bar-red';
-                        break;
-                      case $storageWidth < 51:
-                        $storageBar = 'progress-bar-yellow';
-                        break;
-                      case $storageWidth < 76:
-                        $storageBar = 'progress-bar-aqua';
-                        break;
-                      case $storageWidth < 101:
-                        $storageBar = 'progress-bar-green';
-                        break;
-                      default:
-                        $storageBar = 'progress-bar-red';
-                        break;
-                    }
-                  ?>
-                  <div class="progress-bar {{ $storageBar }} progress-bar-striped" style="width: {{ $storageWidth }}%"></div>
+                  <div class="progress-bar {{ $storageBarColor }} progress-bar-striped" style="width: {{ $storageBarWidth }}%"></div>
                 </div>
               </div>
 
               <div class="progress-group">
                 <span class="progress-text"># Farmers Using Improved Tools & Practices</span>
                 <span class="progress-number"><b>{{ $impToolsTotal }}</b>/{{ $impToolsTarget }}</span>
-                <?php $toolsWidth = $impToolsTotal / $impToolsTarget * 100 ?>
                 <div class="progress sm">
-                  <?php
-                    switch($toolsWidth) {
-                      case $toolsWidth < 26:
-                        $toolsBar = 'progress-bar-red';
-                        break;
-                      case $toolsWidth < 51:
-                        $toolsBar = 'progress-bar-yellow';
-                        break;
-                      case $toolsWidth < 76:
-                        $toolsBar = 'progress-bar-aqua';
-                        break;
-                      case $toolsWidth < 101:
-                        $toolsBar = 'progress-bar-green';
-                        break;
-                      default:
-                        $toolsBar = 'progress-bar-red';
-                        break;
-                    }
-                  ?>
-                  <div class="progress-bar {{ $toolsBar }} progress-bar-striped" style="width: {{ $toolsWidth }}%"></div>
+                  <div class="progress-bar {{ $toolBarColor }} progress-bar-striped" style="width: {{ $toolBarWidth }}%"></div>
                 </div>
               </div>
               <!-- /.progress-group -->
               <div class="progress-group">
                 <span class="progress-text"># Farmers Using Some Form of Irrigation</span>
                 <span class="progress-number"><b>{{ $numWithIrrigationTotal }}</b>/{{ $numWithIrrigationTarget }}</span>
-                <?php $irrWidth = $numWithIrrigationTotal / $numWithIrrigationTarget * 100 ?>
                 <div class="progress sm">
-                  <?php
-                    switch($irrWidth) {
-                      case $irrWidth < 26:
-                        $irrBar = 'progress-bar-red';
-                        break;
-                      case $irrWidth < 51:
-                        $irrBar = 'progress-bar-yellow';
-                        break;
-                      case $irrWidth < 76:
-                        $irrBar = 'progress-bar-aqua';
-                        break;
-                      case $irrWidth < 101:
-                        $irrBar = 'progress-bar-green';
-                        break;
-                      default:
-                        $irrBar = 'progress-bar-red';
-                        break;
-                    }
-                  ?>
-                  <div class="progress-bar {{ $irrBar }} progress-bar-striped" style="width: {{ $irrWidth }}%"></div>
+                  <div class="progress-bar {{ $numWithIrrBarColor }} progress-bar-striped" style="width: {{ $numWithIrrBarWidth }}%"></div>
                 </div>
               </div>
 
               <div class="progress-group">
                 <span class="progress-text">Ave. % Increase in Yield per Hectare</span>
                 <span class="progress-number"><b>{{ $increasedYieldTotal }}</b>/{{ $increasedYieldTarget }}</span>
-                <?php $yieldWidth = $increasedYieldTotal / $increasedYieldTarget * 100 ?>
                 <div class="progress sm">
-                  <?php
-                    switch($yieldWidth) {
-                      case $yieldWidth < 26:
-                        $yieldBar = 'progress-bar-red';
-                        break;
-                      case $yieldWidth < 51:
-                        $yieldBar = 'progress-bar-yellow';
-                        break;
-                      case $yieldWidth < 76:
-                        $yieldBar = 'progress-bar-aqua';
-                        break;
-                      case $yieldWidth < 101:
-                        $yieldBar = 'progress-bar-green';
-                        break;
-                      default:
-                        $yieldBar = 'progress-bar-red';
-                        break;
-                    }
-                  ?>
-                  <div class="progress-bar {{ $yieldBar }} progress-bar-striped" style="width: {{ $yieldWidth }}%"></div>
+                  <div class="progress-bar {{ $incYieldBarColor }} progress-bar-striped" style="width: {{ $incYieldBarWidth }}%"></div>
                 </div>
               </div>
 
               <div class="progress-group">
                 <span class="progress-text"># Hectares of Farmland with Irrigation</span>
                 <span class="progress-number"><b>{{ $haWithIrrigationTotal }}</b>/{{ $haWithIrrigationTarget }}</span>
-                <?php $haWidth = $haWithIrrigationTotal / $haWithIrrigationTarget * 100 ?>
                 <div class="progress sm">
-                  <?php
-                    switch($haWidth) {
-                      case $haWidth < 26:
-                        $haBar = 'progress-bar-red';
-                        break;
-                      case $haWidth < 51:
-                        $haBar = 'progress-bar-yellow';
-                        break;
-                      case $haWidth < 76:
-                        $haBar = 'progress-bar-aqua';
-                        break;
-                      case $haWidth < 101:
-                        $haBar = 'progress-bar-green';
-                        break;
-                      default:
-                        $haBar = 'progress-bar-red';
-                        break;
-                    }
-                  ?>
-                  <div class="progress-bar {{ $haBar }} progress-bar-striped" style="width: {{ $haWidth }}%"></div>
+                  <div class="progress-bar {{ $haIrrBarColor }} progress-bar-striped" style="width: {{ $haIrrBarWidth }}%"></div>
                 </div>
               </div>
               <!-- /.progress-group -->
@@ -276,7 +175,7 @@
     <!-- /.col -->
 
 
-
+<!--  ****************   End of Improved Agricultural Technology Section   -->
 
 
 
