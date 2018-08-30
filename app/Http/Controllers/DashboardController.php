@@ -56,6 +56,7 @@ class DashboardController extends Controller
       $num_producers_groups_target = $lopTarget->num_producers_groups_target;
       $num_producers_group_members_target = $lopTarget->num_producers_group_members_target;
       $num_prod_groups_sell_vc_product_target = $lopTarget->num_prod_groups_sell_vc_product_target;
+      $numPgLocalMarketsTarget = $lopTarget->num_prod_groups_local_markets_target;
       $num_prod_groups_expanded_markets_target = $lopTarget->num_prod_groups_expanded_markets_target;
       $hectares_reclaimed_for_ag_target = $lopTarget->hectares_reclaimed_for_ag_target;
       $hectares_farmed_soil_water_cons_target = $lopTarget->hectares_farmed_soil_water_cons_target;
@@ -113,7 +114,6 @@ class DashboardController extends Controller
     $numWomenActual = array_column($lopActuals, 'num_women_actual');
     $numHHMemActual = array_column($lopActuals, 'num_hh_members_actual');
 
-
     // Get the totals for the progress bars
     $impSeedTotal = end($impSeedActual);
     $impStorageTotal = end($impStorageActual);
@@ -128,6 +128,7 @@ class DashboardController extends Controller
     $farmersVCInsTotal = end($farmers_with_vc_ins_actual);
     $numPGTotal = end($num_producers_groups_actual);
     $numPGMemTotal = end($num_producers_group_members_actual);
+
     $numPGSellVCProdTotal = end($num_prod_groups_sell_vc_product_actual);
     $numPGSellLocalTotal = end($num_prod_groups_local_markets_actual);
     $numPGSellExpandedTotal = end($num_prod_groups_expanded_markets_actual);
@@ -149,7 +150,6 @@ class DashboardController extends Controller
     $numWomenTotal = end($numWomenActual);
     $numHHMemTotal = end($numHHMemActual);
 
-
     // Get the width and colors for the progress bars
     $seedBarWidth = $impSeedTotal/$impSeedTarget*100;
     $seedBarColor = $this->barColor($impSeedTotal, $impSeedTarget);
@@ -157,6 +157,46 @@ class DashboardController extends Controller
     $storageBarColor = $this->barColor($impStorageTotal, $impStorageTarget);
     $toolBarWidth = $impToolsTotal/$impToolsTarget*100;
     $toolBarColor = $this->barColor($impToolsTotal, $impToolsTarget);
+    $numWithIrrBarWidth = $numWithIrrigationTotal/$numWithIrrigationTarget*100;
+    $numWithIrrBarColor = $this->barColor($numWithIrrigationTotal, $numWithIrrigationTarget);
+    $incYieldBarWidth = $increasedYieldTotal/$increasedYieldTarget*100;
+    $incYieldBarColor = $this->barColor($increasedYieldTotal, $increasedYieldTarget);
+    $haIrrBarWidth = $haWithIrrigationTotal/$haWithIrrigationTarget*100;
+    $haIrrBarColor = $this->barColor($haWithIrrigationTotal, $haWithIrrigationTarget);
+    $sgBarWidth = $numSGTotal/$num_savings_groups_target*100;
+    $sgBarColor = $this->barColor($numSGTotal, $num_savings_groups_target);
+    $sgMemBarWidth = $numSGMemTotal/$num_savings_group_members_target*100;
+    $sgMemBarColor = $this->barColor($numSGMemTotal, $num_savings_group_members_target);
+    $sgBalBarWidth = $sgBalTotal/$savings_groups_total_balance_target*100;
+    $sgBalBarColor = $this->barColor($sgBalTotal, $savings_groups_total_balance_target);
+    $memVFLoanBarWidth = $memVFLoanTotal/$members_with_vf_loan_target*100;
+    $memVFLoanBarcolor = $this->barColor($memVFLoanTotal, $members_with_vf_loan_target);
+    $farmVCInsBarWidth = $farmersVCInsTotal/$farmers_with_vc_ins_target*100;
+    $farmVCInsBarColor = $this->barColor($farmersVCInsTotal, $farmers_with_vc_ins_target);
+    $pgBarWidth = $numPGTotal/$num_producers_groups_target*100;
+    $pgBarColor = $this->barColor($numPGTotal, $num_producers_groups_target);
+    $numPgMemBarWidth = $numPGMemTotal/$num_producers_group_members_target*100;
+    $numPgMemBarColor = $this->barColor($numPGMemTotal, $num_producers_group_members_target);
+    $numPgSellVcBarWidth = $numPGSellVCProdTotal/$num_prod_groups_sell_vc_product_target*100;
+    $numPgSellVcBarColor = $this->barColor($numPGSellVCProdTotal, $num_prod_groups_sell_vc_product_target);
+    $numPgLocalBarWidth = $numPGSellLocalTotal/$numPgLocalMarketsTarget*100;
+    $numPgLocalBarcolor = $this->barColor($numPGSellLocalTotal, $numPgLocalMarketsTarget);
+    $numPgExpandedBarWidth = $numPGSellExpandedTotal/$num_prod_groups_expanded_markets_target*100;
+    $numPgExpandedBarColor = $this->barColor($numPGSellExpandedTotal, $num_prod_groups_expanded_markets_target);
+    $haRecAgBarWidth = $haReclaimedAgTotal/$hectares_reclaimed_for_ag_target*100;
+    $haRecAgBarcolor = $this->barColor($haReclaimedAgTotal, $hectares_reclaimed_for_ag_target);
+
+
+
+// ****************   Need to finish these out, then check to make sure you didn't forget any!!!!   ***********************************************//
+
+
+    $farmVCInsBarWidth = $farmersVCInsTotal/$farmers_with_vc_ins_target*100;
+    $farmVCInsBarColor = $this->barColor($farmersVCInsTotal, $farmers_with_vc_ins_target);
+    $pgBarWidth = $numPGTotal/$num_producers_groups_target*100;
+    $pgBarColor = $this->barColor($numPGTotal, $num_producers_groups_target);
+    $numPgMemBarWidth = $numPGMemTotal/$num_producers_group_members_target*100;
+    $numPgMemBarColor = $this->barColor($numPGMemTotal, $num_producers_group_members_target);
 
 
     $data = array(
@@ -265,6 +305,40 @@ class DashboardController extends Controller
       'numWomenTotal' => $numWomenTotal,
       'numHHMemTotal' => $numHHMemTotal,
       // Progress bar widths & colors
+      'seedBarWidth' => $seedBarWidth,
+      'seedBarColor' => $seedBarColor,
+      'storageBarWidth' => $storageBarWidth,
+      'storageBarColor' => $storageBarColor,
+      'toolBarWidth' => $toolBarWidth,
+      'toolBarColor' => $toolBarColor,
+      'numWithIrrBarWidth' => $numWithIrrBarWidth,
+      'numWithIrrBarColor' => $numWithIrrBarColor,
+      'incYieldBarWidth' => $incYieldBarWidth,
+      'incYieldBarColor' => $incYieldBarColor,
+      'haIrrBarWidth' => $haIrrBarWidth,
+      'haIrrBarColor' => $haIrrBarColor,
+      'sgBarWidth' => $sgBarWidth,
+      'sgBarColor' => $sgBarColor,
+      'sgMemBarWidth' => $sgMemBarWidth,
+      'sgMemBarColor' => $sgMemBarColor,
+      'sgBalBarWidth' => $sgBalBarWidth,
+      'sgBalBarColor' => $sgBalBarColor,
+      'memVFLoanBarWidth' => $memVFLoanBarWidth,
+      'memVFLoanBarcolor' => $memVFLoanBarcolor,
+      'farmVCInsBarWidth' => $farmVCInsBarWidth,
+      'farmVCInsBarColor' => $farmVCInsBarColor,
+      'pgBarWidth' => $pgBarWidth,
+      'pgBarColor' => $pgBarColor,
+      'numPgMemBarWidth' => $numPgMemBarWidth,
+      'numPgMemBarColor' => $numPgMemBarColor,
+      'numPgSellVcBarWidth' => $numPgSellVcBarWidth,
+      'numPgSellVcBarColor' => $numPgSellVcBarColor,
+      'numPgLocalBarWidth' => $numPgLocalBarWidth,
+      'numPgLocalBarcolor' => $numPgLocalBarcolor,
+      'numPgExpandedBarWidth' => $numPgExpandedBarWidth,
+      'numPgExpandedBarColor' => $numPgExpandedBarColor,
+      'haRecAgBarWidth' => $haRecAgBarWidth,
+      'haRecAgBarcolor' => $haRecAgBarcolor,
 
     );
 

@@ -262,7 +262,7 @@
 
     <div class="card-footer text-center">
       {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
-      {!! Form::submit('Save', ['class' => 'btn btn-sm btn-success', 'name' => 'submitbutton']) !!}
+      {!! Form::submit($submitButtonText, ['class' => 'btn btn-sm btn-success', 'name' => 'submitbutton']) !!}
     </div>
 
   </div>

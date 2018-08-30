@@ -11,8 +11,8 @@
   </div>
 </div>
 
-{!! Form::model(new App\ProgramTargets, ['route' => ['program_targets.store']]) !!}
-  @include('program_targets/partials/_form')
+{!! Form::model(new App\ProgramTargets, ['route' => ['program-targets.store']]) !!}
+  @include('program_targets/partials/_form', ['submitButtonText' => 'Save Targets'])
 {!! Form::close() !!}
 
 @endsection

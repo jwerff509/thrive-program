@@ -113,9 +113,9 @@ class ProgramTargetsController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-  public function update(Request $request, $id) {
+  public function update(ProgramTargets $programTargets) {
 
-    $this->validate($request, $this->rules);
+    //$this->validate($request, $this->rules);
 
     ProgramTargets::find($id)->update($request->all());
     return redirect()->route('program_targets.index')->with('success','Program targets updated successfully!');
@@ -124,8 +124,12 @@ class ProgramTargetsController extends Controller
 
   public function show($id) {
 
-    $countries = Country::all();
-    return view('program_targets.index',compact('countries', $countries));
+    $country = Country::find($id);
+    $targets = ProgramTargets::where('country_id', '=', $id)->get();
+
+
+
+    return view('program_targets.show',compact('targets', $targets, 'country'));
 
   }
 
