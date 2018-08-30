@@ -2,10 +2,10 @@
 
   @extends('adminlte::page')
 
-  @section('title', 'At A Glance')
+  @section('title', 'ELO Dashboard')
 
   @section('content_header')
-      <h1>{{ $country }} At A Glance</h1>
+      <h1>THRIVE Program ELO Dashboard</h1>
   @stop
 
   @section('content')

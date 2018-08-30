@@ -69,7 +69,7 @@ class DashboardController extends Controller
       $ewv_trainees_attest_value_trans_target = $lopTarget->ewv_trainees_attest_value_trans_target;
       $faith_leaders_in_ewv_training_target = $lopTarget->faith_leaders_in_ewv_training_target;
       $groups_undertaking_political_rep_target = $lopTarget->groups_undertaking_political_rep_target;
-      $children_give_care_by_groups_target = $lopTarget->children_give_care_by_groups_target;
+      $children_given_care_by_groups_target = $lopTarget->children_given_care_by_groups_target;
       $unique_hh_inc_sources_target = $lopTarget->unique_hh_inc_sources_target;
       $dirBensTarget = $lopTarget->direct_beneficiaries_target;
       $numChildrenTarget = $lopTarget->num_children_target;
@@ -128,7 +128,6 @@ class DashboardController extends Controller
     $farmersVCInsTotal = end($farmers_with_vc_ins_actual);
     $numPGTotal = end($num_producers_groups_actual);
     $numPGMemTotal = end($num_producers_group_members_actual);
-
     $numPGSellVCProdTotal = end($num_prod_groups_sell_vc_product_actual);
     $numPGSellLocalTotal = end($num_prod_groups_local_markets_actual);
     $numPGSellExpandedTotal = end($num_prod_groups_expanded_markets_actual);
@@ -151,53 +150,72 @@ class DashboardController extends Controller
     $numHHMemTotal = end($numHHMemActual);
 
     // Get the width and colors for the progress bars
-    $seedBarWidth = $impSeedTotal/$impSeedTarget*100;
+    $seedBarWidth = $this->barWidth($impSeedTotal, $impSeedTarget);
     $seedBarColor = $this->barColor($impSeedTotal, $impSeedTarget);
-    $storageBarWidth = $impStorageTotal/$impStorageTarget*100;
+    $storageBarWidth = $this->barWidth($impStorageTotal, $impStorageTarget);
     $storageBarColor = $this->barColor($impStorageTotal, $impStorageTarget);
-    $toolBarWidth = $impToolsTotal/$impToolsTarget*100;
+    $toolBarWidth = $this->barWidth($impToolsTotal, $impToolsTarget);
     $toolBarColor = $this->barColor($impToolsTotal, $impToolsTarget);
-    $numWithIrrBarWidth = $numWithIrrigationTotal/$numWithIrrigationTarget*100;
+    $numWithIrrBarWidth = $this->barWidth($numWithIrrigationTotal, $numWithIrrigationTarget);
     $numWithIrrBarColor = $this->barColor($numWithIrrigationTotal, $numWithIrrigationTarget);
-    $incYieldBarWidth = $increasedYieldTotal/$increasedYieldTarget*100;
+    $incYieldBarWidth = $this->barWidth($increasedYieldTotal, $increasedYieldTarget);
     $incYieldBarColor = $this->barColor($increasedYieldTotal, $increasedYieldTarget);
-    $haIrrBarWidth = $haWithIrrigationTotal/$haWithIrrigationTarget*100;
+    $haIrrBarWidth = $this->barWidth($haWithIrrigationTotal, $haWithIrrigationTarget);
     $haIrrBarColor = $this->barColor($haWithIrrigationTotal, $haWithIrrigationTarget);
-    $sgBarWidth = $numSGTotal/$num_savings_groups_target*100;
+    $sgBarWidth = $this->barWidth($numSGTotal, $num_savings_groups_target);
     $sgBarColor = $this->barColor($numSGTotal, $num_savings_groups_target);
-    $sgMemBarWidth = $numSGMemTotal/$num_savings_group_members_target*100;
+    $sgMemBarWidth = $this->barWidth($numSGMemTotal, $num_savings_group_members_target);
     $sgMemBarColor = $this->barColor($numSGMemTotal, $num_savings_group_members_target);
-    $sgBalBarWidth = $sgBalTotal/$savings_groups_total_balance_target*100;
+    $sgBalBarWidth = $this->barWidth($sgBalTotal, $savings_groups_total_balance_target);
     $sgBalBarColor = $this->barColor($sgBalTotal, $savings_groups_total_balance_target);
-    $memVFLoanBarWidth = $memVFLoanTotal/$members_with_vf_loan_target*100;
+    $memVFLoanBarWidth = $this->barWidth($memVFLoanTotal, $members_with_vf_loan_target);
     $memVFLoanBarcolor = $this->barColor($memVFLoanTotal, $members_with_vf_loan_target);
-    $farmVCInsBarWidth = $farmersVCInsTotal/$farmers_with_vc_ins_target*100;
+    $farmVCInsBarWidth = $this->barWidth($farmersVCInsTotal, $farmers_with_vc_ins_target);
     $farmVCInsBarColor = $this->barColor($farmersVCInsTotal, $farmers_with_vc_ins_target);
-    $pgBarWidth = $numPGTotal/$num_producers_groups_target*100;
+    $pgBarWidth = $this->barWidth($numPGTotal, $num_producers_groups_target);
     $pgBarColor = $this->barColor($numPGTotal, $num_producers_groups_target);
-    $numPgMemBarWidth = $numPGMemTotal/$num_producers_group_members_target*100;
+    $numPgMemBarWidth = $this->barWidth($numPGMemTotal, $num_producers_group_members_target);
     $numPgMemBarColor = $this->barColor($numPGMemTotal, $num_producers_group_members_target);
-    $numPgSellVcBarWidth = $numPGSellVCProdTotal/$num_prod_groups_sell_vc_product_target*100;
+    $numPgSellVcBarWidth = $this->barWidth($numPGSellVCProdTotal, $num_prod_groups_sell_vc_product_target);
     $numPgSellVcBarColor = $this->barColor($numPGSellVCProdTotal, $num_prod_groups_sell_vc_product_target);
-    $numPgLocalBarWidth = $numPGSellLocalTotal/$numPgLocalMarketsTarget*100;
+    $numPgLocalBarWidth = $this->barWidth($numPGSellLocalTotal, $numPgLocalMarketsTarget);
     $numPgLocalBarcolor = $this->barColor($numPGSellLocalTotal, $numPgLocalMarketsTarget);
-    $numPgExpandedBarWidth = $numPGSellExpandedTotal/$num_prod_groups_expanded_markets_target*100;
+    $numPgExpandedBarWidth = $this->barWidth($numPGSellExpandedTotal, $num_prod_groups_expanded_markets_target);
     $numPgExpandedBarColor = $this->barColor($numPGSellExpandedTotal, $num_prod_groups_expanded_markets_target);
-    $haRecAgBarWidth = $haReclaimedAgTotal/$hectares_reclaimed_for_ag_target*100;
+    $haRecAgBarWidth = $this->barWidth($haReclaimedAgTotal, $hectares_reclaimed_for_ag_target);
     $haRecAgBarcolor = $this->barColor($haReclaimedAgTotal, $hectares_reclaimed_for_ag_target);
-
-
-
-// ****************   Need to finish these out, then check to make sure you didn't forget any!!!!   ***********************************************//
-
-
-    $farmVCInsBarWidth = $farmersVCInsTotal/$farmers_with_vc_ins_target*100;
-    $farmVCInsBarColor = $this->barColor($farmersVCInsTotal, $farmers_with_vc_ins_target);
-    $pgBarWidth = $numPGTotal/$num_producers_groups_target*100;
-    $pgBarColor = $this->barColor($numPGTotal, $num_producers_groups_target);
-    $numPgMemBarWidth = $numPGMemTotal/$num_producers_group_members_target*100;
-    $numPgMemBarColor = $this->barColor($numPGMemTotal, $num_producers_group_members_target);
-
+    $haSoilConsBarWidth = $this->barWidth($haFarmedSoilConsTotal, $hectares_farmed_soil_water_cons_target);
+    $haSoilConsBarColor = $this->barColor($haFarmedSoilConsTotal, $hectares_farmed_soil_water_cons_target);
+    $numWaterCatchBarWidth = $this->barWidth($numUsingWaterCatchmentTotal, $farmers_using_water_catchment_target);
+    $numWaterCatchBarColor = $this->barColor($numUsingWaterCatchmentTotal, $farmers_using_water_catchment_target);
+    $commWatershedBarWidth = $this->barWidth($commWatershedRehabTotal, $comm_watershed_rehab_target);
+    $commWatershedBarColor = $this->barColor($commWatershedRehabTotal, $comm_watershed_rehab_target);
+    $treesPlantedBarWidth = $this->barWidth($treesPlantedTotal, $trees_planted_target);
+    $treesPlantedBarColor = $this->barColor($treesPlantedTotal, $trees_planted_target);
+    $memEmerSavingsBarWidth = $this->barWidth($memWithEmerSavingsTotal, $members_with_emer_savings_target);
+    $memEmerSavingsBarColor = $this->barColor($memWithEmerSavingsTotal, $members_with_emer_savings_target);
+    $numEwsBarWidth = $this->barWidth($numUsingEwsTotal, $farmers_using_ews_target);
+    $numEwsBarColor = $this->barColor($numUsingEwsTotal, $farmers_using_ews_target);
+    $numEwvTrainingBarWidth = $this->barWidth($numReceivedEwvTrainingTotal, $members_received_ewv_training_target);
+    $numEwvTrainingBarColor = $this->barColor($numReceivedEwvTrainingTotal, $members_received_ewv_training_target);
+    $numValueTransBarWidth = $this->barWidth($ewvTraineesAttestValueTransTotal, $ewv_trainees_attest_value_trans_target);
+    $numValueTransBarColor = $this->barColor($ewvTraineesAttestValueTransTotal, $ewv_trainees_attest_value_trans_target);
+    $faithLeadersEwvBarWidth = $this->barWidth($faithLeadersEwvTrainingTotal, $faith_leaders_in_ewv_training_target);
+    $faithLeadersEwvBarColor = $this->barColor($faithLeadersEwvTrainingTotal, $faith_leaders_in_ewv_training_target);
+    $groupsPoliticalRepBarWidth = $this->barWidth($groupsPoliticalRepTotal, $groups_undertaking_political_rep_target);
+    $groupsPoliticalRepBarColor = $this->barColor($groupsPoliticalRepTotal, $groups_undertaking_political_rep_target);
+    $childCareByGroupsBarWidth = $this->barWidth($childrenCaredByGroupsTotal, $children_given_care_by_groups_target);
+    $childCareByGroupsBarColor = $this->barColor($childrenCaredByGroupsTotal, $children_given_care_by_groups_target);
+    $hhIncSourcesBarWidth = $this->barWidth($uniqueHhIncSourcestotal, $unique_hh_inc_sources_target);
+    $hhIncSourcesBarColor = $this->barColor($uniqueHhIncSourcestotal, $unique_hh_inc_sources_target);
+    $dirBensBarWidth = $this->barWidth($dirBensTotal, $dirBensTarget);
+    $dirBensBarColor = $this->barColor($dirBensTotal, $dirBensTarget);
+    $numChildrenBarWidth = $this->barWidth($numChildrenTotal, $numChildrenTarget);
+    $numChildrenBarColor = $this->barColor($numChildrenTotal, $numChildrenTarget);
+    $numWomenBarWidth = $this->barWidth($numWomenTotal, $numWomenTarget);
+    $numWomenBarColor = $this->barColor($numWomenTotal, $numWomenTarget);
+    $numHhBarWidth = $this->barWidth($numHHMemTotal, $numHHMemTarget);
+    $numHhBarColor = $this->barColor($numHHMemTotal, $numHHMemTarget);
 
     $data = array(
       'country' => $country,
@@ -217,6 +235,7 @@ class DashboardController extends Controller
       'num_producers_groups_target' => $num_producers_groups_target,
       'num_producers_group_members_target' => $num_producers_group_members_target,
       'num_prod_groups_sell_vc_product_target' => $num_prod_groups_sell_vc_product_target,
+      'numPgLocalMarketsTarget' => $numPgLocalMarketsTarget,
       'num_prod_groups_expanded_markets_target' => $num_prod_groups_expanded_markets_target,
       'hectares_reclaimed_for_ag_target' => $hectares_reclaimed_for_ag_target,
       'hectares_farmed_soil_water_cons_target' => $hectares_farmed_soil_water_cons_target,
@@ -229,7 +248,7 @@ class DashboardController extends Controller
       'ewv_trainees_attest_value_trans_target' => $ewv_trainees_attest_value_trans_target,
       'faith_leaders_in_ewv_training_target' => $faith_leaders_in_ewv_training_target,
       'groups_undertaking_political_rep_target' => $groups_undertaking_political_rep_target,
-      'children_give_care_by_groups_target' => $children_give_care_by_groups_target,
+      'children_given_care_by_groups_target' => $children_given_care_by_groups_target,
       'unique_hh_inc_sources_target' => $unique_hh_inc_sources_target,
       'dirBensTarget' => $dirBensTarget,
       'numChildrenTarget' => $numChildrenTarget,
@@ -339,7 +358,38 @@ class DashboardController extends Controller
       'numPgExpandedBarColor' => $numPgExpandedBarColor,
       'haRecAgBarWidth' => $haRecAgBarWidth,
       'haRecAgBarcolor' => $haRecAgBarcolor,
-
+      'haSoilConsBarWidth' => $haSoilConsBarWidth,
+      'haSoilConsBarColor' => $haSoilConsBarColor,
+      'numWaterCatchBarWidth' => $numWaterCatchBarWidth,
+      'numWaterCatchBarColor' => $numWaterCatchBarColor,
+      'commWatershedBarWidth' => $commWatershedBarWidth,
+      'commWatershedBarColor' => $commWatershedBarColor,
+      'treesPlantedBarWidth' => $treesPlantedBarWidth,
+      'treesPlantedBarColor' => $treesPlantedBarColor,
+      'memEmerSavingsBarWidth' => $memEmerSavingsBarWidth,
+      'memEmerSavingsBarColor' => $memEmerSavingsBarColor,
+      'numEwsBarWidth' => $numEwsBarWidth,
+      'numEwsBarColor' => $numEwsBarColor,
+      'numEwvTrainingBarWidth' => $numEwvTrainingBarWidth,
+      'numEwvTrainingBarColor' => $numEwvTrainingBarColor,
+      'numValueTransBarWidth' => $numValueTransBarWidth,
+      'numValueTransBarColor' => $numValueTransBarColor,
+      'faithLeadersEwvBarWidth' => $faithLeadersEwvBarWidth,
+      'faithLeadersEwvBarColor' => $faithLeadersEwvBarColor,
+      'groupsPoliticalRepBarWidth' => $groupsPoliticalRepBarWidth,
+      'groupsPoliticalRepBarColor' => $groupsPoliticalRepBarColor,
+      'childCareByGroupsBarWidth' => $groupsPoliticalRepBarColor,
+      'childCareByGroupsBarColor' => $childCareByGroupsBarColor,
+      'hhIncSourcesBarWidth' => $hhIncSourcesBarWidth,
+      'hhIncSourcesBarColor' => $hhIncSourcesBarColor,
+      'dirBensBarWidth' => $dirBensBarWidth,
+      'dirBensBarColor' => $dirBensBarColor,
+      'numChildrenBarWidth' => $numChildrenBarWidth,
+      'numChildrenBarColor' => $numChildrenBarColor,
+      'numWomenBarWidth' => $numWomenBarWidth,
+      'numWomenBarColor' => $numWomenBarColor,
+      'numHhBarWidth' => $numHhBarWidth,
+      'numHhBarColor' => $numHhBarColor,
     );
 
     return view('charts.countryDb')->with($data);
@@ -349,7 +399,11 @@ class DashboardController extends Controller
 
   public function barColor($actual, $goal) {
 
-    $progress = $actual/$goal*100;
+    if($actual == 0 or $goal == 0) {
+      $progress = 0;
+    } else {
+      $progress = $actual/$goal*100;
+    }
 
     switch($progress) {
       case $progress < 26:
@@ -370,6 +424,20 @@ class DashboardController extends Controller
     }
 
     return $barColor;
+
+  }
+
+
+
+  public function barWidth($total, $target) {
+
+    if($total == 0 or $target == 0) {
+      $barWidth = 0;
+    } else {
+      $barWidth = $total/$target*100;
+    }
+
+    return $barWidth;
 
   }
 
