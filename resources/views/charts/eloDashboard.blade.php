@@ -13,7 +13,7 @@
     <div class="row">
 
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-purple">
+        <div class="info-box bg-green">
           <span class="info-box-icon"><i class="fa fa-users"></i></span>
           <div class="info-box-content">
             <span class="info-box-text">Direct Beneficiaries:</span>
@@ -27,7 +27,7 @@
       </div>
 
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-purple">
+        <div class="info-box bg-green">
           <span class="info-box-icon"><i class="fa fa-child"></i></span>
           <div class="info-box-content">
             <span class="info-box-text"># of Children:</span>
@@ -41,7 +41,7 @@
       </div>
 
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-purple">
+        <div class="info-box bg-green">
           <span class="info-box-icon"><i class="fa fa-female"></i></span>
           <div class="info-box-content">
             <span class="info-box-text"># of Women:</span>
@@ -55,7 +55,7 @@
       </div>
 
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-purple">
+        <div class="info-box bg-green">
           <span class="info-box-icon"><i class="fa fa-home"></i></span>
           <div class="info-box-content">
             <span class="info-box-text">Total HH Members:</span>
@@ -71,12 +71,12 @@
     <!-- fix for small devices only -->
     <div class="clearfix visible-sm-block"></div>
 
-    @include('charts.countryDb_chartjs')
+    @include('charts.eloDb_chartjs')
 
     <div class="col-md-12">
       <div class="box">
         <div class="box-header with-border bg-light-blue disabled color-palette">
-          <h3 class="box-title">Quarterly Recap - Improved Agricultural Technology</h3>
+          <h3 class="box-title">Improved Agricultural Technology - Program Overview</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <!--
@@ -100,7 +100,7 @@
           <div class="row">
             <div class="col-md-8">
               <div class="chart">
-                <canvas id="agChart" style="height: 375px; width: 1072px;" width="1072" height="375"></canvas>
+                <canvas id="myChart" style="height: 400px; width: 1072px;" width="1072" height="400"></canvas>
               </div>
             </div>
             <div class="col-md-4">
@@ -135,6 +135,8 @@
                   <div class="progress-bar {{ $numWithIrrBarColor }} progress-bar-striped" style="width: {{ $numWithIrrBarWidth }}%"></div>
                 </div>
               </div>
+              <!--
+              {{-- }}
               <div class="progress-group">
                 <span class="progress-text">Ave. % Increase in Yield per Hectare</span>
                 <span class="progress-number"><b>{{ $increasedYieldTotal }}</b>/{{ $increasedYieldTarget }}</span>
@@ -142,6 +144,8 @@
                   <div class="progress-bar {{ $incYieldBarColor }} progress-bar-striped" style="width: {{ $incYieldBarWidth }}%"></div>
                 </div>
               </div>
+              --}}
+            -->
               <div class="progress-group">
                 <span class="progress-text"># Hectares of Farmland with Irrigation</span>
                 <span class="progress-number"><b>{{ $haWithIrrigationTotal }}</b>/{{ $haWithIrrigationTarget }}</span>
@@ -160,12 +164,12 @@
     <!-- fix for small devices only -->
     <div class="clearfix visible-sm-block"></div>
 
-    @include('charts.countryDb_chartjs')
+    @include('charts.eloDb_chartjs')
 
     <div class="col-md-12">
       <div class="box">
         <div class="box-header with-border bg-maroon disabled color-palette">
-          <h3 class="box-title">Quarterly Recap - Access to Financial Services</h3>
+          <h3 class="box-title">Access to Financial Services - Program Overview</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
           </div>
@@ -227,12 +231,12 @@
     <!-- fix for small devices only -->
     <div class="clearfix visible-sm-block"></div>
 
-    @include('charts.countryDb_chartjs')
+    @include('charts.eloDb_chartjs')
 
     <div class="col-md-12">
       <div class="box">
         <div class="box-header with-border bg-green disabled color-palette">
-          <h3 class="box-title">Quarterly Recap - Access to Markets</h3>
+          <h3 class="box-title">Access to Markets - Program Overview</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
           </div>
@@ -294,12 +298,12 @@
     <!-- fix for small devices only -->
     <div class="clearfix visible-sm-block"></div>
 
-    @include('charts.countryDb_chartjs')
+    @include('charts.eloDb_chartjs')
 
     <div class="col-md-12">
       <div class="box">
         <div class="box-header with-border bg-purple disabled color-palette">
-          <h3 class="box-title">Quarterly Recap - Natural Resource Management</h3>
+          <h3 class="box-title">Natural Resource Management - Program Overview</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
           </div>
@@ -361,12 +365,12 @@
     <!-- fix for small devices only -->
     <div class="clearfix visible-sm-block"></div>
 
-    @include('charts.countryDb_chartjs')
+    @include('charts.eloDb_chartjs')
 
     <div class="col-md-12">
       <div class="box">
         <div class="box-header with-border bg-navy disabled color-palette">
-          <h3 class="box-title">Quarterly Recap - Resilience to Shocks and Stresses</h3>
+          <h3 class="box-title">Resilience to Shocks and Stresses - Program Overview</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
           </div>
@@ -407,12 +411,12 @@
     <!-- fix for small devices only -->
     <div class="clearfix visible-sm-block"></div>
 
-    @include('charts.countryDb_chartjs')
+    @include('charts.eloDb_chartjs')
 
     <div class="col-md-12">
       <div class="box">
         <div class="box-header with-border bg-yellow disabled color-palette">
-          <h3 class="box-title">Quarterly Recap - Empowered Worldview</h3>
+          <h3 class="box-title">Empowered Worldview - Program Overview</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
           </div>

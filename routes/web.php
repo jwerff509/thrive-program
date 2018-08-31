@@ -70,7 +70,9 @@ Route::post('group_surveys/store2', [
   ]);
 
   // Testing new dashboards
-  Route::get('country-dashboard', ['middleware' => 'auth', 'uses' => 'DashboardController@countryDashboard']);
+  Route::get('country-dbs', ['as' => 'country-dbs', 'uses' => 'DashboardController@countryIndex']);
+  Route::get('country-dashboard/{id}', ['as' => 'country-dashboard', 'uses' => 'DashboardController@countryDashboard']);
+  Route::get('elo-dashboard', ['middleware' => 'auth', 'uses' => 'DashboardController@eloDashboard']);
 
 /*
   Route::resource('program-targets', 'ProgramTargetsController');

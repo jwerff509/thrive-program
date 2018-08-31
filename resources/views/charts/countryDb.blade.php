@@ -5,7 +5,19 @@
   @section('title', 'At A Glance')
 
   @section('content_header')
-      <h1>{{ $country }} At A Glance</h1>
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <h1>{{ $country }} At A Glance</h1>
+      </div>
+      <!--
+      {{--}}
+      <div class="col-sm-3 pull-right">
+        <label>Change Country: </label>
+        {!! Form::select('country_id', ['' => 'Select...']+$countries, null, ['class' => 'form-control']) !!}
+      </div>
+      --}}
+    -->
+    </div>
   @stop
 
   @section('content')
@@ -475,6 +487,5 @@
         </div>
       </div>
     </div>
-
 
   @stop

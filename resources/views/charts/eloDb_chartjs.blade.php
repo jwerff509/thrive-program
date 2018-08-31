@@ -3,7 +3,7 @@
 
   <script>
 
-    var quarter = <?php echo $labels ?>;
+    var countries = <?php echo $labels ?>;
 
     // Data for Agricultural Chart
     var impSeedActual = <?php echo $impSeedActual; ?>;
@@ -44,6 +44,10 @@
     var uniqueHHIncSourcesActual = <?php echo $unique_hh_inc_sources_actual; ?>;
 
 
+
+    var rwAg = <?php echo $rwAg; ?>;
+
+/*
     var agChartData = {
       labels: quarter,
       datasets: [{
@@ -229,9 +233,120 @@
         data: uniqueHHIncSourcesActual
       }]
     };
+*/
+
+
 
     window.onload = function() {
 
+      var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ["Improved Seed", "Improved Storage", "Improved Tools", "# Using Irrigation", "Ha With Irrigation",],
+    datasets: [{
+        label: 'Rwanda',
+        data: rwAg, // [10, 19, 3, 5, 2],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(255,99,132,1)',
+          'rgba(255,99,132,1)',
+          'rgba(255,99,132,1)',
+          'rgba(255,99,132,1)'
+        ],
+        borderWidth: 2
+      },
+      {
+        label: 'Tanzania',
+        data: [15, 19, 3, 5, 2],
+        backgroundColor: [
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 2
+      }
+    ]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        stacked: true,
+        ticks: {
+          beginAtZero: true
+        }
+      }],
+      xAxes: [{
+        stacked: true,
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+
+var ctx2 = document.getElementById("pillarChart").getContext("2d");
+
+window.multiBar = new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ["Step 1", "Step 2", "Step 3", "Step 4"],
+    datasets: [
+      {
+      // data: [gradMembers1, gradMembers2, gradMembers3, gradMembers4],
+      label: "Male",
+      data: gradStepsMales,
+      backgroundColor: ["#114577", "#114577", "#114577", "#114577"],
+      borderWidth: 1
+      }, {
+      // data: [gradMembers1, gradMembers2, gradMembers3, gradMembers4],
+      label: "Female",
+      data: gradStepsFemales,
+      backgroundColor: ["#0082FF", "#0082FF", "#0082FF", "#0082FF"],
+      borderWidth: 1
+      }, {
+      // data: [gradMembers1, gradMembers2, gradMembers3, gradMembers4],
+      label: "Total",
+      data: gradStepsTotal,
+      backgroundColor: ["#FF9F00", "#FF9F00", "#FF9F00", "#FF9F00"],
+      borderWidth: 1
+    }]
+
+  },
+  options: {
+    legend: { display: false },
+    title: {
+      display: true,
+      text: 'Number of Households per Graduation Step (Last Quarter)',
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+
+/*
       var ctx = document.getElementById("agChart").getContext("2d");
         window.myAgLineChart = new Chart(ctx, {
           type: 'line',
@@ -309,7 +424,9 @@
                       }
                     }
                   });
-
+*/
 
               };
+
+
   </script>

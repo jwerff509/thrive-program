@@ -6,8 +6,8 @@
 @section('content')
 
 <div class="container">
-  <div class="row col-md-8 col-md-offset-2">
-    <h2><center><strong>Add</strong> Program Measures</center></h2><br><br>
+  <div class="row col-md-7 col-md-offset-2">
+    <h2><center><strong>Add</strong> Quarterly Data</center></h2><br><br>
   </div>
 </div>
 

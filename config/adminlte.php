@@ -133,14 +133,14 @@ return [
         [
             'text'        => 'Data Entry',
             'icon'        => 'user-plus',
-            'url'         => 'group_surveys/create2',
+            'url'         => 'program-measures/enter',
             'icon_color'  => 'orange',
         ],
         'REPORTS',
         [
-            'text'        => 'Dashboard',
+            'text'        => 'Country Dashboard',
             'icon'        => 'dashboard',
-            'url'         => '/dashboard',
+            'url'         => '/country-dbs',
             'icon_color'  => 'green',
         ],
         /*
@@ -151,6 +151,7 @@ return [
             'icon_color'  => 'green',
         ],
         */
+        /*
         [
             'text'        => 'Progress Reports',
             'icon'        => 'bar-chart',
@@ -158,6 +159,7 @@ return [
             'icon_color'  => 'green',
           //  'can'         => 'view-progress-reports'     //  8/7/18 - the full implementation of Gates isn't finished, so I have to comment this line out for now. JV.
         ],
+        */
 
         // Admin menu settings
         /* 8/7/18 - JV - This isn't fully tested and ready to go yet  //
