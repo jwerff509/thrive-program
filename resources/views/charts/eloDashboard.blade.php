@@ -100,7 +100,7 @@
           <div class="row">
             <div class="col-md-8">
               <div class="chart">
-                <canvas id="myChart" style="height: 400px; width: 1072px;" width="1072" height="400"></canvas>
+                <canvas id="myChart" style="height: 325px; width: 1072px;" width="1072" height="325"></canvas>
               </div>
             </div>
             <div class="col-md-4">
@@ -479,6 +479,42 @@
         </div>
       </div>
     </div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+
+    <script>
+
+    $(function() {
+
+    $('svg.radial-progress').each(function( index, value ) {
+       $(this).find($('circle.complete')).removeAttr( 'style' );
+     });
+
+     $(window).scroll(function(){
+       $('svg.radial-progress').each(function( index, value ) {
+         // If svg.radial-progress is approximately 25% vertically into the window when scrolling from the top or the bottom
+         if (
+             $(window).scrollTop() > $(this).offset().top - ($(window).height() * 0.75) &&
+             $(window).scrollTop() < $(this).offset().top + $(this).height() - ($(window).height() * 0.25)
+         ) {
+             // Get percentage of progress
+             percent = $(value).data('percentage');
+             // Get radius of the svg's circle.complete
+             radius = $(this).find($('circle.complete')).attr('r');
+             // Get circumference (2πr)
+             circumference = 2 * Math.PI * radius;
+             // Get stroke-dashoffset value based on the percentage of the circumference
+             strokeDashOffset = circumference - ((percent * circumference) / 100);
+             // Transition progress for 1.25 seconds
+             $(this).find($('circle.complete')).animate({'stroke-dashoffset': strokeDashOffset}, 1250);
+         }
+       });
+     }).trigger('scroll');
+
+   });
+
+     </script>
 
 
   @stop
