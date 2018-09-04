@@ -79,9 +79,10 @@ Route::post('group_surveys/store2', [
 */
   Route::get('program-targets/index', ['as' => 'program-targets.index', 'middleware' => 'auth', 'uses' => 'ProgramTargetsController@index']);
   Route::get('program-targets/create', ['middleware' => 'auth', 'uses' => 'ProgramTargetsController@create']);
-  Route::patch('program-targets/edit/{id}', ['as' => 'program-targets.edit', 'middleware' => 'auth', 'uses' => 'ProgramTargetsController@edit']);
+  Route::get('program-targets/edit/{id}', ['as' => 'program-targets.edit', 'middleware' => 'auth', 'uses' => 'ProgramTargetsController@edit']);
   Route::get('program-targets/show/{id}', ['as' => 'program-targets.show', 'middleware' => 'auth', 'uses' => 'ProgramTargetsController@show']);
   Route::post('program-targets/store', ['as' => 'program-targets.store', 'middleware' => 'auth', 'uses' => 'ProgramTargetsController@store']);
+  Route::post('program-targets/update/{id}', ['as' => 'program-targets.update', 'middleware' => 'auth', 'uses' => 'ProgramTargetsController@update']);
 
 
   Route::get('program-measures/enter', ['middleware' => 'auth', 'uses' => 'ProgramMeasuresController@create']);

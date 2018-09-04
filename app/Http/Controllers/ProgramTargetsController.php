@@ -14,7 +14,7 @@ class ProgramTargetsController extends Controller
       'improved_storage_target' => ['required', 'numeric'],
       'improved_tools_target' => ['required', 'numeric'],
       'farmers_with_irrigation_target' => ['required', 'numeric'],
-      'increase_in_yield_per_hectare_target' => ['required', 'numeric'],
+      //'increase_in_yield_per_hectare_target' => ['required', 'numeric'],
       'ha_with_irrigation_target' => ['required', 'numeric'],
       'num_savings_groups_target' => ['required', 'numeric'],
       'num_savings_group_members_target' => ['required', 'numeric'],
@@ -36,7 +36,8 @@ class ProgramTargetsController extends Controller
       'members_received_ewv_training_target' => ['required', 'numeric'],
       'ewv_trainees_attest_value_trans_target' => ['required', 'numeric'],
       'faith_leaders_in_ewv_training_target' => ['required', 'numeric'],
-      'groups_undertaking_political_rep_target' => ['required', 'numeric'],
+      'groups_undertaking_political_rep_target' => ['nullable', 'numeric'],
+      'participants_trained_in_cva_target' => ['nullable', 'numeric'],
       'children_given_care_by_groups_target' => ['required', 'numeric'],
       'unique_hh_inc_sources_target' => ['required', 'numeric'],
       'direct_beneficiaries_target' => ['required', 'numeric'],
@@ -98,10 +99,19 @@ class ProgramTargetsController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-  public function edit(Request $request) {
+  public function edit($id) {
 
-    $target = ProgramTargets::find($request->country_id);
-    return view('program_targets.edit',compact('target'));
+    $country = Country::find($id);
+    $targets = ProgramTargets::where('country_id', '=', $id)->first()->toArray();
+
+/*
+    echo "<pre>";
+    print_r($targets);
+    echo "</pre>";
+    exit;
+*/
+
+    return view('program_targets.edit',compact('targets', $targets, 'country', 'id'));
 
   }
 
@@ -113,12 +123,14 @@ class ProgramTargetsController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-  public function update(ProgramTargets $programTargets) {
+  public function update(Request $request, $id) {
+
+    $this->validate($request, $this->rules);
 
     //$this->validate($request, $this->rules);
 
     ProgramTargets::find($id)->update($request->all());
-    return redirect()->route('program_targets.index')->with('success','Program targets updated successfully!');
+    return redirect()->route('program-targets.index')->with('success','Program targets updated successfully!');
 
   }
 
@@ -126,8 +138,6 @@ class ProgramTargetsController extends Controller
 
     $country = Country::find($id);
     $targets = ProgramTargets::where('country_id', '=', $id)->get();
-
-
 
     return view('program_targets.show',compact('targets', $targets, 'country'));
 

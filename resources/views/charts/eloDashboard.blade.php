@@ -10,6 +10,8 @@
 
   @section('content')
 
+
+
     <div class="row">
 
       <div class="col-md-3 col-sm-6 col-xs-12">
@@ -71,7 +73,53 @@
     <!-- fix for small devices only -->
     <div class="clearfix visible-sm-block"></div>
 
-    @include('charts.eloDb_chartjs')
+
+
+@include('charts.countryDb_chartjs')
+
+
+
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header with-border bg-light-blue disabled color-palette">
+          <h3 class="box-title">Improved Agricultural Technology - Program Overview</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <!--
+            Cool thought - add a link within this group to download just the data for this chart !!!!!!!
+
+            <div class="btn-group">
+              <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-wrench"></i></button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </div>
+          -->
+          </div>
+        </div>
+        <div class="box-body">
+
+          <div class="GaugeMeter" id="GaugeMeter_1" data-percent="10"></div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="clearfix visible-sm-block"></div>
+
+    @include('charts.countryDb_chartjs')
+
+
 
     <div class="col-md-12">
       <div class="box">
@@ -479,6 +527,20 @@
         </div>
       </div>
     </div>
+
+
+
+
+<script>
+
+  $(document).ready(function() {
+
+    $(".GaugeMeter").gaugeMeter();
+
+  });
+
+</script>
+
 
 
   @stop
