@@ -243,7 +243,7 @@
     <div class="form-group row">
       {!! Form::label('ewv_trainees_attest_value_trans_actual', '# of EWV Trainees Attesting to Value Transformation ', array('class' => 'col-md-5 form-control-label  text-right')) !!}
       <div class="col-md-2 justify-content-center">
-        {!! Form::text('ewv_trainees_attest_value_trans_actual', '', array('class' => 'form-control', 'placeholder' => '# # of EWV Trainees Attesting to Value Transformation')) !!}
+        {!! Form::text('ewv_trainees_attest_value_trans_actual', '', array('class' => 'form-control', 'placeholder' => '# of EWV Trainees Attesting to Value Transformation')) !!}
       </div>
     </div>
 
@@ -254,10 +254,87 @@
       </div>
     </div>
 
-    <div class="form-group row">
+    <!-- Show the 'primary_veg' selection box if "Horticulture" is selected as the primary value chain  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script>
+
+    $(document).ready(function() {
+
+      // This onChange function is used when creating program targets.
+      $('#country_id').on('change', function() {
+
+        if(this.value === '1') {
+          $("#political").css('display', 'block');
+          $("#cva").css('display', 'none');
+          $("#groupCva").css('display', 'none');
+        } else if(this.value === '4') {
+          $("#political").css('display', 'block');
+          $("#cva").css('display', 'none');
+          $("#groupCva").css('display', 'none');
+        } else if(this.value === '5') {
+          $("#political").css('display', 'block');
+          $("#cva").css('display', 'none');
+          $("#groupCva").css('display', 'none');
+        } else if(this.value === '2') {
+          $("#cva").css('display', 'block');
+          $("#political").css('display', 'none');
+          $("#groupCva").css('display', 'none');
+        } else if (this.value === '3') {
+          $("#groupCva").css('display', 'block');
+          $("#political").css('display', 'none');
+          $("#cva").css('display', 'none');
+        }
+
+      });
+
+      // This function is used for the "Edit" program targets page
+      var country = $('#country_id option:selected').val();
+
+      if(country === '1') {
+        $("#political").css('display', 'block');
+        $("#cva").css('display', 'none');
+        $("#groupCva").css('display', 'none');
+      } else if(country === '4') {
+        $("#political").css('display', 'block');
+        $("#cva").css('display', 'none');
+        $("#groupCva").css('display', 'none');
+      } else if(country === '5') {
+        $("#political").css('display', 'block');
+        $("#cva").css('display', 'none');
+        $("#groupCva").css('display', 'none');
+      } else if(country === '2') {
+        $("#cva").css('display', 'block');
+        $("#political").css('display', 'none');
+        $("#groupCva").css('display', 'none');
+      } else if (country === '3') {
+        $("#groupCva").css('display', 'block');
+        $("#political").css('display', 'none');
+        $("#cva").css('display', 'none');
+      }
+
+    });
+
+    </script>
+
+    <div class="form-group row" id="political" style="display:none;">
       {!! Form::label('groups_undertaking_political_rep_actual', '# of Vulnerable Groups Undertaking Political Representation ', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::text('groups_undertaking_political_rep_actual', '', array('class' => 'form-control', 'placeholder' => '# of Vulnerable Groups Undertaking Political Representation')) !!}
+      </div>
+    </div>
+
+    <div class="form-group row" id="cva" style="display:none;">
+      {!! Form::label('participants_trained_in_cva_actual', '# of Project Participants Trained in CVA', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      <div class="col-md-2">
+        {!! Form::text('participants_trained_in_cva_actual', '', array('class' => 'form-control', 'placeholder' => '# of Project Participants Trained in CVA')) !!}
+      </div>
+    </div>
+
+    <div class="form-group row" id="groupCva" style="display:none;">
+      {!! Form::label('groups_trained_in_cva_actual', '# of Vulnerable Groups Trained in CVA', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      <div class="col-md-2">
+        {!! Form::text('groups_trained_in_cva_actual', '', array('class' => 'form-control', 'placeholder' => '# of Vulnerable Groups Trained in CVA')) !!}
       </div>
     </div>
 

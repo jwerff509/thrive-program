@@ -48,305 +48,340 @@
 
 
     var rwAg = <?php echo $rwAg; ?>;
+    var tzAg = <?php echo $tzAg; ?>;
+    var zbAg = <?php echo $zbAg; ?>;
+    var mwAg = <?php echo $mwAg; ?>;
+    var hdAg = <?php echo $hdAg; ?>;
 
-/*
-    var agChartData = {
-      labels: quarter,
-      datasets: [{
-        label: 'Improved Seed',
-        borderColor: "#3e95cd",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: impSeedActual
-      }, {
-        label: 'Improved Storage',
-        borderColor: "#8e5ea2",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: impStorageActual
-      }, {
-        label: 'Improved Practices',
-        borderColor: "#c45850",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: impToolsActual
-      }, {
-        label: '# Using Irrigation',
-        borderColor: "#ea9714",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: haWithIrrigationActual
-      }]
-    };
+    var rwFin = <?php echo $rwFin; ?>;
+    var tzFin = <?php echo $tzFin; ?>;
+    var zbFin = <?php echo $zbFin; ?>;
+    var mwFin = <?php echo $mwFin; ?>;
+    var hdFin = <?php echo $hdFin; ?>;
 
-    var finChartData = {
-      labels: quarter,
-      datasets: [{
-        label: 'Savings Groups',
-        borderColor: "#3e95cd",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numSGActual
-      }, {
-        label: 'Savings Group Members',
-        borderColor: "#8e5ea2",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numSGMemActual
-      }, {
-        label: 'VF Clients with Loans',
-        borderColor: "#c45850",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: memWithLoanActual
-      }, {
-        label: '# Using VC Insurance',
-        borderColor: "#ea9714",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: memWithVCInsActual
-      }]
-    };
+    var rwMkt = <?php echo $rwMkt; ?>;
+    var tzMkt = <?php echo $tzMkt; ?>;
+    var zbMkt = <?php echo $zbMkt; ?>;
+    var mwMkt = <?php echo $mwMkt; ?>;
+    var hdMkt = <?php echo $hdMkt; ?>;
 
-    var marketChartData = {
-      labels: quarter,
-      datasets: [{
-        label: 'Producers Groups',
-        borderColor: "#3e95cd",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numPGActual
-      }, {
-        label: 'Producers Group Members',
-        borderColor: "#8e5ea2",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numPGMemActual
-      }, {
-        label: 'PG Members who sell VC Product',
-        borderColor: "#c45850",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numPGSellVCActual
-      }, {
-        label: 'PG Members Accessing Local Markets',
-        borderColor: "#ea9714",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numPGSellLocalActual
-      }, {
-        label: 'PG Members Accessing Expanded Markets',
-        borderColor: "#19d506",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numPGSellExpandedActual
-      }]
-    };
+    var rwColors = ['rgba(255,99,132,1)', 'rgba(255,99,132,1)', 'rgba(255,99,132,1)', 'rgba(255,99,132,1)', 'rgba(255,99,132,1)'];
+    var tzColors = ['rgba(255,159,64,1)', 'rgba(255,159,64,1)', 'rgba(255,159,64,1)', 'rgba(255,159,64,1)', 'rgba(255,159,64,1)'];
+    var zbColors = ['rgba(0,204,51,1)', 'rgba(0,204,51,1)', 'rgba(0,204,51,1)', 'rgba(0,204,51,1)', 'rgba(0,204,51,1)'];
+    var mwColors = ['rgba(0,102,255,1)', 'rgba(0,102,255,1)', 'rgba(0,102,255,1)', 'rgba(0,102,255,1)', 'rgba(0,102,255,1)'];
+    var hdColors = ['rgba(102,0,102,1)', 'rgba(102,0,102,1)', 'rgba(102,0,102,1)', 'rgba(102,0,102,1)', 'rgba(102,0,102,1)'];
 
-    var nrmChartData = {
-      labels: quarter,
-      datasets: [{
-        label: 'Ha Reclaimed for Ag',
-        borderColor: "#3e95cd",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: haRecAgActual
-      }, {
-        label: 'Ha w/ Soil & Water Cons',
-        borderColor: "#8e5ea2",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: haSoilWaterConsActual
-      }, {
-        label: '# Using Water Catchment',
-        borderColor: "#c45850",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numUsingWaterCatchActual
-      }, {
-        label: 'Communities with Watershed Rehab',
-        borderColor: "#ea9714",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: commWatershedActual
-      }, {
-        label: '# Trees Planted',
-        borderColor: "#19d506",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: treesPlantedActual
-      }]
-    };
-
-    var shocksChartData = {
-      labels: quarter,
-      datasets: [{
-        label: '# With Emergency Savings',
-        borderColor: "#3e95cd",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numWithEmerSavingsActual
-      }, {
-        label: '# Using Early Warning Systems',
-        borderColor: "#8e5ea2",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numUsingEWSActual
-      }]
-    };
-
-    var worldviewChartData = {
-      labels: quarter,
-      datasets: [{
-        label: '# Received EWV Training',
-        borderColor: "#3e95cd",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numEwvTrainingActual
-      }, {
-        label: '# Attesting Value Transformation',
-        borderColor: "#8e5ea2",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numAttestValueTransActual
-      }, {
-        label: '# Faith Leaders in EWV Training',
-        borderColor: "#c45850",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numLeadersInEWVTrainigActual
-      }, {
-        label: '# Groups Undertaking Political Rep',
-        borderColor: "#ea9714",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numGroupsPolRepActual
-      }, {
-        label: '# Children Given Care by Groups',
-        borderColor: "#ea9714",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: numChildrenGroupCareActual
-      }, {
-        label: '# Unique HH Income Sources',
-        borderColor: "#19d506",
-        backgroundColor: 'rgba(0,0,0,0)',
-        borderWidth: 2,
-        data: uniqueHHIncSourcesActual
-      }]
-    };
-*/
-
+    var countries = <?php echo $labels; ?>;
+    var allCountryColors = ['rgba(255,99,132,1)', 'rgba(255,159,64,1)', 'rgba(0,204,51,1)', 'rgba(0,102,255,1)', 'rgba(102,0,102,1)'];
 
 
     window.onload = function() {
 
+      var pieChartData = {
+        labels: countries,
+        datasets: [{
+          backgroundColor: allCountryColors,
+          data: ['10', '50', '15', '35']
+        }]
+      };
+
+
+      var ctxPie1 = document.getElementById("pieChart1").getContext("2d");
+
+      window.myPieChart = new Chart(ctxPie1, {
+        type: 'doughnut',
+        data: pieChartData,
+        options: {
+          elements: {
+            rectangle: {
+              borderWidth: 2,
+              borderColor: 'rgb(0, 255, 0)',
+              borderSkipped: 'bottom'
+            }
+          },
+          responstive: true,
+          title: {
+            display: true,
+            text: 'Improved Seed'
+          }
+        }
+      });
+
+      var ctxPie2 = document.getElementById("pieChart2").getContext("2d");
+
+      window.myPieChart = new Chart(ctxPie2, {
+        type: 'pie',
+        data: pieChartData,
+        options: {
+          elements: {
+            rectangle: {
+              borderWidth: 2,
+              borderColor: 'rgb(0, 255, 0)',
+              borderSkipped: 'bottom'
+            }
+          },
+          responstive: true,
+          title: {
+            display: true,
+            text: 'Improved Storage'
+          }
+        }
+      });
+
+      var ctxPie3 = document.getElementById("pieChart3").getContext("2d");
+
+      window.myPieChart = new Chart(ctxPie3, {
+        type: 'doughnut',
+        data: pieChartData,
+        options: {
+          elements: {
+            rectangle: {
+              borderWidth: 2,
+              borderColor: 'rgb(0, 255, 0)',
+              borderSkipped: 'bottom'
+            }
+          },
+          responstive: true,
+          title: {
+            display: true,
+            text: 'Improved Tools & Practices'
+          }
+        }
+      });
+
+      var ctxPie4 = document.getElementById("pieChart4").getContext("2d");
+
+      window.myPieChart = new Chart(ctxPie4, {
+        type: 'pie',
+        data: pieChartData,
+        options: {
+          elements: {
+            rectangle: {
+              borderWidth: 2,
+              borderColor: 'rgb(0, 255, 0)',
+              borderSkipped: 'bottom'
+            }
+          },
+          responstive: true,
+          title: {
+            display: true,
+            text: '# Using Irrigation'
+          }
+        }
+      });
+
+      var ctxPie5 = document.getElementById("pieChart5").getContext("2d");
+
+      window.myPieChart = new Chart(ctxPie5, {
+        type: 'pie',
+        data: pieChartData,
+        options: {
+          elements: {
+            rectangle: {
+              borderWidth: 2,
+              borderColor: 'rgb(0, 255, 0)',
+              borderSkipped: 'bottom'
+            }
+          },
+          responstive: true,
+          title: {
+            display: true,
+            text: 'Ha With Irrigation'
+          }
+        }
+      });
+
+
+
+
+
+
       var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ["Improved Seed", "Improved Storage", "Improved Tools", "# Using Irrigation", "Ha With Irrigation",],
-    datasets: [{
-        label: 'Rwanda',
-        data: rwAg, // [10, 19, 3, 5, 2],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 99, 132, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255,99,132,1)',
-          'rgba(255,99,132,1)',
-          'rgba(255,99,132,1)',
-          'rgba(255,99,132,1)',
-          'rgba(255,99,132,1)'
-        ],
-        borderWidth: 2
-      },
-      {
-        label: 'Tanzania',
-        data: [15, 19, 3, 5, 2],
-        backgroundColor: [
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 2
-      }
-    ]
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        stacked: true,
-        ticks: {
-          beginAtZero: true
-        }
-      }],
-      xAxes: [{
-        stacked: true,
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  }
-});
 
-var ctx2 = document.getElementById("pillarChart").getContext("2d");
-
-window.multiBar = new Chart(ctx2, {
-  type: 'bar',
-  data: {
-    labels: ["Step 1", "Step 2", "Step 3", "Step 4"],
-    datasets: [
-      {
-      // data: [gradMembers1, gradMembers2, gradMembers3, gradMembers4],
-      label: "Male",
-      data: gradStepsMales,
-      backgroundColor: ["#114577", "#114577", "#114577", "#114577"],
-      borderWidth: 1
-      }, {
-      // data: [gradMembers1, gradMembers2, gradMembers3, gradMembers4],
-      label: "Female",
-      data: gradStepsFemales,
-      backgroundColor: ["#0082FF", "#0082FF", "#0082FF", "#0082FF"],
-      borderWidth: 1
-      }, {
-      // data: [gradMembers1, gradMembers2, gradMembers3, gradMembers4],
-      label: "Total",
-      data: gradStepsTotal,
-      backgroundColor: ["#FF9F00", "#FF9F00", "#FF9F00", "#FF9F00"],
-      borderWidth: 1
-    }]
-
-  },
-  options: {
-    legend: { display: false },
-    title: {
-      display: true,
-      text: 'Number of Households per Graduation Step (Last Quarter)',
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["Improved Seed", "Improved Storage", "Improved Tools", "# Using Irrigation", "Ha With Irrigation",],
+          datasets: [{
+              label: 'Rwanda',
+              data: rwAg, // [10, 19, 3, 5, 2],
+              backgroundColor: rwColors,
+              borderColor: rwColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Tanzania',
+              data: tzAg,
+              backgroundColor: tzColors,
+              borderColor: tzColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Zambia',
+              data: zbAg,
+              backgroundColor: zbColors,
+              borderColor: zbColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Malawi',
+              data: mwAg,
+              backgroundColor: mwColors,
+              borderColor: mwColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Honduras',
+              data: hdAg,
+              backgroundColor: hdColors,
+              borderColor: hdColors,
+              borderWidth: 2
+            },
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }],
+            xAxes: [{
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
         }
-      }]
-    }
-  }
-});
+      });
+
+      // Financial Services Trends bar chart
+      var ctxFin = document.getElementById("finChart");
+
+      var finChart = new Chart(ctxFin, {
+        type: 'bar',
+        data: {
+          labels: ["Savings Groups", "Savings Group Members", "VF Clients with Loans", "Farmers with VC Insurance"],
+          datasets: [{
+              label: 'Rwanda',
+              data: rwFin, // [10, 19, 3, 5, 2],
+              backgroundColor: rwColors,
+              borderColor: rwColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Tanzania',
+              data: tzFin,
+              backgroundColor: tzColors,
+              borderColor: tzColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Zambia',
+              data: zbFin,
+              backgroundColor: zbColors,
+              borderColor: zbColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Malawi',
+              data: mwFin,
+              backgroundColor: mwColors,
+              borderColor: mwColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Honduras',
+              data: hdFin,
+              backgroundColor: hdColors,
+              borderColor: hdColors,
+              borderWidth: 2
+            },
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }],
+            xAxes: [{
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
+
+      // Access to Markets bar chart
+      var ctxMkt = document.getElementById("marketChart");
+
+      var mktChart = new Chart(ctxMkt, {
+        type: 'bar',
+        data: {
+          labels: ["Producers Groups", "Producers Group Members", "PGs Who Sell VC Product", "PGs Who Access Local Markets", "PGs Who Access Markets Beyond Local"],
+          datasets: [{
+              label: 'Rwanda',
+              data: rwMkt, // [10, 19, 3, 5, 2],
+              backgroundColor: rwColors,
+              borderColor: rwColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Tanzania',
+              data: tzMkt,
+              backgroundColor: tzColors,
+              borderColor: tzColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Zambia',
+              data: zbMkt,
+              backgroundColor: zbColors,
+              borderColor: zbColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Malawi',
+              data: mwMkt,
+              backgroundColor: mwColors,
+              borderColor: mwColors,
+              borderWidth: 2
+            },
+            {
+              label: 'Honduras',
+              data: hdMkt,
+              backgroundColor: hdColors,
+              borderColor: hdColors,
+              borderWidth: 2
+            },
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }],
+            xAxes: [{
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
 
 /*
       var ctx = document.getElementById("agChart").getContext("2d");

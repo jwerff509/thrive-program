@@ -37,6 +37,8 @@ class ProgramMeasures extends Model
     'ewv_trainees_attest_value_trans_actual',
     'faith_leaders_in_ewv_training_actual',
     'groups_undertaking_political_rep_actual',
+    'participants_trained_in_cva_actual',
+    'groups_trained_in_cva_actual',
     'children_given_care_by_groups_actual',
     'unique_hh_inc_sources_actual',
     'direct_beneficiaries_actual',

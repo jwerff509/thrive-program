@@ -216,49 +216,59 @@
 
     <script>
 
+    $(document).ready(function() {
+
       // This onChange function is used when creating program targets.
       $('#country_id').on('change', function() {
-
         if(this.value === '1') {
           $("#political").css('display', 'block');
           $("#cva").css('display', 'none');
+          $("#groupCva").css('display', 'none');
         } else if(this.value === '4') {
           $("#political").css('display', 'block');
           $("#cva").css('display', 'none');
+          $("#groupCva").css('display', 'none');
         } else if(this.value === '5') {
           $("#political").css('display', 'block');
           $("#cva").css('display', 'none');
+          $("#groupCva").css('display', 'none');
         } else if(this.value === '2') {
           $("#cva").css('display', 'block');
           $("#political").css('display', 'none');
+          $("#groupCva").css('display', 'none');
         } else if (this.value === '3') {
-          $("#cva").css('display', 'block');
+          $("#groupCva").css('display', 'block');
           $("#political").css('display', 'none');
+          $("#cva").css('display', 'none');
         }
-
       });
 
-
       // This function is used for the "Edit" program targets page
-      $(document.getElementById('country_id').value);
+      var country = $('#country_id option:selected').val();
 
-      if(this.value === '1') {
+      if(country === '1') {
         $("#political").css('display', 'block');
         $("#cva").css('display', 'none');
-      } else if(this.value === '4') {
+        $("#groupCva").css('display', 'none');
+      } else if(country === '4') {
         $("#political").css('display', 'block');
         $("#cva").css('display', 'none');
-      } else if(this.value === '5') {
+        $("#groupCva").css('display', 'none');
+      } else if(country === '5') {
         $("#political").css('display', 'block');
         $("#cva").css('display', 'none');
-      } else if(this.value === '2') {
+        $("#groupCva").css('display', 'none');
+      } else if(country === '2') {
         $("#cva").css('display', 'block');
         $("#political").css('display', 'none');
-      } else if (this.value === '3') {
-        $("#cva").css('display', 'block');
+        $("#groupCva").css('display', 'none');
+      } else if (country === '3') {
+        $("#groupCva").css('display', 'block');
         $("#political").css('display', 'none');
+        $("#cva").css('display', 'none');
       }
 
+    });
 
     </script>
 
@@ -273,6 +283,13 @@
       {!! Form::label('participants_trained_in_cva_target', '# of Project Participants Trained in CVA', array('class' => 'col-md-5 form-control-label text-right')) !!}
       <div class="col-md-2">
         {!! Form::text('participants_trained_in_cva_target', '', array('class' => 'form-control', 'placeholder' => '# of Project Participants Trained in CVA')) !!}
+      </div>
+    </div>
+
+    <div class="form-group row" id="groupCva" style="display:none;">
+      {!! Form::label('groups_trained_in_cva_target', '# of Vulnerable Groups Trained in CVA', array('class' => 'col-md-5 form-control-label text-right')) !!}
+      <div class="col-md-2">
+        {!! Form::text('groups_trained_in_cva_target', '', array('class' => 'form-control', 'placeholder' => '# of Vulnerable Groups Trained in CVA')) !!}
       </div>
     </div>
 

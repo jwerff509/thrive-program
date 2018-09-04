@@ -411,7 +411,8 @@ class DashboardController extends Controller
 
     $lopTargets = ProgramTargets::all()->toArray();
 
-    $sumByCountry = DB::table('program_measure_sums_by_country')->get()->toArray();
+    //$sumByCountry = DB::table('program_measure_sums_by_country')->get()->toArray();
+    $sumByQuarter = DB::table('program_measure_sums_by_quarter')->get()->toArray();
 
     $lopActuals = DB::table('program_measure_totals')->get()->toArray();
 
@@ -454,23 +455,167 @@ class DashboardController extends Controller
 
 
     // Create an array of the actual values, by country
-    $labels = array_column($sumByCountry, 'name');
+    //$labels = array_column($sumByCountry, 'name');
+    $labels = array_column($sumByQuarter, 'quarter');
 
+
+/*
     $rwAg = array();
-    $tzAg = [];
+    $rwFin = array();
+    $rwMkt = array();
+    $rwNrm = array();
+    $rwRss = array();
+    $rwEwv = array();
+
+    $tzAg = array();
+    $tzFin = array();
+    $tzMkt = array();
+    $tzNrm = array();
+    $tzRss = array();
+    $tzEwv = array();
+
+    $zbAg = array();
+    $zbFin = array();
+    $zbMkt = array();
+    $zbNrm = array();
+    $zbRss = array();
+    $zbEwv = array();
+
+    $mwAg = array();
+    $mwFin = array();
+    $mwMkt = array();
+    $mwNrm = array();
+    $mwRss = array();
+    $mwEwv = array();
+
+    $hdAg = array();
+    $hdFin = array();
+    $hdMkt = array();
+    $hdNrm = array();
+    $hdRss = array();
+    $hdEwv = array();
 
     foreach($sumByCountry as $country) {
 
       if($country->name == 'Rwanda') {
+        // Agricultural Technology measures
         $rwAg[] = $country->improved_seed_actual;
         $rwAg[] = $country->improved_storage_actual;
         $rwAg[] = $country->improved_tools_actual;
         $rwAg[] = $country->farmers_with_irrigation_actual;
-        $rwAg[] = $country->increase_in_yield_per_hectare_actual;
+        //$rwAg[] = $country->increase_in_yield_per_hectare_actual;
         $rwAg[] = $country->ha_with_irrigation_actual;
+
+        // Financial Services measures
+        $rwFin[] = $country->num_savings_groups_actual;
+        $rwFin[] = $country->num_savings_group_members_actual;
+        $rwFin[] = $country->members_with_vf_loan_actual;
+        $rwFin[] = $country->farmers_with_vc_ins_actual;
+
+        // Access to Markets measures
+        $rwMkt[] = $country->num_producers_groups_actual;
+        $rwMkt[] = $country->num_producers_group_members_actual;
+        $rwMkt[] = $country->num_prod_groups_sell_vc_product_actual;
+        $rwMkt[] = $country->num_prod_groups_local_markets_actual;
+        $rwMkt[] = $country->num_prod_groups_expanded_markets_actual;
+
+
+      } elseif($country->name == 'Tanzania') {
+        // Agricultural Technology measures
+        $tzAg[] = $country->improved_seed_actual;
+        $tzAg[] = $country->improved_storage_actual;
+        $tzAg[] = $country->improved_tools_actual;
+        $tzAg[] = $country->farmers_with_irrigation_actual;
+        //$tzAg[] = $country->increase_in_yield_per_hectare_actual;
+        $tzAg[] = $country->ha_with_irrigation_actual;
+
+        // Financial Services measures
+        $tzFin[] = $country->num_savings_groups_actual;
+        $tzFin[] = $country->num_savings_group_members_actual;
+        $tzFin[] = $country->members_with_vf_loan_actual;
+        $tzFin[] = $country->farmers_with_vc_ins_actual;
+
+        // Access to Markets measures
+        $tzMkt[] = $country->num_producers_groups_actual;
+        $tzMkt[] = $country->num_producers_group_members_actual;
+        $tzMkt[] = $country->num_prod_groups_sell_vc_product_actual;
+        $tzMkt[] = $country->num_prod_groups_local_markets_actual;
+        $tzMkt[] = $country->num_prod_groups_expanded_markets_actual;
+
+
+      } elseif($country->name == 'Zambia') {
+        // Agricultural Technology measures
+        $zbAg[] = $country->improved_seed_actual;
+        $zbAg[] = $country->improved_storage_actual;
+        $zbAg[] = $country->improved_tools_actual;
+        $zbAg[] = $country->farmers_with_irrigation_actual;
+        //$zbAg[] = $country->increase_in_yield_per_hectare_actual;
+        $zbAg[] = $country->ha_with_irrigation_actual;
+
+        // Financial Services measures
+        $zbFin[] = $country->num_savings_groups_actual;
+        $zbFin[] = $country->num_savings_group_members_actual;
+        $zbFin[] = $country->members_with_vf_loan_actual;
+        $zbFin[] = $country->farmers_with_vc_ins_actual;
+
+        // Access to Markets measures
+        $zbMkt[] = $country->num_producers_groups_actual;
+        $zbMkt[] = $country->num_producers_group_members_actual;
+        $zbMkt[] = $country->num_prod_groups_sell_vc_product_actual;
+        $zbMkt[] = $country->num_prod_groups_local_markets_actual;
+        $zbMkt[] = $country->num_prod_groups_expanded_markets_actual;
+
+      } elseif($country->name == 'Malawi') {
+        // Agricultural Technology measures
+        $mwAg[] = $country->improved_seed_actual;
+        $mwAg[] = $country->improved_storage_actual;
+        $mwAg[] = $country->improved_tools_actual;
+        $mwAg[] = $country->farmers_with_irrigation_actual;
+        //$mwAg[] = $country->increase_in_yield_per_hectare_actual;
+        $mwAg[] = $country->ha_with_irrigation_actual;
+
+        // Financial Services measures
+        $mwFin[] = $country->num_savings_groups_actual;
+        $mwFin[] = $country->num_savings_group_members_actual;
+        $mwFin[] = $country->members_with_vf_loan_actual;
+        $mwFin[] = $country->farmers_with_vc_ins_actual;
+
+        // Access to Markets measures
+        $mwMkt[] = $country->num_producers_groups_actual;
+        $mwMkt[] = $country->num_producers_group_members_actual;
+        $mwMkt[] = $country->num_prod_groups_sell_vc_product_actual;
+        $mwMkt[] = $country->num_prod_groups_local_markets_actual;
+        $mwMkt[] = $country->num_prod_groups_expanded_markets_actual;
+
+      } elseif($country->name == 'Honduras') {
+        // Agricultural Technology measures
+        $hdAg[] = $country->improved_seed_actual;
+        $hdAg[] = $country->improved_storage_actual;
+        $hdAg[] = $country->improved_tools_actual;
+        $hdAg[] = $country->farmers_with_irrigation_actual;
+        //$hdAg[] = $country->increase_in_yield_per_hectare_actual;
+        $hdAg[] = $country->ha_with_irrigation_actual;
+
+        // Financial Services measures
+        $hdFin[] = $country->num_savings_groups_actual;
+        $hdFin[] = $country->num_savings_group_members_actual;
+        $hdFin[] = $country->members_with_vf_loan_actual;
+        $hdFin[] = $country->farmers_with_vc_ins_actual;
+
+        // Access to Markets measures
+        $hdMkt[] = $country->num_producers_groups_actual;
+        $hdMkt[] = $country->num_producers_group_members_actual;
+        $hdMkt[] = $country->num_prod_groups_sell_vc_product_actual;
+        $hdMkt[] = $country->num_prod_groups_local_markets_actual;
+        $hdMkt[] = $country->num_prod_groups_expanded_markets_actual;
+
       }
 
     }
+
+    */
+
+    /* Uncomment this to try to figure out the bar/pie chart
 
     $impSeedActual = array_column($sumByCountry, 'improved_seed_actual');
     $impStorageActual = array_column($sumByCountry, 'improved_storage_actual');
@@ -505,6 +650,42 @@ class DashboardController extends Controller
     $numChildrenActual = array_column($sumByCountry, 'num_children_actual');
     $numWomenActual = array_column($sumByCountry, 'num_women_actual');
     $numHHMemActual = array_column($sumByCountry, 'num_hh_members_actual');
+*/
+
+$impSeedActual = array_column($sumByQuarter, 'improved_seed_actual');
+$impStorageActual = array_column($sumByQuarter, 'improved_storage_actual');
+$impToolsActual = array_column($sumByQuarter, 'improved_tools_actual');
+$numWithIrrigationActual = array_column($sumByQuarter, 'farmers_with_irrigation_actual');
+$increasedYieldActual = array_column($sumByQuarter, 'increase_in_yield_per_hectare_actual');
+$haWithIrrigationActual = array_column($sumByQuarter, 'ha_with_irrigation_actual');
+$num_savings_groups_actual = array_column($sumByQuarter, 'num_savings_groups_actual');
+$num_savings_group_members_actual = array_column($sumByQuarter, 'num_savings_group_members_actual');
+$savings_groups_total_balance_actual = array_column($sumByQuarter, 'savings_groups_total_balance_actual');
+$members_with_vf_loan_actual = array_column($sumByQuarter, 'members_with_vf_loan_actual');
+$farmers_with_vc_ins_actual = array_column($sumByQuarter, 'farmers_with_vc_ins_actual');
+$num_producers_groups_actual = array_column($sumByQuarter, 'num_producers_groups_actual');
+$num_producers_group_members_actual = array_column($sumByQuarter, 'num_producers_group_members_actual');
+$num_prod_groups_sell_vc_product_actual = array_column($sumByQuarter, 'num_prod_groups_sell_vc_product_actual');
+$num_prod_groups_local_markets_actual = array_column($sumByQuarter, 'num_prod_groups_local_markets_actual');
+$num_prod_groups_expanded_markets_actual = array_column($sumByQuarter, 'num_prod_groups_expanded_markets_actual');
+$hectares_reclaimed_for_ag_actual = array_column($sumByQuarter, 'hectares_reclaimed_for_ag_actual');
+$hectares_farmed_soil_water_cons_actual = array_column($sumByQuarter, 'hectares_farmed_soil_water_cons_actual');
+$farmers_using_water_catchment_actual = array_column($sumByQuarter, 'farmers_using_water_catchment_actual');
+$comm_watershed_rehab_actual = array_column($sumByQuarter, 'comm_watershed_rehab_actual');
+$trees_planted_actual = array_column($sumByQuarter, 'trees_planted_actual');
+$members_with_emer_savings_actual = array_column($sumByQuarter, 'members_with_emer_savings_actual');
+$farmers_using_ews_actual = array_column($sumByQuarter, 'farmers_using_ews_actual');
+$members_received_ewv_training_actual = array_column($sumByQuarter, 'members_received_ewv_training_actual');
+$ewv_trainees_attest_value_trans_actual = array_column($sumByQuarter, 'ewv_trainees_attest_value_trans_actual');
+$faith_leaders_in_ewv_training_actual = array_column($sumByQuarter, 'faith_leaders_in_ewv_training_actual');
+$groups_undertaking_political_rep_actual = array_column($sumByQuarter, 'groups_undertaking_political_rep_actual');
+$children_given_care_by_groups_actual = array_column($sumByQuarter, 'children_given_care_by_groups_actual');
+$unique_hh_inc_sources_actual = array_column($sumByQuarter, 'unique_hh_inc_sources_actual');
+$dirBensActual = array_column($sumByQuarter, 'direct_beneficiaries_actual');
+$numChildrenActual = array_column($sumByQuarter, 'num_children_actual');
+$numWomenActual = array_column($sumByQuarter, 'num_women_actual');
+$numHHMemActual = array_column($sumByQuarter, 'num_hh_members_actual');
+
 
 /*
     echo "<pre>";
@@ -795,7 +976,25 @@ class DashboardController extends Controller
       'numHhBarWidth' => $numHhBarWidth,
       'numHhBarColor' => $numHhBarColor,
 
+/*
       'rwAg' => json_encode($rwAg),
+      'tzAg' => json_encode($tzAg),
+      'zbAg' => json_encode($zbAg),
+      'mwAg' => json_encode($mwAg),
+      'hdAg' => json_encode($hdAg),
+
+      'rwFin' => json_encode($rwFin),
+      'tzFin' => json_encode($tzFin),
+      'zbFin' => json_encode($zbFin),
+      'mwFin' => json_encode($mwFin),
+      'hdFin' => json_encode($hdFin),
+
+      'rwMkt' => json_encode($rwMkt),
+      'tzMkt' => json_encode($tzMkt),
+      'zbMkt' => json_encode($zbMkt),
+      'mwMkt' => json_encode($mwMkt),
+      'hdMkt' => json_encode($hdMkt),
+*/
     );
 
     return view('charts.eloDashboard')->with($data);

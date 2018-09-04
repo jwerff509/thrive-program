@@ -37,6 +37,7 @@ class ProgramTargets extends Model
     'faith_leaders_in_ewv_training_target',
     'groups_undertaking_political_rep_target',
     'participants_trained_in_cva_target',
+    'groups_trained_in_cva_target',    
     'children_given_care_by_groups_target',
     'unique_hh_inc_sources_target',
     'direct_beneficiaries_target',

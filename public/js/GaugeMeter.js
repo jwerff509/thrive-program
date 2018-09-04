@@ -1,4 +1,4 @@
-;
+
 /*
  * AshAlom Gauge Meter.  Version 2.0.0
  * Copyright AshAlom.com  All rights reserved.
@@ -12,11 +12,13 @@
  * https://github.com/mictronics/GaugeMeter
  *
  */
+
 !function ($) {
+
     $.fn.gaugeMeter = function (t) {
         var defaults = $.extend({
             id: "",
-            percent: 0,
+            percent: "20" - "100",
             used: null,
             total: null,
             size: 100,
@@ -26,7 +28,7 @@
             color: "",
             back: "RGBa(0,0,0,.06)",
             width: 3,
-            style: "Full",
+            style: "Arch",
             stripe: "0",
             animationstep: 1,
             animate_gauge_colors: false,

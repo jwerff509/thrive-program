@@ -38,6 +38,7 @@ class ProgramTargetsController extends Controller
       'faith_leaders_in_ewv_training_target' => ['required', 'numeric'],
       'groups_undertaking_political_rep_target' => ['nullable', 'numeric'],
       'participants_trained_in_cva_target' => ['nullable', 'numeric'],
+      'groups_trained_in_cva_target' => ['nullable', 'numeric'], 
       'children_given_care_by_groups_target' => ['required', 'numeric'],
       'unique_hh_inc_sources_target' => ['required', 'numeric'],
       'direct_beneficiaries_target' => ['required', 'numeric'],
