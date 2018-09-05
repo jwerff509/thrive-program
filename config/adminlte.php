@@ -136,21 +136,27 @@ return [
             'url'         => 'program-measures/enter',
             'icon_color'  => 'orange',
         ],
+        [
+            'text'        => 'Edit LOP Targets',
+            'icon'        => 'bullseye',
+            'url'         => 'program-targets/index',
+            'icon_color'  => 'orange',
+            'can'         => 'edit-targets',
+        ],
         'REPORTS',
+        [
+            'text'        => 'ELO Dashboard',
+            'icon'        => 'line-chart',
+            'url'         => '/elo-dashboard',
+            'icon_color'  => 'green',
+        ],
         [
             'text'        => 'Country Dashboard',
             'icon'        => 'dashboard',
             'url'         => '/country-dbs',
             'icon_color'  => 'green',
         ],
-        /*
-        [
-            'text'        => 'Business Metrics',
-            'icon'        => 'line-chart',
-            'url'         => '/pillars',
-            'icon_color'  => 'green',
-        ],
-        */
+
         /*
         [
             'text'        => 'Progress Reports',

@@ -35,6 +35,11 @@ class DashboardController extends Controller
 
   }
 
+  public function index() {
+    $countries = Country::all();
+    return view('charts.dashboard_index', compact('countries', $countries));
+  }
+
   public function countryDashboard($id) {
 
     //$id = '1';
@@ -652,54 +657,79 @@ class DashboardController extends Controller
     $numHHMemActual = array_column($sumByCountry, 'num_hh_members_actual');
 */
 
-$impSeedActual = array_column($sumByQuarter, 'improved_seed_actual');
-$impStorageActual = array_column($sumByQuarter, 'improved_storage_actual');
-$impToolsActual = array_column($sumByQuarter, 'improved_tools_actual');
-$numWithIrrigationActual = array_column($sumByQuarter, 'farmers_with_irrigation_actual');
-$increasedYieldActual = array_column($sumByQuarter, 'increase_in_yield_per_hectare_actual');
-$haWithIrrigationActual = array_column($sumByQuarter, 'ha_with_irrigation_actual');
-$num_savings_groups_actual = array_column($sumByQuarter, 'num_savings_groups_actual');
-$num_savings_group_members_actual = array_column($sumByQuarter, 'num_savings_group_members_actual');
-$savings_groups_total_balance_actual = array_column($sumByQuarter, 'savings_groups_total_balance_actual');
-$members_with_vf_loan_actual = array_column($sumByQuarter, 'members_with_vf_loan_actual');
-$farmers_with_vc_ins_actual = array_column($sumByQuarter, 'farmers_with_vc_ins_actual');
-$num_producers_groups_actual = array_column($sumByQuarter, 'num_producers_groups_actual');
-$num_producers_group_members_actual = array_column($sumByQuarter, 'num_producers_group_members_actual');
-$num_prod_groups_sell_vc_product_actual = array_column($sumByQuarter, 'num_prod_groups_sell_vc_product_actual');
-$num_prod_groups_local_markets_actual = array_column($sumByQuarter, 'num_prod_groups_local_markets_actual');
-$num_prod_groups_expanded_markets_actual = array_column($sumByQuarter, 'num_prod_groups_expanded_markets_actual');
-$hectares_reclaimed_for_ag_actual = array_column($sumByQuarter, 'hectares_reclaimed_for_ag_actual');
-$hectares_farmed_soil_water_cons_actual = array_column($sumByQuarter, 'hectares_farmed_soil_water_cons_actual');
-$farmers_using_water_catchment_actual = array_column($sumByQuarter, 'farmers_using_water_catchment_actual');
-$comm_watershed_rehab_actual = array_column($sumByQuarter, 'comm_watershed_rehab_actual');
-$trees_planted_actual = array_column($sumByQuarter, 'trees_planted_actual');
-$members_with_emer_savings_actual = array_column($sumByQuarter, 'members_with_emer_savings_actual');
-$farmers_using_ews_actual = array_column($sumByQuarter, 'farmers_using_ews_actual');
-$members_received_ewv_training_actual = array_column($sumByQuarter, 'members_received_ewv_training_actual');
-$ewv_trainees_attest_value_trans_actual = array_column($sumByQuarter, 'ewv_trainees_attest_value_trans_actual');
-$faith_leaders_in_ewv_training_actual = array_column($sumByQuarter, 'faith_leaders_in_ewv_training_actual');
-$groups_undertaking_political_rep_actual = array_column($sumByQuarter, 'groups_undertaking_political_rep_actual');
-$children_given_care_by_groups_actual = array_column($sumByQuarter, 'children_given_care_by_groups_actual');
-$unique_hh_inc_sources_actual = array_column($sumByQuarter, 'unique_hh_inc_sources_actual');
-$dirBensActual = array_column($sumByQuarter, 'direct_beneficiaries_actual');
-$numChildrenActual = array_column($sumByQuarter, 'num_children_actual');
-$numWomenActual = array_column($sumByQuarter, 'num_women_actual');
-$numHHMemActual = array_column($sumByQuarter, 'num_hh_members_actual');
-
-
-/*
-    echo "<pre>";
-    print_r($impSeedActual);
-    echo "</pre>";
-
-    print_r($rwAg);
-
-    exit;
-*/
-
+    $impSeedActual = array_column($sumByQuarter, 'improved_seed_actual');
+    $impStorageActual = array_column($sumByQuarter, 'improved_storage_actual');
+    $impToolsActual = array_column($sumByQuarter, 'improved_tools_actual');
+    $numWithIrrigationActual = array_column($sumByQuarter, 'farmers_with_irrigation_actual');
+    $increasedYieldActual = array_column($sumByQuarter, 'increase_in_yield_per_hectare_actual');
+    $haWithIrrigationActual = array_column($sumByQuarter, 'ha_with_irrigation_actual');
+    $num_savings_groups_actual = array_column($sumByQuarter, 'num_savings_groups_actual');
+    $num_savings_group_members_actual = array_column($sumByQuarter, 'num_savings_group_members_actual');
+    $savings_groups_total_balance_actual = array_column($sumByQuarter, 'savings_groups_total_balance_actual');
+    $members_with_vf_loan_actual = array_column($sumByQuarter, 'members_with_vf_loan_actual');
+    $farmers_with_vc_ins_actual = array_column($sumByQuarter, 'farmers_with_vc_ins_actual');
+    $num_producers_groups_actual = array_column($sumByQuarter, 'num_producers_groups_actual');
+    $num_producers_group_members_actual = array_column($sumByQuarter, 'num_producers_group_members_actual');
+    $num_prod_groups_sell_vc_product_actual = array_column($sumByQuarter, 'num_prod_groups_sell_vc_product_actual');
+    $num_prod_groups_local_markets_actual = array_column($sumByQuarter, 'num_prod_groups_local_markets_actual');
+    $num_prod_groups_expanded_markets_actual = array_column($sumByQuarter, 'num_prod_groups_expanded_markets_actual');
+    $hectares_reclaimed_for_ag_actual = array_column($sumByQuarter, 'hectares_reclaimed_for_ag_actual');
+    $hectares_farmed_soil_water_cons_actual = array_column($sumByQuarter, 'hectares_farmed_soil_water_cons_actual');
+    $farmers_using_water_catchment_actual = array_column($sumByQuarter, 'farmers_using_water_catchment_actual');
+    $comm_watershed_rehab_actual = array_column($sumByQuarter, 'comm_watershed_rehab_actual');
+    $trees_planted_actual = array_column($sumByQuarter, 'trees_planted_actual');
+    $members_with_emer_savings_actual = array_column($sumByQuarter, 'members_with_emer_savings_actual');
+    $farmers_using_ews_actual = array_column($sumByQuarter, 'farmers_using_ews_actual');
+    $members_received_ewv_training_actual = array_column($sumByQuarter, 'members_received_ewv_training_actual');
+    $ewv_trainees_attest_value_trans_actual = array_column($sumByQuarter, 'ewv_trainees_attest_value_trans_actual');
+    $faith_leaders_in_ewv_training_actual = array_column($sumByQuarter, 'faith_leaders_in_ewv_training_actual');
+    $groups_undertaking_political_rep_actual = array_column($sumByQuarter, 'groups_undertaking_political_rep_actual');
+    $children_given_care_by_groups_actual = array_column($sumByQuarter, 'children_given_care_by_groups_actual');
+    $unique_hh_inc_sources_actual = array_column($sumByQuarter, 'unique_hh_inc_sources_actual');
+    $dirBensActual = array_column($sumByQuarter, 'direct_beneficiaries_actual');
+    $numChildrenActual = array_column($sumByQuarter, 'num_children_actual');
+    $numWomenActual = array_column($sumByQuarter, 'num_women_actual');
+    $numHHMemActual = array_column($sumByQuarter, 'num_hh_members_actual');
 
 
     // Get the totals for the progress bars
+    foreach($lopActuals as $lopActual) {
+      $impSeedTotal = $lopActual->improved_seed_actual;
+      $impStorageTotal = $lopActual->improved_storage_actual;
+      $impToolsTotal = $lopActual->improved_tools_actual;
+      $numWithIrrigationTotal = $lopActual->farmers_with_irrigation_actual;
+      $increasedYieldTotal = $lopActual->increase_in_yield_per_hectare_actual;
+      $haWithIrrigationTotal = $lopActual->ha_with_irrigation_actual;
+      $numSGTotal = $lopActual->num_savings_groups_actual;
+      $numSGMemTotal = $lopActual->num_savings_group_members_actual;
+      $sgBalTotal = $lopActual->savings_groups_total_balance_actual;
+      $memVFLoanTotal = $lopActual->members_with_vf_loan_actual;
+      $farmersVCInsTotal = $lopActual->farmers_with_vc_ins_actual;
+      $numPGTotal = $lopActual->num_producers_groups_actual;
+      $numPGMemTotal = $lopActual->num_producers_group_members_actual;
+      $numPGSellVCProdTotal = $lopActual->num_prod_groups_sell_vc_product_actual;
+      $numPGSellLocalTotal = $lopActual->num_prod_groups_local_markets_actual;
+      $numPGSellExpandedTotal = $lopActual->num_prod_groups_expanded_markets_actual;
+      $haReclaimedAgTotal = $lopActual->hectares_reclaimed_for_ag_actual;
+      $haFarmedSoilConsTotal = $lopActual->hectares_farmed_soil_water_cons_actual;
+      $numUsingWaterCatchmentTotal = $lopActual->farmers_using_water_catchment_actual;
+      $commWatershedRehabTotal = $lopActual->comm_watershed_rehab_actual;
+      $treesPlantedTotal = $lopActual->trees_planted_actual;
+      $memWithEmerSavingsTotal = $lopActual->members_with_emer_savings_actual;
+      $numUsingEwsTotal = $lopActual->farmers_using_ews_actual;
+      $numReceivedEwvTrainingTotal = $lopActual->members_received_ewv_training_actual;
+      $ewvTraineesAttestValueTransTotal = $lopActual->ewv_trainees_attest_value_trans_actual;
+      $faithLeadersEwvTrainingTotal = $lopActual->faith_leaders_in_ewv_training_actual;
+      $groupsPoliticalRepTotal = $lopActual->groups_undertaking_political_rep_actual;
+      $childrenCaredByGroupsTotal = $lopActual->children_given_care_by_groups_actual;
+      $uniqueHhIncSourcestotal = $lopActual->unique_hh_inc_sources_actual;
+      $dirBensTotal = $lopActual->direct_beneficiaries_actual;
+      $numChildrenTotal = $lopActual->num_children_actual;
+      $numWomenTotal = $lopActual->num_women_actual;
+      $numHHMemTotal = $lopActual->num_hh_members_actual;
+    }
+
+/*
     $impSeedTotal = array_sum($impSeedActual);
     $impStorageTotal = array_sum($impStorageActual);
     $impToolsTotal = array_sum($impToolsActual);
@@ -733,7 +763,7 @@ $numHHMemActual = array_column($sumByQuarter, 'num_hh_members_actual');
     $numChildrenTotal = array_sum($numChildrenActual);
     $numWomenTotal = array_sum($numWomenActual);
     $numHHMemTotal = array_sum($numHHMemActual);
-
+*/
     // Get the width and colors for the progress bars
     $seedBarWidth = $this->barWidth($impSeedTotal, $impSeedTarget);
     $seedBarColor = $this->barColor($impSeedTotal, $impSeedTarget);

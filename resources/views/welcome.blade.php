@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Thrive Zambia</title>
+        <title>Thrive Program</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -89,14 +89,14 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('country-dbs') }}">View Dashboards</a>
+                        <a href="{{ url('view-dbs') }}">View Dashboards</a>
                     @endif
                 </div>
             @endif
 
             <div class="content" style="align-content: center;">
                 <div class="title m-b-md">
-                  <p><img style="float: left; padding: 0 20px 0 0" src="{{ URL::asset('/images/world_vision.png') }}" width="190" height="75" />Thrive Zambia
+                  <p><img style="float: left; padding: 0 20px 0 0" src="{{ URL::asset('/images/world_vision.png') }}" width="190" height="75" />Thrive Programs
                   <img style="float: right; padding: 0 0 0 20px" src="{{ URL::asset('/images/tango.jpg') }}" width="190" height="75" /></p>
                 </div>
 

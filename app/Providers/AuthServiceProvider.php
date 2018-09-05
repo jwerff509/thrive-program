@@ -46,6 +46,13 @@ class AuthServiceProvider extends ServiceProvider
           return false;
         });
 
+        Gate::define('edit-targets', function ($user) {
+          if($user->isAdmin == 1) {
+            return true;
+          }
+          return false;
+        });
+
         //
     }
 }

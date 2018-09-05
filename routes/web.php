@@ -72,7 +72,8 @@ Route::post('group_surveys/store2', [
   // Testing new dashboards
   Route::get('country-dbs', ['as' => 'country-dbs', 'uses' => 'DashboardController@countryIndex']);
   Route::get('country-dashboard/{id}', ['as' => 'country-dashboard', 'uses' => 'DashboardController@countryDashboard']);
-  Route::get('elo-dashboard', ['middleware' => 'auth', 'uses' => 'DashboardController@eloDashboard']);
+  Route::get('elo-dashboard', ['as' => 'elo-dashboard', 'uses' => 'DashboardController@eloDashboard']);
+  Route::get('view-dbs', ['as' => 'view-dbs', 'uses' => 'DashboardController@index']);
 
 /*
   Route::resource('program-targets', 'ProgramTargetsController');
