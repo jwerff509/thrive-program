@@ -217,13 +217,13 @@
         data: numGroupsPolRepActual
       }, {
         label: '# Children Given Care by Groups',
-        borderColor: "#ea9714",
+        borderColor: "#19d506",
         backgroundColor: 'rgba(0,0,0,0)',
         borderWidth: 2,
         data: numChildrenGroupCareActual
       }, {
         label: '# Unique HH Income Sources',
-        borderColor: "#19d506",
+        borderColor: "#000000",
         backgroundColor: 'rgba(0,0,0,0)',
         borderWidth: 2,
         data: uniqueHHIncSourcesActual

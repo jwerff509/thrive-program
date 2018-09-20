@@ -135,6 +135,7 @@ return [
             'icon'        => 'user-plus',
             'url'         => 'program-measures/enter',
             'icon_color'  => 'orange',
+            'can'         => 'enter-data',
         ],
         [
             'text'        => 'Edit LOP Targets',

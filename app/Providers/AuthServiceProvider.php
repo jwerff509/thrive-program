@@ -53,6 +53,13 @@ class AuthServiceProvider extends ServiceProvider
           return false;
         });
 
+        Gate::define('enter-data', function () {
+          if(Auth::check()) {
+            return true;
+          }
+          return false;
+        });
+
         //
     }
 }

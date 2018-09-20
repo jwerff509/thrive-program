@@ -73,6 +73,8 @@
     <!-- fix for small devices only -->
     <div class="clearfix visible-sm-block"></div>
 
+        @include('charts.eloDb_chartjs')
+
 
 
 <!--    ==============================================   Testing    ===================================================== -->
@@ -106,39 +108,39 @@
         <div class="box-body">
 
           <div class="row">
-            <div class="col-md-1">&nbsp;</div>
             <div class="col-md-2">
               <div class="chart">
-                <canvas id="pieChart1" style="height: 200px; width: 200px;" width="200" height="200"></canvas>
+                <canvas id="pieChart1"></canvas>
               </div>
             </div>
             <div class="col-md-2">
               <div class="chart">
-                <canvas id="pieChart2" style="height: 200px; width: 200px;" width="200" height="200"></canvas>
+                <canvas id="pieChart2"></canvas>
               </div>
             </div>
             <div class="col-md-2">
               <div class="chart">
-                <canvas id="pieChart3" style="height: 200px; width: 200px;" width="200" height="200"></canvas>
+                <canvas id="pieChart3"></canvas>
               </div>
             </div>
             <div class="col-md-2">
               <div class="chart">
-                <canvas id="pieChart4" style="height: 200px; width: 200px;" width="200" height="200"></canvas>
+                <canvas id="pieChart4"></canvas>
               </div>
             </div>
             <div class="col-md-2">
               <div class="chart">
-                <canvas id="pieChart5" style="height: 200px; width: 200px;" width="200" height="200"></canvas>
+                <canvas id="pieChart5"></canvas>
               </div>
             </div>
             <div class="col-md-1">&nbsp;</div>
           </div>
+
+
         </div>
         <div class="box-footer">
               <div class="row">
-                <div class="col-sm-1">&nbsp;</div>
-                <div class="col-sm-2 col-xs-3">
+                <div class="col-md-2 col-xs-3">
                   <div class="description-block">
                     <span class="description-percentage text-black"><b>{{ $impSeedTotal }}</b>/{{ $impSeedTarget }}</span>
                     <div class="progress sm">
@@ -148,7 +150,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-2 col-xs-3">
+                <div class="col-md-2 col-xs-3">
                   <div class="description-block">
                     <span class="description-percentage text-black"><b>{{ $impStorageTotal }}</b>/{{ $impStorageTarget }}</span>
                     <div class="progress sm">
@@ -158,7 +160,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-2 col-xs-3">
+                <div class="col-md-2 col-xs-3">
                   <div class="description-block">
                     <span class="description-percentage text-black"><b>{{ $impToolsTotal }}</b>/{{ $impToolsTarget }}</span>
                     <div class="progress sm">
@@ -168,7 +170,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-2 col-xs-3">
+                <div class="col-md-2 col-xs-3">
                   <div class="description-block">
                     <span class="description-percentage text-black"><b>{{ $numWithIrrigationTotal }}</b>/{{ $numWithIrrigationTarget }}</span>
                     <div class="progress sm">
@@ -178,7 +180,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-2 col-xs-3">
+                <div class="col-md-2 col-xs-3">
                   <div class="description-block justify-content-center">
                     <span class="description-percentage text-black"><b>{{ $haWithIrrigationTotal }}</b>/{{ $haWithIrrigationTarget }}</span>
                     <div class="progress sm">
@@ -187,7 +189,6 @@
                     <span class="description-text">Ha With Irrigation</span>
                   </div>
                 </div>
-                <div class="col-sm-1">&nbsp;</div>
               </div>
               <!-- /.row -->
           </div>

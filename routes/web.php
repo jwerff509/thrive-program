@@ -74,6 +74,7 @@ Route::post('group_surveys/store2', [
   Route::get('country-dashboard/{id}', ['as' => 'country-dashboard', 'uses' => 'DashboardController@countryDashboard']);
   Route::get('elo-dashboard', ['as' => 'elo-dashboard', 'uses' => 'DashboardController@eloDashboard']);
   Route::get('view-dbs', ['as' => 'view-dbs', 'uses' => 'DashboardController@index']);
+  Route::get('elo-testing', ['as' => 'elo-testing', 'uses' => 'DashboardController@eloTest']);
 
 /*
   Route::resource('program-targets', 'ProgramTargetsController');

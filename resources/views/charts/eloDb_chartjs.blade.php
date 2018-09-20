@@ -103,6 +103,9 @@
           title: {
             display: true,
             text: 'Improved Seed'
+          },
+          legend: {
+            display: false,
           }
         }
       });
@@ -124,6 +127,9 @@
           title: {
             display: true,
             text: 'Improved Storage'
+          },
+          legend: {
+            display: false,
           }
         }
       });
@@ -145,6 +151,9 @@
           title: {
             display: true,
             text: 'Improved Tools & Practices'
+          },
+          legend: {
+            display: false,
           }
         }
       });
@@ -166,6 +175,9 @@
           title: {
             display: true,
             text: '# Using Irrigation'
+          },
+          legend: {
+            display: false,
           }
         }
       });
@@ -187,6 +199,9 @@
           title: {
             display: true,
             text: 'Ha With Irrigation'
+          },
+          legend: {
+            display: false,
           }
         }
       });
