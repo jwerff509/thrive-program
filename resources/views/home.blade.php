@@ -33,13 +33,11 @@
                     <br><br>
                     <a href="{{ url('program-measures/enter') }}">Enter Quarterly Data</a>
                     <br><br>
+                    <a href="{{ url('program-targets/index') }}">Edit LOP Targets</a>
                     <!--
                     {{-- }}
                     <a href="{{ url('program-measures/edit') }}">Edit Quarterly Data</a>
                     <br><br>
-
-                    <br><br>
-                    <a href="{{ url('program-targets/edit') }}">Edit LOP Targets</a>
                     --}}
                   -->
                 </div>

@@ -294,7 +294,7 @@
     <div class="card-footer text-center">
       {!! Form::hidden('country_id', $targets['country_id'], array('id' => 'country_id')) !!}
       {!! Form::hidden('id', $targets['id'], array('id' => 'id')) !!}
-      {!! Form::reset('Clear Form',  ['class' => 'btn btn-sm btn-danger']) !!}
+      <a href="{{ route('program-targets.index') }}" class="btn btn-sm btn-info">Back</a>
       {!! Form::submit($submitButtonText, ['class' => 'btn btn-sm btn-success', 'name' => 'submitbutton']) !!}
     </div>
 
